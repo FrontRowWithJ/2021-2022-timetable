@@ -9,8 +9,10 @@ const Header = ({ setNext, setTransition, isTransitioning, curr }) => {
           <div
             key={i}
             onClick={() => {
-              setNext(i);
-              setTransition(true);
+              if (!isTransitioning) {
+                setNext(i);
+                setTransition(true);
+              }
             }}
             style={{ opacity: i !== curr ? 0.25 : 1 }}
           >
