@@ -7,9 +7,8 @@ import { useAnimation, getWeekDayDates } from "./util";
 
 const Timetable = ({ isTransitioning, setTransition, next, curr, setCurr }) => {
   const [isAnimating, setAnimation] = useState(false);
-  const tableRefs = useRef([]);
+  const tableRefs = useRef(times(5, () => React.createRef()));
   const dates = getWeekDayDates();
-  tableRefs.current = times(5, () => React.createRef());
   useAnimation(
     isTransitioning,
     isAnimating,
