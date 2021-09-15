@@ -5,11 +5,12 @@ import { handleTransitionEnd } from "./util";
 
 const TimetablePage = (props) => {
   const activityColors = [
-    { bgColor: "#2929A3", textColor: "white" },//
+    { bgColor: "#2929A3", textColor: "white" },
     { bgColor: "#E8AA14", textColor: "black" },
     { bgColor: "#F5054F", textColor: "white" },
-    { bgColor: "#693696", textColor: "white" },//
+    { bgColor: "#693696", textColor: "white" },
   ];
+
   const classes = props.schedule
     .map((cell, i) => {
       if (cell)
@@ -21,7 +22,7 @@ const TimetablePage = (props) => {
     <div
       className="timetable-page-container"
       ref={props.tableRef}
-      style={{ left: `${props.index === 0 ? "" : "10"}0%` }}
+      style={{ left: `${props.index === props.curr ? "" : "10"}0%` }}
       onTransitionEnd={(event) => {
         handleTransitionEnd(
           event.target,
@@ -49,15 +50,15 @@ const TimetablePage = (props) => {
           >
             <div
               className="online-indicator"
-              style={{ background: isOnline ? "#00FF00" : "#FF0000" }}
+              style={{ background: isOnline ? "#00FF00" : "red" }}
             ></div>
             <div className="test-0" style={{ backgroundColor: bgColor }}></div>
             <div className="test-1" style={{ backgroundColor: bgColor }}></div>
             <div className="bg" style={{ backgroundColor: bgColor }}>
               <div>{module}</div>
-              <div>{Timetable.ACTIVITIES[activity]}</div>
-              <div>{time}</div>
               <div>Classroom: {classroom}</div>
+              <div>{time}</div>
+              <div>{Timetable.ACTIVITIES[activity]}</div>
             </div>
           </div>
         );
