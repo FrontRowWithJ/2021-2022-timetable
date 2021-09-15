@@ -16,6 +16,11 @@ export const handleTransitionEnd = (
     setCurr(i);
     setTransition(false);
     setAnimation(false);
+    const parent = elem.parentElement;
+    const { bottom } = elem.getBoundingClientRect();
+    const canScroll =
+      bottom > (window.innerHeight || document.documentElement.clientHeight);
+    parent.style.overflowY = canScroll ? "" : "hidden";
     [...document.getElementsByClassName("timetable-page-container")].forEach(
       (elem, idx) => {
         elem.style.left = `${idx === i ? "" : "10"}0%`;
@@ -68,15 +73,6 @@ export const getWeekDayDates = () => {
 };
 
 const getDateString = (date = new Date()) => {
-  const day = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ][date.getDay()];
   const month = [
     "January",
     "February",
@@ -91,5 +87,5 @@ const getDateString = (date = new Date()) => {
     "November",
     "December",
   ][date.getMonth()];
-  return day + " " + date.getDate() + " " + month + " " + date.getFullYear();
+  return `${date.getDate()} ${month} ${date.getFullYear()}`;
 };
