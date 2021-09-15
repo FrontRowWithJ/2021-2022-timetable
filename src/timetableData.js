@@ -1,4 +1,4 @@
-let c = {
+export const Timetable = {
   LECTURE: 0,
   TUTORIAL: 1,
   LABORATORY: 2,
@@ -12,8 +12,7 @@ let c = {
   MODULE_CODES: ["CSU33081", "CSU33012", "CSU34016", "CSU33031", "CSU34011"],
   DAYS: ["mon", "tue", "wed", "thu", "fri"],
 };
-Object.freeze(c);
-export const Timetable = c;
+
 const timetableJSON = {
   mon: [
     {
