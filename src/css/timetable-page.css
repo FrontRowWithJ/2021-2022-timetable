@@ -1,5 +1,5 @@
 :root {
-    --cell-margin: 2rem;
+    --cell-margin: 3vh;
     --indicator-width: 15px;
 }
 
@@ -61,25 +61,25 @@
 .test-0 {
     position: absolute;
     height: 100%;
-    top: 10px;
+    top: 1vh;
     z-index: 0;
     border-radius: 1rem;
     width: 95%;
     left: 50%;
     transform: translate(-50%, 0);
-    opacity: .8;
+    opacity: .5;
 }
 
 .test-1 {
     position: absolute;
     height: 100%;
-    top: 20px;
+    top: 2vh;
     z-index: 0;
     border-radius: 1rem;
-    width: 90%;
+    width: 85%;
     left: 50%;
     transform: translate(-50%, 0);
-    opacity: .5;
+    opacity: .3;
 }
 
 .online-indicator {
