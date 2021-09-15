@@ -1,24 +1,27 @@
 import React from "react";
 import "./css/header.css";
 
-const Header = (props) => {
+const Header = ({ setNext, setTransition, isTransitioning, curr }) => {
   return (
     <div id="header">
-      {["M", "T", "W", "T", "F"].map((day, i) => (
-        <div
-          key={i}
-          onClick={() => {
-            props.setNext(i);
-            props.setTransition(true);
-          }}
-        >
+      {["M", "T", "W", "T", "F"].map((day, i) => {
+        return (
           <div
-            style={{ cursor: props.isTransitioning ? "not-allowed" : "pointer" }}
+            key={i}
+            onClick={() => {
+              setNext(i);
+              setTransition(true);
+            }}
+            style={{ opacity: i !== curr ? 0.25 : 1 }}
           >
-            {day}
+            <div
+              style={{ cursor: isTransitioning ? "not-allowed" : "pointer" }}
+            >
+              {day}
+            </div>
           </div>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 };
