@@ -5,9 +5,9 @@ import Timetable from "./Timetable";
 import { today } from "./util";
 
 const App = () => {
-  const [next, setNext] = useState();
   const day = today.getDay() - 1;
   const [curr, setCurr] = useState(day < 0 || day > 4 ? 0 : day);
+  const [next, setNext] = useState(curr);
   const [isTransitioning, setTransition] = useState(false);
   return (
     <main>
