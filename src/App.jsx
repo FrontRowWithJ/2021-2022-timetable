@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import Header from "./Header";
 import "./css/app.css";
 import Timetable from "./Timetable";
+
 const App = () => {
-  const [next, setNext] = useState(1);
-  const [curr, setCurr] = useState(0);
+  const [next, setNext] = useState();
+  const day = new Date().getDay() - 1;
+  const [curr, setCurr] = useState(day < 0 || day > 4 ? 0 : day);
   const [isTransitioning, setTransition] = useState(false);
   return (
     <main>
@@ -12,6 +14,7 @@ const App = () => {
         setNext={setNext}
         isTransitioning={isTransitioning}
         setTransition={setTransition}
+        curr={curr}
       />
       <Timetable
         next={next}
