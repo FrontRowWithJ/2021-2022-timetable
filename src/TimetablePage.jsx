@@ -1,16 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import "./css/timetable-page.css";
 import { Timetable } from "./timetableData";
-import { handleTransitionEnd } from "./util";
+import {
+  handleTransitionEnd,
+  activityColors,
+  getTimeRange,
+  between,
+  setScrollBar,
+  today,
+} from "./util";
 
 const TimetablePage = (props) => {
-  const activityColors = [
-    { bgColor: "#2929A3", textColor: "white" },
-    { bgColor: "#E8AA14", textColor: "black" },
-    { bgColor: "#F5054F", textColor: "white" },
-    { bgColor: "#693696", textColor: "white" },
-  ];
-
+  const currDay = today.getDay() - 1;
   const classes = props.schedule
     .map((cell, i) => {
       if (cell)
@@ -18,6 +19,15 @@ const TimetablePage = (props) => {
       return cell;
     })
     .filter((cell) => cell !== undefined);
+
+  useEffect(() => {
+    window.addEventListener("resize", () => {
+      const elem = document.getElementsByClassName("timetable-page-container")[
+        props.curr
+      ];
+      setScrollBar(elem);
+    });
+  }, [props.curr]);
   return (
     <div
       className="timetable-page-container"
@@ -39,6 +49,10 @@ const TimetablePage = (props) => {
       {classes.map((lesson, i) => {
         const { bgColor, textColor } = activityColors[lesson.activity];
         const { module, isOnline, activity, time, classroom } = lesson;
+
+        const [start, end] = getTimeRange(time);
+        const opacity =
+          between(props.hour, start, end) && props.index === currDay ? 1 : 0.5;
         return (
           <div
             key={i}
@@ -46,6 +60,7 @@ const TimetablePage = (props) => {
             style={{
               boxShadow: "0px 7px 13px -7px " + bgColor,
               color: textColor,
+              opacity: opacity,
             }}
           >
             <div
