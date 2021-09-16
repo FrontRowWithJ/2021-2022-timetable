@@ -24,8 +24,7 @@ main {
 main {
     display: flex;
     flex-direction: column;
-    background-color: #faf9fe;
-    background: linear-gradient(#faf9fe, #fff);
+    background: linear-gradient(#fafafa, #ffffff);
     font-family: "Circular Std Book", sans-serif;
 }
 
