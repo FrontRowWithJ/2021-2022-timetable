@@ -6,12 +6,11 @@ import {
   getTimeRange,
   between,
   setScrollBar,
-  today,
   getLeft,
 } from "./util";
 
 const TimetablePage = (props) => {
-  const currDay = today.getDay() - 1;
+  const currDay = new Date().getDay() - 1;
   const classes = props.schedule
     .map((cell, i) => {
       if (cell)
@@ -21,13 +20,10 @@ const TimetablePage = (props) => {
     .filter((cell) => cell !== undefined);
 
   useEffect(() => {
-    window.addEventListener("resize", () => {
-      const elem = document.getElementsByClassName("timetable-page-container")[
-        props.curr
-      ];
-      setScrollBar(elem);
-    });
-  }, [props.curr]);
+    window.addEventListener("resize", () =>
+      setScrollBar(props.refs[props.curr].current)
+    );
+  }, [props.curr, props.refs]);
   return (
     <div
       className="timetable-page-container"
@@ -37,9 +33,10 @@ const TimetablePage = (props) => {
         const { isTransitioning, setCurr, next, setTransition } = props;
         if (isTransitioning) {
           setCurr(next);
-          setScrollBar(document.getElementsByClassName("timetable-page-container")[next]);
+          setScrollBar(props.refs[next].current);
           setTransition(false);
         }
+        if (props.isSwiping) props.setSwiping(false);
       }}
     >
       <div className="date">{props.date}</div>
