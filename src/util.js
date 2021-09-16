@@ -6,6 +6,7 @@ export const setScrollBar = (elem) => {
   const canScroll =
     bottom > (window.innerHeight || document.documentElement.clientHeight);
   parent.style.overflowY = canScroll ? "" : "hidden";
+  parent.scrollTop = 0;
 };
 
 const DAY_IN_MILLISECONDS = 86_400_000;
@@ -19,6 +20,15 @@ export const getWeekDayDates = () => {
 };
 
 const getDateString = (date) => {
+  const day = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ][date.getDay()];
   const month = [
     "January",
     "February",
@@ -33,7 +43,7 @@ const getDateString = (date) => {
     "November",
     "December",
   ][date.getMonth()];
-  return `${date.getDate()} ${month} ${date.getFullYear()}`;
+  return `${day} ${date.getDate()} ${month} ${date.getFullYear()}`;
 };
 
 const toNum = (s = "") => parseInt(s.substring(0, 2));
