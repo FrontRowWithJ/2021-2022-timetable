@@ -8,6 +8,11 @@
       "type": "image/x-icon"
     },
     {
+      "src": "android-chrome-192x192.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
       "src": "Trinity Crest.png",
       "sizes": "276x356",
       "type": "image/png"
@@ -15,11 +20,6 @@
     {
       "src": "android-chrome-192x192.png",
       "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "android-chrome-192x192.png",
-      "sizes": "512x512",
       "type": "image/png"
     },
     {
