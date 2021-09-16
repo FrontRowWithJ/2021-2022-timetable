@@ -14,7 +14,7 @@ const Header = ({ setNext, setTransition, isTransitioning, curr }) => {
                 setTransition(true);
               }
             }}
-            style={{ opacity: i !== curr ? 0.25 : 1 }}
+            style={{ opacity: i !== curr ? 0.5 : 1 }}
           >
             <div
               style={{ cursor: isTransitioning ? "not-allowed" : "pointer" }}
