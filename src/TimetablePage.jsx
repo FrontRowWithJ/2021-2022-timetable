@@ -33,16 +33,16 @@ const TimetablePage = (props) => {
       className="timetable-page-container"
       ref={props.tableRef}
       style={{ left: getLeft(props.index, props.curr) }}
-      onTransitionEnd={({ target }) => {
+      onTransitionEnd={() => {
         const { isTransitioning, setCurr, next, setTransition } = props;
         if (isTransitioning) {
           setCurr(next);
-          setScrollBar(target);
+          setScrollBar(document.getElementsByClassName("timetable-page-container")[next]);
           setTransition(false);
         }
       }}
     >
-    <div className="date">{props.date}</div>
+      <div className="date">{props.date}</div>
       {classes.map((lesson, i) => {
         const { bgColor, textColor } = activityColors[lesson.activity];
         const { module, isOnline, activity, time, classroom } = lesson;
