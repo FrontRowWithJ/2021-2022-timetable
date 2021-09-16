@@ -29,15 +29,6 @@ const TimetablePage = (props) => {
       className="timetable-page-container"
       ref={props.tableRef}
       style={{ left: getLeft(props.index, props.curr) }}
-      onTransitionEnd={() => {
-        const { isTransitioning, setCurr, next, setTransition } = props;
-        if (isTransitioning) {
-          setCurr(next);
-          setScrollBar(props.refs[next].current);
-          setTransition(false);
-        }
-        if (props.isSwiping) props.setSwiping(false);
-      }}
     >
       <div className="date">{props.date}</div>
       {classes.map((lesson, i) => {

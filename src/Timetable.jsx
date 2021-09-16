@@ -75,9 +75,7 @@ const Timetable = (props) => {
     const l = curr ? refs[curr - 1].current : undefined;
     const m = refs[curr].current;
     const r = curr !== 4 ? refs[curr + 1].current : undefined;
-    setTimeout(() => {
-      if (props.isSwiping) setSwiping(false);
-    }, 1000);
+    setTimeout(() => setSwiping(false), 600);
     if (!isScrolling) {
       if (isValidSwipe) {
         const direction = Math.abs(delta.x) / delta.x;

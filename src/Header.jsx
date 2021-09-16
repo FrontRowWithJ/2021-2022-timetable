@@ -15,15 +15,13 @@ const Header = (props) => {
                 setNext(i);
                 setTransition(true);
                 setTimeout(() => {
-                  if (isTransitioning) {
-                    props.setCurr(i);
-                    const elem = document.getElementsByClassName(
-                      "timetable-page-container"
-                    )[i];
-                    setScrollBar(elem);
-                    setTransition(false);
-                  }
-                }, 1000);
+                  props.setCurr(i);
+                  const elem = document.getElementsByClassName(
+                    "timetable-page-container"
+                  )[i];
+                  setScrollBar(elem);
+                  setTransition(false);
+                }, 600);
               }
             }}
             style={{ opacity: i !== curr ? 0.3 : 1 }}
