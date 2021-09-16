@@ -1,7 +1,8 @@
 import React from "react";
 import "./css/header.css";
-
-const Header = ({ setNext, setTransition, isTransitioning, curr }) => {
+import { setScrollBar } from "./util";
+const Header = (props) => {
+  const { setNext, setTransition, isTransitioning, curr, isSwiping } = props;
   return (
     <div id="header">
       {["M", "T", "W", "T", "F"].map((day, i) => {
@@ -9,10 +10,17 @@ const Header = ({ setNext, setTransition, isTransitioning, curr }) => {
           <div
             key={i}
             onClick={() => {
-              if (!isTransitioning) {
+              if (!isTransitioning && !isSwiping) {
                 setNext(i);
                 setTransition(true);
-                setTimeout(() => setTransition(false), 1000);
+                setTimeout(() => {
+                  props.setCurr(i);
+                  const elem = document.getElementsByClassName(
+                    "timetable-page-container"
+                  )[i];
+                  setScrollBar(elem);
+                  setTransition(false);
+                }, 1000);
               }
             }}
             style={{ opacity: i !== curr ? 0.5 : 1 }}
