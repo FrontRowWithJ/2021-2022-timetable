@@ -54,6 +54,3 @@ export const between = (x = 0, min = 0, max = 0) => x >= min && x < max;
 export const HOUR_IN_MILLISECONDS = 1000 * 60 * 60;
 
 export const getLeft = (i, x) => (i - x) * 100 + "%";
-
-export const toggle = (elem) => elem.classList.toggle("slide-horizontally");
-
