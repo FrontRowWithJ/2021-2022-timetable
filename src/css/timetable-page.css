@@ -20,8 +20,9 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    flex-grow: 1;
     position: relative;
+    cursor: pointer;
+    transition: height .6s cubic-bezier(0.83, 0, 0.17, 1);
 }
 
 .bg {
@@ -53,30 +54,27 @@
     align-items: center;
     font-family: "Poppins", sans-serif;
     font-size: clamp(18px, calc(18px + (22) * (100vw - 300px) /1000), 40px);
-    color: black;
+    color: black !important;
 }
 
-.test-0 {
+[class|=bottom] {
     position: absolute;
     height: 100%;
-    top: 1vh;
-    z-index: 0;
-    border-radius: 1rem;
-    width: 95%;
     left: 50%;
     transform: translate(-50%, 0);
+    z-index: 0;
+    border-radius: 1rem;
+}
+
+.bottom-0 {
+    top: 1vh;
+    width: 95%;
     opacity: .5;
 }
 
-.test-1 {
-    position: absolute;
-    height: 100%;
+.bottom-1 {
     top: 2vh;
-    z-index: 0;
-    border-radius: 1rem;
     width: 85%;
-    left: 50%;
-    transform: translate(-50%, 0);
     opacity: .3;
 }
 
