@@ -2,12 +2,12 @@ import React, { useEffect } from "react";
 import "./css/timetable-page.css";
 import { Timetable } from "./timetableData";
 import {
-  handleTransitionEnd,
   activityColors,
   getTimeRange,
   between,
   setScrollBar,
   today,
+  getLeft,
 } from "./util";
 
 const TimetablePage = (props) => {
@@ -32,24 +32,20 @@ const TimetablePage = (props) => {
     <div
       className="timetable-page-container"
       ref={props.tableRef}
-      style={{ left: `${props.index === props.curr ? "" : "10"}0%` }}
-      onTransitionEnd={(event) => {
-        handleTransitionEnd(
-          event.target,
-          props.index,
-          props.curr,
-          props.isAnimating,
-          props.setCurr,
-          props.setTransition,
-          props.setAnimation
-        );
+      style={{ left: getLeft(props.index, props.curr) }}
+      onTransitionEnd={({ target }) => {
+        const { isTransitioning, setCurr, next, setTransition } = props;
+        if (isTransitioning) {
+          setCurr(next);
+          setScrollBar(target);
+          setTransition(false);
+        }
       }}
     >
-      <div className="date">{props.date}</div>
+    <div className="date">{props.date}</div>
       {classes.map((lesson, i) => {
         const { bgColor, textColor } = activityColors[lesson.activity];
         const { module, isOnline, activity, time, classroom } = lesson;
-
         const [start, end] = getTimeRange(time);
         const opacity =
           between(props.hour, start, end) && props.index === currDay ? 1 : 0.5;
