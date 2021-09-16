@@ -60,8 +60,14 @@ const TimetablePage = (props) => {
               className="online-indicator"
               style={{ background: isOnline ? "#00FF00" : "red" }}
             ></div>
-            <div className="test-0" style={{ backgroundColor: bgColor }}></div>
-            <div className="test-1" style={{ backgroundColor: bgColor }}></div>
+            <div
+              className="bottom-0"
+              style={{ backgroundColor: bgColor }}
+            ></div>
+            <div
+              className="bottom-1"
+              style={{ backgroundColor: bgColor }}
+            ></div>
             <div className="bg" style={{ backgroundColor: bgColor }}>
               <div>{module}</div>
               <div>Classroom: {classroom}</div>
