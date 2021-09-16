@@ -8,11 +8,9 @@ export const setScrollBar = (elem) => {
   parent.style.overflowY = canScroll ? "" : "hidden";
 };
 
-export const today = new Date();
-
 const DAY_IN_MILLISECONDS = 86_400_000;
 export const getWeekDayDates = () => {
-  const currDay = today.getDay();
+  const currDay = new Date().getDay();
   const offset = (1 - currDay) * DAY_IN_MILLISECONDS;
   const monday = Date.now() + offset;
   return times(5, (i) => new Date(monday + DAY_IN_MILLISECONDS * i)).map(
@@ -50,7 +48,5 @@ export const activityColors = [
 ];
 
 export const between = (x = 0, min = 0, max = 0) => x >= min && x < max;
-
-export const HOUR_IN_MILLISECONDS = 1000 * 60 * 60;
 
 export const getLeft = (i, x) => (i - x) * 100 + "%";
