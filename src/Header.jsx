@@ -1,6 +1,7 @@
 import React from "react";
 import "./css/header.css";
 import { setScrollBar } from "./util";
+
 const Header = (props) => {
   const { setNext, setTransition, isTransitioning, curr, isSwiping } = props;
   return (
@@ -14,19 +15,25 @@ const Header = (props) => {
                 setNext(i);
                 setTransition(true);
                 setTimeout(() => {
-                  props.setCurr(i);
-                  const elem = document.getElementsByClassName(
-                    "timetable-page-container"
-                  )[i];
-                  setScrollBar(elem);
-                  setTransition(false);
+                  if (isTransitioning) {
+                    props.setCurr(i);
+                    const elem = document.getElementsByClassName(
+                      "timetable-page-container"
+                    )[i];
+                    setScrollBar(elem);
+                    setTransition(false);
+                  }
                 }, 1000);
               }
             }}
-            style={{ opacity: i !== curr ? 0.5 : 1 }}
+            style={{ opacity: i !== curr ? 0.3 : 1 }}
           >
             <div
-              style={{ cursor: isTransitioning ? "not-allowed" : "pointer" }}
+              style={{
+                cursor: isTransitioning ? "not-allowed" : "pointer",
+                backgroundColor: i !== curr ? "white" : "#bbbbbb",
+                color: i !== curr ? "black" : "white",
+              }}
             >
               {day}
             </div>
