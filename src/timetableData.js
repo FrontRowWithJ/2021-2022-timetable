@@ -75,7 +75,14 @@ const timetableJSON = {
     undefined,
   ],
   tue: [
-    undefined,
+    {
+      moduleCode: "TEU00231",
+      module: "Korean Language and Culture (Beginners)",
+      lecturer: "Eun Jee Do",
+      activity: Timetable.ONLINE_LIVE_EVENT,
+      isOnline: true,
+      classroom: "Blackboard",
+    },
     undefined,
     undefined,
     undefined,
