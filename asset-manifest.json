@@ -1,8 +1,8 @@
 {
   "files": {
-    "main.css": "/2021-2022-timetable/static/css/main.1e180286.chunk.css",
-    "main.js": "/2021-2022-timetable/static/js/main.ecc0b462.chunk.js",
-    "main.js.map": "/2021-2022-timetable/static/js/main.ecc0b462.chunk.js.map",
+    "main.css": "/2021-2022-timetable/static/css/main.d6372bd4.chunk.css",
+    "main.js": "/2021-2022-timetable/static/js/main.545d0d17.chunk.js",
+    "main.js.map": "/2021-2022-timetable/static/js/main.545d0d17.chunk.js.map",
     "runtime-main.js": "/2021-2022-timetable/static/js/runtime-main.22c89257.js",
     "runtime-main.js.map": "/2021-2022-timetable/static/js/runtime-main.22c89257.js.map",
     "static/js/2.f0e0bf51.chunk.js": "/2021-2022-timetable/static/js/2.f0e0bf51.chunk.js",
@@ -10,13 +10,13 @@
     "static/js/3.45b07598.chunk.js": "/2021-2022-timetable/static/js/3.45b07598.chunk.js",
     "static/js/3.45b07598.chunk.js.map": "/2021-2022-timetable/static/js/3.45b07598.chunk.js.map",
     "index.html": "/2021-2022-timetable/index.html",
-    "static/css/main.1e180286.chunk.css.map": "/2021-2022-timetable/static/css/main.1e180286.chunk.css.map",
+    "static/css/main.d6372bd4.chunk.css.map": "/2021-2022-timetable/static/css/main.d6372bd4.chunk.css.map",
     "static/js/2.f0e0bf51.chunk.js.LICENSE.txt": "/2021-2022-timetable/static/js/2.f0e0bf51.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.22c89257.js",
     "static/js/2.f0e0bf51.chunk.js",
-    "static/css/main.1e180286.chunk.css",
-    "static/js/main.ecc0b462.chunk.js"
+    "static/css/main.d6372bd4.chunk.css",
+    "static/js/main.545d0d17.chunk.js"
   ]
 }
