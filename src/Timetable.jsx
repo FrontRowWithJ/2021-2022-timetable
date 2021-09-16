@@ -3,22 +3,17 @@ import "./css/timetable.css";
 import { times } from "lodash";
 import TimetablePage from "./TimetablePage";
 import timetableJSON from "./timetableData";
-import {
-  getWeekDayDates,
-  today,
-  HOUR_IN_MILLISECONDS,
-  getLeft,
-  setScrollBar,
-} from "./util";
+import { getWeekDayDates, getLeft, setScrollBar } from "./util";
 
 const translate = (e, d) => e && (e.style.left = d + "px");
 const isMouseEvent = (event) => /[Mm]ouse/i.test(event._reactName);
 const getEvent = (event) => (isMouseEvent(event) ? event : event.touches[0]);
 
-const Timetable = ({ isTransitioning, setTransition, next, curr, setCurr }) => {
+const Timetable = (props) => {
+  const { isTransitioning, setTransition, next, curr, setCurr, setSwiping } =
+    props;
   const timetbaleRef = useRef(null);
-  const [hour, setHour] = useState(today.getHours());
-  const tillNextHour = 60 - today.getMinutes();
+  const [hour, setHour] = useState(new Date().getHours());
   const tableRefs = useRef(times(5, () => React.createRef()));
   const dates = getWeekDayDates();
   const [start, setStart] = useState(undefined);
@@ -31,21 +26,19 @@ const Timetable = ({ isTransitioning, setTransition, next, curr, setCurr }) => {
     });
   }, [next]);
   useEffect(() => {
-    setTimeout(() => {
-      setInterval(() => {
-        setHour(today.getHours());
-      }, HOUR_IN_MILLISECONDS);
-    }, tillNextHour * 60 * 1000);
-  }, [tillNextHour]);
-
-  useEffect(() => {
     setScrollBar(tableRefs.current[curr].current);
+    const iid = setInterval(() => {
+      setHour(new Date().getHours());
+    }, 1000);
+    return () => clearInterval(iid);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   const startSwipe = (event) => {
+    if (isTransitioning) return;
     const { pageX, pageY } = getEvent(event);
     setStart({ x: pageX, y: pageY, t: +new Date() });
+    setSwiping(true);
   };
 
   const moveSwipe = (event) => {
@@ -71,6 +64,7 @@ const Timetable = ({ isTransitioning, setTransition, next, curr, setCurr }) => {
   };
 
   const endSwipe = () => {
+    if (!start) return;
     const refs = tableRefs.current;
     refs.forEach((ref) => (ref.current.style.transitionDuration = ""));
     const w = timetbaleRef.current.clientWidth;
@@ -80,6 +74,7 @@ const Timetable = ({ isTransitioning, setTransition, next, curr, setCurr }) => {
     const l = curr ? refs[curr - 1].current : undefined;
     const m = refs[curr].current;
     const r = curr !== 4 ? refs[curr + 1].current : undefined;
+    setTimeout(() => setSwiping(false), 1000);
     if (!isScrolling) {
       if (isValidSwipe) {
         const direction = Math.abs(delta.x) / delta.x;
@@ -121,6 +116,9 @@ const Timetable = ({ isTransitioning, setTransition, next, curr, setCurr }) => {
           date={dates[i]}
           hour={hour}
           isTransitioning={isTransitioning}
+          isSwiping={props.isSwiping}
+          setSwiping={setSwiping}
+          refs={tableRefs.current}
         />
       ))}
     </div>
