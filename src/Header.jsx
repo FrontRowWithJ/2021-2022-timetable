@@ -12,6 +12,7 @@ const Header = ({ setNext, setTransition, isTransitioning, curr }) => {
               if (!isTransitioning) {
                 setNext(i);
                 setTransition(true);
+                setTimeout(() => setTransition(false), 1000);
               }
             }}
             style={{ opacity: i !== curr ? 0.5 : 1 }}
