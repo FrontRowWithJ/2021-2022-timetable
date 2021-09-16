@@ -34,7 +34,8 @@
     border-radius: 25%;
     transform: translate(-50%, -50%);
     cursor: pointer;
-    background-color: white;
-    box-shadow: 20px 20px 60px #d5d4d8,
-        -20px -20px 60px #ffffff;
+    background-color: #d1ccc3;
+    box-shadow: 20px 20px 70px #d4d4d4, -20px -20px 70px #ffffff;
+    font-size: 3rem;
+    border: 3px solid #bbbbbb;
 }
