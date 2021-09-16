@@ -52,7 +52,8 @@
     justify-content: center;
     align-items: center;
     font-family: "Poppins", sans-serif;
-    font-size: clamp(18px, calc(18px + (22) * (100vw - 300px) /1000), 40px)
+    font-size: clamp(18px, calc(18px + (22) * (100vw - 300px) /1000), 40px);
+    color: black;
 }
 
 .test-0 {
