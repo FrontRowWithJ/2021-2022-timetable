@@ -8,7 +8,6 @@ import {
   today,
   HOUR_IN_MILLISECONDS,
   getLeft,
-  toggle,
 } from "./util";
 
 const translate = (elem, dist, width) => {
