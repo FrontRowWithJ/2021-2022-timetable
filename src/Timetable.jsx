@@ -65,6 +65,7 @@ const Timetable = (props) => {
 
   const endSwipe = () => {
     if (!start) return;
+    if (!delta) return;
     const refs = tableRefs.current;
     refs.forEach((ref) => (ref.current.style.transitionDuration = ""));
     const w = timetbaleRef.current.clientWidth;
@@ -74,7 +75,9 @@ const Timetable = (props) => {
     const l = curr ? refs[curr - 1].current : undefined;
     const m = refs[curr].current;
     const r = curr !== 4 ? refs[curr + 1].current : undefined;
-    setTimeout(() => setSwiping(false), 1000);
+    setTimeout(() => {
+      if (props.isSwiping) setSwiping(false);
+    }, 1000);
     if (!isScrolling) {
       if (isValidSwipe) {
         const direction = Math.abs(delta.x) / delta.x;
@@ -83,8 +86,11 @@ const Timetable = (props) => {
             ? [2 * -w, (curr !== 4) * -w, 0]
             : [0, (curr !== 0) * w, 2 * w];
         [l, m, r].forEach((elem, i) => translate(elem, pos[i]));
-        if (direction < 0) setCurr(r ? curr + 1 : curr);
-        else setCurr(l ? curr - 1 : curr);
+        let newCurr;
+        if (direction < 0) newCurr = r ? curr + 1 : curr;
+        else newCurr = l ? curr - 1 : curr;
+        setCurr(newCurr);
+        setScrollBar(refs[newCurr].current);
       } else {
         const pos = [-w, 0, w];
         [l, m, r].forEach((elem, i) => translate(elem, pos[i]));
@@ -92,16 +98,17 @@ const Timetable = (props) => {
     }
     setStart(undefined);
   };
+
   return (
     <div
       ref={timetbaleRef}
       className="timetable-container"
-      onMouseDown={(event) => startSwipe(event)}
-      onMouseMove={(event) => moveSwipe(event)}
-      onMouseUp={() => endSwipe()}
-      onTouchStart={(event) => startSwipe(event)}
-      onTouchMove={(event) => moveSwipe(event)}
-      onTouchEnd={() => endSwipe()}
+      onMouseDown={startSwipe}
+      onMouseMove={moveSwipe}
+      onMouseUp={endSwipe}
+      onTouchStart={startSwipe}
+      onTouchMove={moveSwipe}
+      onTouchEnd={endSwipe}
     >
       {Object.keys(timetableJSON).map((entry, i) => (
         <TimetablePage
