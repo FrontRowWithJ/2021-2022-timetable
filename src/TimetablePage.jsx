@@ -10,8 +10,9 @@ import {
 } from "./util";
 
 const TimetablePage = (props) => {
+  const { refs, curr, index, date, hour, schedule, tableRef } = props;
   const currDay = new Date().getDay() - 1;
-  const classes = props.schedule
+  const classes = schedule
     .map((cell, i) => {
       if (cell)
         cell.time = `${("" + (9 + i)).padStart(2, "0")}:00 - ${10 + i}:00`;
@@ -20,23 +21,21 @@ const TimetablePage = (props) => {
     .filter((cell) => cell !== undefined);
 
   useEffect(() => {
-    window.addEventListener("resize", () =>
-      setScrollBar(props.refs[props.curr].current)
-    );
-  }, [props.curr, props.refs]);
+    window.addEventListener("resize", () => setScrollBar(refs[curr].current));
+  }, [curr, refs]);
   return (
     <div
       className="timetable-page-container"
-      ref={props.tableRef}
-      style={{ left: getLeft(props.index, props.curr) }}
+      ref={tableRef}
+      style={{ left: getLeft(index, curr) }}
     >
-      <div className="date">{props.date}</div>
+      <div className="date">{date}</div>
       {classes.map((lesson, i) => {
         const { bgColor, textColor } = activityColors[lesson.activity];
         const { module, isOnline, activity, time, classroom } = lesson;
         const [start, end] = getTimeRange(time);
         const opacity =
-          between(props.hour, start, end) && props.index === currDay ? 1 : 0.5;
+          between(hour, start, end) && index === currDay ? 1 : 0.5;
         return (
           <div
             key={i}
