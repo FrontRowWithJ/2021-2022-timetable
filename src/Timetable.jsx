@@ -70,15 +70,15 @@ const Timetable = (props) => {
     refs.forEach((ref) => (ref.current.style.transitionDuration = ""));
     const w = timetbaleRef.current.clientWidth;
     const duration = +new Date() - start.t;
-    const isValidSwipe =
-      (duration < 250 && delta.x > 20) || Math.abs(delta.x) > w / 2;
+    const absX = Math.abs(delta.x);
+    const isValidSwipe = (duration < 250 && absX > 20) || absX > w / 2;
     const l = curr ? refs[curr - 1].current : undefined;
     const m = refs[curr].current;
     const r = curr !== 4 ? refs[curr + 1].current : undefined;
     setTimeout(() => setSwiping(false), 600);
     if (!isScrolling) {
       if (isValidSwipe) {
-        const direction = Math.abs(delta.x) / delta.x;
+        const direction = absX / delta.x;
         const pos =
           direction < 0
             ? [2 * -w, (curr !== 4) * -w, 0]
