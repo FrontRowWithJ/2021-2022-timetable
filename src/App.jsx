@@ -2,20 +2,35 @@ import React, { useState } from "react";
 import Header from "./Header";
 import "./css/app.css";
 import Timetable from "./Timetable";
-import { setScrollBar } from "./util";
+import { setScrollBar, canScroll } from "./util";
 const App = () => {
   const day = new Date().getDay() - 1;
   const [curr, setCurr] = useState(day < 0 || day > 4 ? 0 : day);
   const [next, setNext] = useState(curr);
   const [isTransitioning, setTransition] = useState(false);
   const [isSwiping, setSwiping] = useState(false);
+  const [count, setCount] = useState(0);
   return (
     <main
       onWheel={({ deltaY }) => {
+        const innerH =
+          window.innerHeight || document.documentElement.clientHeight;
+        const e = document.getElementsByClassName("timetable-page-container")[
+          curr
+        ];
+        const { bottom } = e.getBoundingClientRect();
+        if (canScroll(e) && innerH !== (bottom | 0)) {
+          setTransition(true);
+          setTimeout(() => setTransition(false), 100);
+          setCount(0);
+          return;
+        } else if (count < 7) {
+          setCount(count + 1);
+          return;
+        }
         if (!isTransitioning && !isSwiping) {
-          const isRight = deltaY > 0;
           let newNext;
-          if (isRight) {
+          if (deltaY > 0) {
             if (curr === 4) return;
             newNext = curr + 1;
           } else {
