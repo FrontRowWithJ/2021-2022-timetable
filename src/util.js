@@ -2,11 +2,13 @@ import { times } from "lodash";
 
 export const setScrollBar = (elem) => {
   const parent = elem.parentElement;
-  const { bottom } = elem.getBoundingClientRect();
-  const canScroll =
-    bottom > (window.innerHeight || document.documentElement.clientHeight);
-  parent.style.overflowY = canScroll ? "" : "hidden";
+  parent.style.overflowY = canScroll(elem) ? "" : "hidden";
   parent.scrollTop = 0;
+};
+
+export const canScroll = (elem) => {
+  const { bottom } = elem.getBoundingClientRect();
+  return bottom > (window.innerHeight || document.documentElement.clientHeight);
 };
 
 const DAY_IN_MILLISECONDS = 86_400_000;
