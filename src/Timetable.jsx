@@ -67,6 +67,7 @@ const Timetable = (props) => {
     if (!start) return;
     if (!delta) {
       setStart(undefined);
+      setSwiping(false);
       return;
     }
     const refs = tableRefs.current;
@@ -98,6 +99,7 @@ const Timetable = (props) => {
       }
     }
     setStart(undefined);
+    setDelta(undefined);
   };
 
   return (
