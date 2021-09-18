@@ -14,6 +14,7 @@ const Header = (props) => {
               if (!isTransitioning && !isSwiping) {
                 setNext(i);
                 setTransition(true);
+                navigator.vibrate(150);
                 setTimeout(() => {
                   props.setCurr(i);
                   const elem = document.getElementsByClassName(
