@@ -39,7 +39,6 @@ const App = () => {
           }
           setNext(newNext);
           setTransition(true);
-          navigator.vibrate(150);
           setTimeout(() => {
             setCurr(newNext);
             const elem = document.getElementsByClassName(

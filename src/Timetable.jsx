@@ -88,10 +88,7 @@ const Timetable = (props) => {
         if (direction < 0) newCurr = r ? curr + 1 : curr;
         else newCurr = l ? curr - 1 : curr;
         setCurr(newCurr);
-        if (curr !== newCurr) {
-          setScrollBar(refs[newCurr].current);
-          navigator.vibrate(150);
-        }
+        if (curr !== newCurr) setScrollBar(refs[newCurr].current);
       } else {
         const pos = [-w, 0, w];
         [l, m, r].forEach((elem, i) => translate(elem, pos[i]));
