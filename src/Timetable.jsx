@@ -65,7 +65,10 @@ const Timetable = (props) => {
 
   const endSwipe = () => {
     if (!start) return;
-    if (!delta) return;
+    if (!delta) {
+      setStart(undefined);
+      return;
+    }
     const refs = tableRefs.current;
     refs.forEach((ref) => (ref.current.style.transitionDuration = ""));
     const w = timetbaleRef.current.clientWidth;
