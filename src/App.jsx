@@ -21,8 +21,8 @@ const App = () => {
         const { bottom } = e.getBoundingClientRect();
         if (canScroll(e) && innerH !== (bottom | 0)) {
           setTransition(true);
+          setCount && setCount(0);
           setTimeout(() => setTransition(false), 100);
-          setCount(0);
           return;
         } else if (count < 7) {
           setCount(count + 1);
@@ -39,6 +39,7 @@ const App = () => {
           }
           setNext(newNext);
           setTransition(true);
+          navigator.vibrate(150);
           setTimeout(() => {
             setCurr(newNext);
             const elem = document.getElementsByClassName(
