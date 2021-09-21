@@ -22,21 +22,12 @@ const App = () => {
         if (canScroll(e) && innerH !== (bottom | 0)) {
           setTransition(true);
           setCount && setCount(0);
-          setTimeout(() => setTransition(false), 100);
-          return;
-        } else if (count < 7) {
-          setCount(count + 1);
-          return;
-        }
+          return setTimeout(() => setTransition(false), 100);
+        } else if (count < 7) return setCount(count + 1);
+
         if (!isTransitioning && !isSwiping) {
-          let newNext;
-          if (deltaY > 0) {
-            if (curr === 4) return;
-            newNext = curr + 1;
-          } else {
-            if (curr === 0) return;
-            newNext = curr - 1;
-          }
+          if (!curr || curr === 4) return;
+          const newNext = deltaY > 0 ? curr + 1 : curr - 1;
           setNext(newNext);
           setTransition(true);
           setTimeout(() => {
