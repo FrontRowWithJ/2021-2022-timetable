@@ -1,6 +1,5 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./css/timetable.css";
-import { times } from "lodash";
 import TimetablePage from "./TimetablePage";
 import timetableJSON from "./timetableData";
 import { getWeekDayDates, getLeft, setScrollBar } from "./util";
@@ -14,24 +13,23 @@ const Timetable = (props) => {
     props;
   const timetbaleRef = useRef(null);
   const [hour, setHour] = useState(new Date().getHours());
-  const tableRefs = useRef(times(5, () => React.createRef()));
   const dates = getWeekDayDates();
   const [start, setStart] = useState(undefined);
   const [delta, setDelta] = useState(undefined);
   const [isScrolling, setScrolling] = useState(undefined);
   useEffect(() => {
     timetbaleRef.current.scrollTop = 0;
-    tableRefs.current.forEach((ref, i) => {
+    props.tableRefs.current.forEach((ref, i) => {
       ref.current.style.left = getLeft(i, next);
     });
-  }, [next]);
+  }, [next, props.tableRefs]);
   useEffect(() => {
-    setScrollBar(tableRefs.current[curr].current);
+    setScrollBar(props.tableRefs.current[curr].current);
     const iid = setInterval(() => {
       setHour(new Date().getHours());
     }, 1000);
     return () => clearInterval(iid);
-  }, [curr]);
+  }, [curr, props.tableRefs]);
 
   const startSwipe = (event) => {
     if (isTransitioning) return;
@@ -49,7 +47,7 @@ const Timetable = (props) => {
     const { pageX, pageY } = evt;
     const d = { x: pageX - start.x, y: pageY - start.y };
     setDelta(d);
-    const refs = tableRefs.current;
+    const refs = props.tableRefs.current;
     const l = curr ? refs[curr - 1].current : undefined;
     const m = refs[curr].current;
     const r = curr !== 4 ? refs[curr + 1].current : undefined;
@@ -65,7 +63,7 @@ const Timetable = (props) => {
   const endSwipe = () => {
     if (!start) return;
     if (!delta) return setSwiping(!!setScrolling(setStart(undefined)));
-    const refs = tableRefs.current;
+    const refs = props.tableRefs.current;
     refs.forEach((ref) => (ref.current.style.transitionDuration = ""));
     const w = timetbaleRef.current.clientWidth;
     const duration = +new Date() - start.t;
@@ -105,7 +103,7 @@ const Timetable = (props) => {
     >
       {Object.keys(timetableJSON).map((entry, i) => (
         <TimetablePage
-          tableRef={tableRefs.current[i]}
+          tableRef={props.tableRefs.current[i]}
           key={i}
           schedule={timetableJSON[entry]}
           setCurr={setCurr}
@@ -118,7 +116,7 @@ const Timetable = (props) => {
           isTransitioning={isTransitioning}
           isSwiping={props.isSwiping}
           setSwiping={setSwiping}
-          refs={tableRefs.current}
+          refs={props.tableRefs.current}
         />
       ))}
     </div>
