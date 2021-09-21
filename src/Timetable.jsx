@@ -6,7 +6,7 @@ import timetableJSON from "./timetableData";
 import { getWeekDayDates, getLeft, setScrollBar } from "./util";
 
 const translate = (e, d) => e && (e.style.left = d + "px");
-const isMouseEvent = (event) => /[Mm]ouse/i.test(event._reactName);
+const isMouseEvent = (event) => /[Mm]ouse/i.test(event.type);
 const getEvent = (event) => (isMouseEvent(event) ? event : event.touches[0]);
 
 const Timetable = (props) => {
@@ -31,8 +31,7 @@ const Timetable = (props) => {
       setHour(new Date().getHours());
     }, 1000);
     return () => clearInterval(iid);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [curr]);
 
   const startSwipe = (event) => {
     if (isTransitioning) return;
@@ -65,11 +64,7 @@ const Timetable = (props) => {
 
   const endSwipe = () => {
     if (!start) return;
-    if (!delta) {
-      setStart(undefined);
-      setSwiping(false);
-      return;
-    }
+    if (!delta) return setSwiping(!!setScrolling(setStart(undefined)));
     const refs = tableRefs.current;
     refs.forEach((ref) => (ref.current.style.transitionDuration = ""));
     const w = timetbaleRef.current.clientWidth;
@@ -88,18 +83,13 @@ const Timetable = (props) => {
             ? [2 * -w, (curr !== 4) * -w, 0]
             : [0, (curr !== 0) * w, 2 * w];
         [l, m, r].forEach((elem, i) => translate(elem, pos[i]));
-        let newCurr;
-        if (direction < 0) newCurr = r ? curr + 1 : curr;
-        else newCurr = l ? curr - 1 : curr;
+        const newCurr =
+          direction < 0 ? (r ? curr + 1 : curr) : l ? curr - 1 : curr;
         setCurr(newCurr);
         if (curr !== newCurr) setScrollBar(refs[newCurr].current);
-      } else {
-        const pos = [-w, 0, w];
-        [l, m, r].forEach((elem, i) => translate(elem, pos[i]));
-      }
+      } else [l, m, r].forEach((elem, i) => translate(elem, [-w, 0, w][i]));
     }
-    setStart(undefined);
-    setDelta(undefined);
+    setScrolling(setStart(setDelta(undefined)));
   };
 
   return (
