@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback } from "react";
 import "./css/timetable-page.css";
 import { Timetable } from "./timetableData";
 import {
@@ -19,10 +19,14 @@ const TimetablePage = (props) => {
       return cell;
     })
     .filter((cell) => cell !== undefined);
-
+  const handleResize = useCallback(
+    () => setScrollBar(refs[curr].current),
+    [curr, refs]
+  );
   useEffect(() => {
-    window.addEventListener("resize", () => setScrollBar(refs[curr].current));
-  }, [curr, refs]);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [handleResize]);
   return (
     <div
       className="timetable-page-container"
