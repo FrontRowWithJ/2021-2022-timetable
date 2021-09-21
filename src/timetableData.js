@@ -22,6 +22,7 @@ const timetableJSON = {
       activity: Timetable.LECTURE,
       isOnline: true,
       classroom: "Blackboard",
+      time: "09:00 - 10:00",
     },
     {
       moduleCode: "CSU33012",
@@ -30,6 +31,7 @@ const timetableJSON = {
       activity: Timetable.LECTURE,
       isOnline: true,
       classroom: "Blackboard",
+      time: "10:00 - 11:00",
     },
     {
       moduleCode: "CSU34016",
@@ -38,6 +40,7 @@ const timetableJSON = {
       activity: Timetable.TUTORIAL,
       isOnline: false,
       classroom: "L2.01/L2.02",
+      time: "11:00 - 12:00",
     },
     {
       moduleCode: "CSU33012",
@@ -46,6 +49,7 @@ const timetableJSON = {
       activity: Timetable.TUTORIAL,
       isOnline: true,
       classroom: "Blackboard",
+      time: "12:00 - 13:00",
     },
     {
       moduleCode: "CSU33031",
@@ -54,6 +58,7 @@ const timetableJSON = {
       activity: Timetable.LECTURE,
       isOnline: true,
       classroom: "Blackboard",
+      time: "13:00 - 14:00",
     },
     undefined,
     {
@@ -63,6 +68,7 @@ const timetableJSON = {
       activity: Timetable.LABORATORY,
       isOnline: true,
       classroom: "Blackboard",
+      time: "15:00 - 16:00",
     },
     {
       moduleCode: "CSU33031",
@@ -71,6 +77,7 @@ const timetableJSON = {
       activity: Timetable.TUTORIAL,
       isOnline: true,
       classroom: "Blackboard",
+      time: "16:00 - 17:00",
     },
     undefined,
   ],
@@ -82,8 +89,8 @@ const timetableJSON = {
       activity: Timetable.ONLINE_LIVE_EVENT,
       isOnline: true,
       classroom: "Blackboard",
+      time: "09:00 - 11:00",
     },
-    undefined,
     undefined,
     undefined,
     undefined,
@@ -94,6 +101,7 @@ const timetableJSON = {
       activity: Timetable.LECTURE,
       isOnline: true,
       classroom: "Blackboard",
+      time: "14:00 - 15:00",
     },
     {
       moduleCode: "CSU33031",
@@ -102,6 +110,7 @@ const timetableJSON = {
       activity: Timetable.LECTURE,
       isOnline: true,
       classroom: "Blackboard",
+      time: "15:00 - 16:00",
     },
     {
       moduleCode: "CSU34011",
@@ -110,6 +119,7 @@ const timetableJSON = {
       activity: Timetable.TUTORIAL,
       isOnline: false,
       classroom: "LG35/LG36",
+      time: "16:00 - 17:00",
     },
     undefined,
   ],
@@ -124,6 +134,7 @@ const timetableJSON = {
       activity: Timetable.LECTURE,
       isOnline: true,
       classroom: "Blackboard",
+      time: "12:00 - 13:00",
     },
     undefined,
     undefined,
@@ -135,6 +146,7 @@ const timetableJSON = {
       activity: Timetable.LECTURE,
       isOnline: true,
       classroom: "Blackboard",
+      time: "16:00 - 17:00",
     },
     {
       moduleCode: "CSU33012",
@@ -143,6 +155,7 @@ const timetableJSON = {
       activity: Timetable.LECTURE,
       isOnline: true,
       classroom: "Blackboard",
+      time: "17:00 - 18:00",
     },
   ],
   thu: [
@@ -157,6 +170,7 @@ const timetableJSON = {
       activity: Timetable.ONLINE_LIVE_EVENT,
       isOnline: true,
       classroom: "Blackboard",
+      time: "13:00 - 14:00",
     },
     undefined,
     undefined,
@@ -176,6 +190,7 @@ const timetableJSON = {
       activity: Timetable.LECTURE,
       isOnline: true,
       classroom: "Blackboard",
+      time: "14:00 - 15:00",
     },
     {
       moduleCode: "CSU34011",
@@ -184,6 +199,7 @@ const timetableJSON = {
       activity: Timetable.LECTURE,
       isOnline: true,
       classroom: "Blackboard",
+      time: "15:00 - 16:00",
     },
     undefined,
     undefined,
