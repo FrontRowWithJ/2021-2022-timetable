@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import Header from "./Header";
 import "./css/app.css";
 import Timetable from "./Timetable";
@@ -10,14 +10,13 @@ const App = () => {
   const [isTransitioning, setTransition] = useState(false);
   const [isSwiping, setSwiping] = useState(false);
   const [count, setCount] = useState(0);
+  const tableRefs = useRef([0, 0, 0, 0, 0].map(React.createRef));
   return (
     <main
       onWheel={({ deltaY }) => {
         const innerH =
           window.innerHeight || document.documentElement.clientHeight;
-        const e = document.getElementsByClassName("timetable-page-container")[
-          curr
-        ];
+        const e = tableRefs.current[curr].current;
         const { bottom } = e.getBoundingClientRect();
         if (canScroll(e) && innerH !== (bottom | 0)) {
           setTransition(true);
@@ -32,10 +31,8 @@ const App = () => {
           setTransition(true);
           setTimeout(() => {
             setCurr(newNext);
-            const elem = document.getElementsByClassName(
-              "timetable-page-container"
-            )[newNext];
-            setScrollBar(elem);
+            const e = tableRefs.current[newNext].current;
+            setScrollBar(e);
             setTransition(false);
           }, 300);
         }
@@ -50,6 +47,7 @@ const App = () => {
         isSwiping={isSwiping}
       />
       <Timetable
+        tableRefs={tableRefs}
         next={next}
         curr={curr}
         setCurr={setCurr}
