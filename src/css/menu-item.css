@@ -1,0 +1,62 @@
+:root {
+  --menu-item-radius: 5px
+}
+
+.menu-item {
+  width: 90%;
+  border-radius: var(--menu-item-radius);
+  height: 3vh;
+  position: relative;
+}
+
+.menu-item button {
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-weight: bolder;
+  font-family: "Poppins";
+  background-color: #585ce4;
+  border-radius: var(--menu-item-radius);
+  border: 0;
+  cursor: pointer;
+  transition: font-size .2s;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 3;
+}
+
+.menu-item:not(.menu-item:first-of-type) {
+  margin-top: .5rem;
+}
+
+.menu-item:not(.menu-item:last-of-type) {
+  margin-bottom: .5rem;
+}
+
+.menu-item button:hover {
+  font-size: 1rem;
+}
+
+.bg-div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  border-radius: var(--menu-item-radius);
+}
+
+.bg-div:nth-of-type(1) {
+  width: 95%;
+  z-index: 2;
+  top: 10%;
+  opacity: .5;
+  left: 2.5%;
+}
+
+.bg-div:nth-of-type(2) {
+  width: 85%;
+  top: 20%;
+  opacity: .3;
+  z-index: 1;
+  left: 7.5%;
+}

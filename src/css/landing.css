@@ -1,0 +1,72 @@
+.landing-container {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 3vh;
+}
+
+.input-container {
+  width: 90%;
+  height: 40vh;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#wrapper {
+  width: 90%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+#text-container {
+  width: 90%;
+  height: 90%;
+  position: relative;
+  margin-top: 1vh;
+}
+
+#text-container textarea {
+  background-color: transparent;
+  z-index: 1;
+  resize: none;
+}
+
+#text-container textarea::placeholder {
+  text-align: center;
+  line-height: 100%;
+}
+
+#placeholder {
+  z-index: 0;
+  color: gray;
+  opacity: .7;
+}
+
+#button-container {
+  margin: 1vh 0;
+}
+
+#text-container * {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tutorial-container {
+  width: 90%;
+  border: 1px solid black;
+  flex-grow: 1;
+}
+
+#dummy {
+  display: none;
+}
+
