@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import "./css/timetable.css";
 import TimetablePage from "./TimetablePage";
-import timetableJSON from "./timetableData";
+
 import { getWeekDayDates, getLeft, setScrollBar } from "./util";
 
 const translate = (e, d) => e && (e.style.left = d + "px");
@@ -101,11 +101,11 @@ const Timetable = (props) => {
       onTouchMove={moveSwipe}
       onTouchEnd={endSwipe}
     >
-      {Object.keys(timetableJSON).map((entry, i) => (
+      {Object.keys(props.timetableJSON).map((entry, i) => (
         <TimetablePage
           tableRef={props.tableRefs.current[i]}
           key={i}
-          schedule={timetableJSON[entry]}
+          schedule={props.timetableJSON[entry]}
           setCurr={setCurr}
           setTransition={setTransition}
           index={i}
