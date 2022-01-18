@@ -1,10 +1,15 @@
 import React, { useState, useRef } from "react";
 import Header from "./Header";
-import { setScrollBar, canScroll } from "./util";
+import { setScrollBar, canScroll, compressTimetable } from "./util";
 import Timetable from "./Timetable";
 import Menu from "./Menu";
-
-const TimetableWebpage = ({ timetableJSON }) => {
+import MenuItem from "./MenuItem";
+const TimetableWebpage = ({
+  timetableJSON,
+  setOverlay,
+  setUrl,
+  setCancelButton,
+}) => {
   const day = new Date().getDay() - 1;
   const [curr, setCurr] = useState(day < 0 || day > 4 ? 0 : day);
   const [next, setNext] = useState(curr);
@@ -47,7 +52,25 @@ const TimetableWebpage = ({ timetableJSON }) => {
         setCurr={setCurr}
         isSwiping={isSwiping}
       />
-      <Menu timetableJSON={timetableJSON} />
+      <Menu>
+        <MenuItem
+          text={"Generate URL"}
+          onclick={() => {
+            const base64 = compressTimetable(timetableJSON, "Base64");
+            const url = `https://www.google.com?timetable=${base64}`;
+            setUrl(url);
+            setOverlay(true);
+          }}
+        />
+        <MenuItem text={"Enable Notifications"} onclick={() => {}} />
+        <MenuItem text={"Customize"} onclick={() => {}} />
+        <MenuItem
+          text={"Reset Timetable"}
+          onclick={() => {
+            setCancelButton(true);
+          }}
+        />
+      </Menu>
       <Timetable
         timetableJSON={timetableJSON}
         tableRefs={tableRefs}
