@@ -1,6 +1,6 @@
 import React, { useEffect, useCallback } from "react";
-import "./css/timetable-page.css";
-import { setScrollBar, getLeft } from "./util";
+import "../css/timetable-page.css";
+import { setScrollBar, getLeft } from "../util";
 import Lesson from "./Lesson";
 
 const TimetablePage = (props) => {

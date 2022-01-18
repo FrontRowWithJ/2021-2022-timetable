@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
-import "./css/landing.css";
-import { compressTimetable, generateTimetableJSON } from "./util";
+import "../css/landing.css";
+import { compressTimetable, generateTimetableJSON } from "../util";
 
 const Landing = ({ enableTimetable, setTimetable }) => {
   const [hasText, setText] = useState(false);

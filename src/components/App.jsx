@@ -1,12 +1,12 @@
 import React, { useState } from "react";
-import "./css/app.css";
+import "../css/app.css";
 import Landing from "./Landing";
 import TimetableWebpage from "./TimetableWebpage";
 import Overlay from "./Overlay";
 import CopyButton from "./CopyButton";
 import URLDiv from "./URLDiv";
 import ResetButton from "./ResetButton";
-import { compressTimetable, decompressTimetable } from "./util";
+import { compressTimetable, decompressTimetable } from "../util";
 
 const App = () => {
   const queryString = window.location.search;
@@ -16,7 +16,7 @@ const App = () => {
     const timetable = decompressTimetable(timetableBase64, "Base64");
     const storageString = compressTimetable(timetable, "StorageString");
     const localStorageString = window.localStorage.getItem("timetable");
-    if (localStorageString !== storageString) 
+    if (localStorageString !== storageString)
       window.localStorage.setItem("timetable", storageString);
   }
   const [isOverlayEnabled, setOverlay] = useState(false);
@@ -31,6 +31,9 @@ const App = () => {
     // enableTimetable(false);
     // window.localStorage.removeItem("timetable");
     // setUrl("");
+    // setOverlay(false);
+    // setCancelButton(false);
+    // window.location.href = window.location.origin
   };
   if (compressedTimetable !== null && timetable === null) {
     const _timetable = decompressTimetable(

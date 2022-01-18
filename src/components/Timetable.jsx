@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from "react";
-import "./css/timetable.css";
+import "../css/timetable.css";
 import TimetablePage from "./TimetablePage";
 
-import { getWeekDayDates, getLeft, setScrollBar } from "./util";
+import { getWeekDayDates, getLeft, setScrollBar } from "../util";
 
 const translate = (e, d) => e && (e.style.left = d + "px");
 const isMouseEvent = (event) => /[Mm]ouse/i.test(event.type);

@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { ellipsify } from "./util";
+import { ellipsify } from "../util";
 
 const URLDiv = ({ className, url }) => {
   const textboxRef = useRef(null);

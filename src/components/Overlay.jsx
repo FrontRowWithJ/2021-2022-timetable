@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import "./css/overlay.css";
+import "../css/overlay.css";
 import XButtonBG from "./XButtonBGSVG";
 
 const Overlay = ({ text, setOverlay, isOverlayEnabled, textbox, button }) => {

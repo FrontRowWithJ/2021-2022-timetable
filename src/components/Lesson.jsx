@@ -1,4 +1,4 @@
-import { Timetable } from "./timetableData";
+import { Timetable } from "../timetableData";
 
 const between = (x = 0, min = 0, max = 0) => x >= min && x < max;
 const toNum = (s) => parseInt(s.substring(0, 2));

@@ -1,5 +1,5 @@
-import "./css/reset-button.css";
-import ResetIcon from "./resources/reset.svg";
+import "../css/reset-button.css";
+import ResetIcon from "../resources/reset.svg";
 
 const ResetButton = ({ id, resetTimetable }) => {
   return (

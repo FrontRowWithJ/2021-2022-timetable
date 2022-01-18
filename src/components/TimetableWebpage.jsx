@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import Header from "./Header";
-import { setScrollBar, canScroll, compressTimetable } from "./util";
+import { setScrollBar, canScroll, compressTimetable } from "../util";
 import Timetable from "./Timetable";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
@@ -54,10 +54,10 @@ const TimetableWebpage = ({
       />
       <Menu>
         <MenuItem
-          text={"Generate URL"}
+          text={"Generate URL for Mobile"}
           onclick={() => {
             const base64 = compressTimetable(timetableJSON, "Base64");
-            const url = `https://www.google.com?timetable=${base64}`;
+            const url = `${window.location.origin}?timetable=${base64}`;
             setUrl(url);
             setOverlay(true);
           }}

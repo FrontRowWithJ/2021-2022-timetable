@@ -1,7 +1,7 @@
 import React, { useRef } from "react";
-import "./css/kebab.css";
+import "../css/menu.css";
 
-const Kebab = ({ children }) => {
+const Menu = ({ children }) => {
   const list = ["first", "middle", "last"];
   const kebabRef = list.map(() => React.createRef(null));
   const menuRef = useRef(null);
@@ -29,4 +29,4 @@ const Kebab = ({ children }) => {
   );
 };
 
-export default Kebab;
+export default Menu;

@@ -1,4 +1,4 @@
-import "./css/menu-item.css";
+import "../css/menu-item.css";
 
 const MenuItem = ({ text, onclick }) => {
   return (
