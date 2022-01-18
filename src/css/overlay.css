@@ -1,0 +1,114 @@
+:root {
+  --copy-button-height: 2.5rem;
+}
+
+.backdrop {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+  background-color: rgba(0, 0, 0, .0);
+  overflow: hidden;
+  transition: background-color .8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 100;
+}
+
+.show-backdrop {
+  background-color: rgba(0, 0, 0, .7);
+}
+
+
+.url-container {
+  width: 20rem;
+  height: 4rem;
+  border-radius: 2vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: #585ce4;
+  left: calc(100vw / 2 - 10rem);
+  transition: top .8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  top: calc(100% + 3rem);
+}
+
+.x-button-container {
+  position: absolute;
+  bottom: 100%;
+  right: 20%;
+  width: 3rem;
+  height: 3rem;
+}
+
+.x-button-bg {
+  position: absolute;
+  height: 3rem;
+  left: -50%;
+  top: 0;
+}
+
+.x-button-bg path {
+  fill: #585ce4;
+}
+
+.x-button {
+  width: 3rem;
+  height: 3rem;
+  background-color: red;
+  position: absolute;
+  top: .5rem;
+  border-radius: 100vw;
+  transform: rotate(45deg);
+  cursor: pointer;
+}
+
+.x-button div:nth-child(1) {
+  background-color: white;
+  width: 50%;
+  height: .5rem;
+  position: absolute;
+  top: 1.25rem;
+  left: 25%;
+}
+
+.x-button div:nth-child(2) {
+  background-color: white;
+  width: .5rem;
+  height: 50%;
+  position: absolute;
+  top: 25%;
+  left: 1.25rem;
+}
+
+.url-and-copy-button-container {
+  width: 90%;
+  height: 90%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.text-box {
+  color: white;
+  font-family: "Poppins";
+  width: 15rem;
+  height: 2.5rem;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  font-size: 1rem;
+}
+
+#copy-button {
+  width: var(--copy-button-height);
+  height: var(--copy-button-height);
+  cursor: pointer;
+}
+
+.translate-copy-button {
+  top: 50%;
+}
