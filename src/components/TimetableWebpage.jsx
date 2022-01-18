@@ -54,6 +54,7 @@ const TimetableWebpage = ({
       />
       <Menu>
         <MenuItem
+          isReady={true}
           text={"Generate URL for Mobile"}
           onclick={() => {
             const base64 = compressTimetable(timetableJSON, "Base64");
@@ -62,9 +63,14 @@ const TimetableWebpage = ({
             setOverlay(true);
           }}
         />
-        <MenuItem text={"Enable Notifications"} onclick={() => {}} />
-        <MenuItem text={"Customize"} onclick={() => {}} />
         <MenuItem
+          isReady={false}
+          text={"Enable Notifications"}
+          onclick={() => {}}
+        />
+        <MenuItem isReady={false} text={"Customize"} onclick={() => {}} />
+        <MenuItem
+          isReady={true}
           text={"Reset Timetable"}
           onclick={() => {
             setCancelButton(true);
