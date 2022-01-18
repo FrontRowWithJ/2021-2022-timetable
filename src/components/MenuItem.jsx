@@ -1,9 +1,20 @@
+import { useEffect, useRef } from "react";
 import "../css/menu-item.css";
-
-const MenuItem = ({ text, onclick }) => {
+const MenuItem = ({ text, onclick, isReady }) => {
+  const buttonRef = useRef(null);
+  useEffect(() => {
+    if (!isReady)
+      buttonRef.current.style.cssText =
+        "font-size: unset !important; cursor: default";
+  });
   return (
-    <div className="menu-item">
-      <button type="button" onClick={onclick}>
+    <div className="menu-item" style={isReady ? {} : { opacity: 0.3 }}>
+      <button
+        ref={buttonRef}
+        style={isReady ? {} : { cursor: "alias" }}
+        type="button"
+        onClick={() => isReady && onclick()}
+      >
         {text}
       </button>
       <div className="bg-div" style={{ backgroundColor: "#585ce4" }}></div>
@@ -13,4 +24,3 @@ const MenuItem = ({ text, onclick }) => {
 };
 
 export default MenuItem;
-
