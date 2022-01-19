@@ -1,12 +1,13 @@
 import React, { useRef, useState } from "react";
 import "../css/landing.css";
 import { compressTimetable, generateTimetableJSON } from "../util";
-import FireFoxTutorial from "./FirefoxTutorial";
+import Tutorial from "./Tutorial";
 import TutorialSelector from "./TutorialSelector";
 
 const Landing = ({ enableTimetable, setTimetable }) => {
   const [hasText, setText] = useState(false);
   const textAreaRef = useRef(null);
+  const [clickedBrowser, setClickedBrowser] = useState(0);
   return (
     <main>
       <div className="landing-container">
@@ -44,8 +45,11 @@ const Landing = ({ enableTimetable, setTimetable }) => {
             </div>
           </div>
         </div>
-        <TutorialSelector />
-        <FireFoxTutorial />
+        <TutorialSelector
+          clickedBrowser={clickedBrowser}
+          setClickedBrowser={setClickedBrowser}
+        />
+        <Tutorial clickedBrowser={clickedBrowser} />
       </div>
     </main>
   );
