@@ -1,0 +1,38 @@
+.tutorial-section-container {
+  border-radius: 1rem;
+  width: 50%;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  box-shadow: 20px 20px 68px #b5b5b5,
+    -20px -20px 68px #ffffff;
+}
+
+.tutorial-img-container {
+  overflow: hidden;
+  display: flex;
+  justify-content: right;
+  border-bottom: 3px solid black;
+  align-items: baseline;
+}
+
+.tutorial-img-container>img {
+  width: 100%;
+  height: 60%;
+}
+
+.tutorial-text-container {
+  width: 100%;
+  font-size: 1.2rem;
+  padding-left: 1rem;
+  font-family: "Circular Std Book";
+  margin: 1rem 0;
+  height: 100%;
+}
+
+.step {
+  width: 2rem;
+  height: 1.5rem;
+  font-size: 2rem;
+  display: inline-block;
+  text-align: center;
+}
