@@ -13,7 +13,9 @@ export const canScroll = (elem) => {
 };
 
 const DAY_IN_MILLISECONDS = 86_400_000;
-
+const WEEK_IN_MILLISECONDS = 604_800_000;
+const SEMESTER_START = new Date("January 24, 2022 00:00:00").getTime();
+const INITIAL_WEEKS_ELAPSED = 22;
 const getDateString = (date) => {
   const day = [
     "Sunday",
@@ -52,16 +54,16 @@ export const getWeekDayDates = () => {
 
 export const getLeft = (i, x) => (i - x) * 100 + "%";
 
-export const isModuleOnThisWeek = (week, periods) => {
+const getCurrentWeek = (today = +new Date()) =>
+  (INITIAL_WEEKS_ELAPSED + (today - SEMESTER_START) / WEEK_IN_MILLISECONDS) | 0;
+
+export const isModuleOnThisWeek = (periods) => {
+  const week = getCurrentWeek();
   for (let i = 0; i < periods.length; i += 2) {
     const [start, end] = [periods[i], periods[i + 1]];
     if (start <= week && week <= end) return true;
   }
   return false;
-};
-
-export const getCurrentWeek = () => {
-  // to be implemented
 };
 
 const keys = [
@@ -78,9 +80,9 @@ const keys = [
 
 const days = ["mon", "tue", "wed", "thu", "fri"];
 
-const GROUP_DELIMITER = "&";
+const GROUP_DELIMITER = "{";
 const ENTRY_DELIMITER = "|";
-const DAY_DELIMITER = "!";
+const DAY_DELIMITER = ";";
 const PROPERTY_DELIMITER = ",";
 
 const toNum = (s) => parseInt(s.substring(0, 2));

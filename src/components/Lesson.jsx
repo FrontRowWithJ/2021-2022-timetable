@@ -1,4 +1,5 @@
 import { Timetable } from "../timetableData";
+import { isModuleOnThisWeek } from "../util";
 
 const between = (x = 0, min = 0, max = 0) => x >= min && x < max;
 const toNum = (s) => parseInt(s.substring(0, 2));
@@ -13,11 +14,16 @@ const activityColors = [
 
 const Lesson = ({ lesson, hour, index, currDay }) => {
   const { bgColor, textColor } = activityColors[lesson.activity];
-  const { module, isOnline, activity, time, classroom } = lesson;
+  const { module, isOnline, activity, time, classroom, activePeriods } = lesson;
   const [start, end] = getTimeRange(time);
-  const opacity = between(hour, start, end) && index === currDay ? 1 : 0.3;
+  const opacity =
+    index === currDay &&
+    between(hour, start, end) &&
+    isModuleOnThisWeek(activePeriods)
+      ? 1
+      : 0.3;
   return (
-    <div
+    <div                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
       className="cell"
       draggable={false}
       style={{
