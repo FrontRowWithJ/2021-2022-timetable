@@ -1,17 +1,12 @@
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import { ellipsify } from "../util";
 
-const URLDiv = ({ className, url }) => {
-  const textboxRef = useRef(null);
+const URLDiv = ({ className, url, ref }) => {
   useEffect(() => {
-    const { current: div } = textboxRef;
+    const { current: div } = ref;
     div.innerHTML = ellipsify(url, div);
   });
-  return <div className={className} ref={textboxRef}></div>;
+  return <div className={className} ref={ref}></div>;
 };
 
 export default URLDiv;
-
-
-
-

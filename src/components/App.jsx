@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import "../css/app.css";
 import Landing from "./Landing";
 import TimetableWebpage from "./TimetableWebpage";
@@ -25,6 +25,7 @@ const App = () => {
   const compressedTimetable = window.localStorage.getItem("timetable");
   const [url, setUrl] = useState("");
   const [isCancelButtonPressed, setCancelButton] = useState(false);
+  const textboxRef = useRef(null);
   const resetTimetable = () => {
     console.log("Reset");
     // setTimetable(null);
@@ -66,9 +67,9 @@ const App = () => {
           setOverlay={setOverlay}
           isOverlayEnabled={isOverlayEnabled}
           textbox={({ className, text }) => (
-            <URLDiv className={className} url={text} />
+            <URLDiv ref={textboxRef} className={className} url={text} />
           )}
-          button={({ id, text }) => <CopyButton id={id} url={text} />}
+          button={({ id, text }) => <CopyButton id={id} url={text} ref={textboxRef} />}
         />
       ) : null}
       {isCancelButtonPressed ? (
