@@ -1,0 +1,15 @@
+.B {
+  clip-path: url(#C);
+}
+
+.C {
+  fill: #3e2723
+}
+
+.D {
+  fill-opacity: .15
+}
+
+.E {
+  fill-opacity: .2
+}
