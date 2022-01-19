@@ -60,8 +60,12 @@ export const isModuleOnThisWeek = (week, periods) => {
   return false;
 };
 
+export const getCurrentWeek = () => {
+  // to be implemented
+}
+
 const keys = [
-  "module",
+  "module", 
   "moduleCode",
   "time",
   "activePeriods",
