@@ -27,14 +27,13 @@ const App = () => {
   const [isCancelButtonPressed, setCancelButton] = useState(false);
   const textboxRef = useRef(null);
   const resetTimetable = () => {
-    console.log("Reset");
-    // setTimetable(null);
-    // enableTimetable(false);
-    // window.localStorage.removeItem("timetable");
-    // setUrl("");
-    // setOverlay(false);
-    // setCancelButton(false);
-    // window.location.href = window.location.origin
+    setTimetable(null);
+    enableTimetable(false);
+    window.localStorage.removeItem("timetable");
+    setUrl("");
+    setOverlay(false);
+    setCancelButton(false);
+    window.location.href = window.location.origin
   };
   if (compressedTimetable !== null && timetable === null) {
     const _timetable = decompressTimetable(
