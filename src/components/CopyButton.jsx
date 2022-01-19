@@ -1,12 +1,12 @@
 import CopyLinkSVG from "./CopyLinkSVG";
 
-const CopyButton = ({ id, url, ref }) => {
+const CopyButton = ({ id, url, urlRef }) => {
   return (
     <div
       id={id}
       onClick={() => {
         navigator.clipboard.writeText(url);
-        const { current: div } = ref;
+        const { current: div } = urlRef;
         const { textContent: original } = div;
         div.textContent = "Copied!";
         setTimeout(() => (div.textContent = original), 600);

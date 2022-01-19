@@ -33,7 +33,7 @@ const App = () => {
     setUrl("");
     setOverlay(false);
     setCancelButton(false);
-    window.location.href = window.location.origin
+    window.location.href = window.location.origin;
   };
   if (compressedTimetable !== null && timetable === null) {
     const _timetable = decompressTimetable(
@@ -66,9 +66,11 @@ const App = () => {
           setOverlay={setOverlay}
           isOverlayEnabled={isOverlayEnabled}
           textbox={({ className, text }) => (
-            <URLDiv ref={textboxRef} className={className} url={text} />
+            <URLDiv urlRef={textboxRef} className={className} url={text} />
           )}
-          button={({ id, text }) => <CopyButton id={id} url={text} ref={textboxRef} />}
+          button={({ id, text }) => (
+            <CopyButton id={id} url={text} urlRef={textboxRef} />
+          )}
         />
       ) : null}
       {isCancelButtonPressed ? (
