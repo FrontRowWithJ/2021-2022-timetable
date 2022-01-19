@@ -1,18 +1,18 @@
 import CopyLinkSVG from "./CopyLinkSVG";
-import { useState } from "react";
 
-const CopyButton = ({ id, url }) => {
-  const [fill, setFill] = useState("white");
+const CopyButton = ({ id, url, ref }) => {
   return (
     <div
       id={id}
       onClick={() => {
         navigator.clipboard.writeText(url);
-        setFill("#3fff00");
-        setTimeout(() => setFill("white"), 600);
+        const { current: div } = ref;
+        const { textContent: original } = div;
+        div.textContent = "Copied!";
+        setTimeout(() => (div.textContent = original), 600);
       }}
     >
-      <CopyLinkSVG fill={fill} />
+      <CopyLinkSVG fill={"white"} />
     </div>
   );
 };
