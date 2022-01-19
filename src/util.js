@@ -1,6 +1,6 @@
 import { times } from "lodash";
 import sanitizeHtml from "sanitize-html";
-
+export const [CHROME, SAFARI, EDGE, FIREFOX] = [0, 1, 2, 3];
 export const setScrollBar = (elem) => {
   const parent = elem.parentElement;
   parent.style.overflowY = canScroll(elem) ? "" : "hidden";
@@ -62,10 +62,10 @@ export const isModuleOnThisWeek = (week, periods) => {
 
 export const getCurrentWeek = () => {
   // to be implemented
-}
+};
 
 const keys = [
-  "module", 
+  "module",
   "moduleCode",
   "time",
   "activePeriods",
@@ -140,7 +140,7 @@ export const compressTimetable = (timetable, outputEncoding = "") => {
       "outputEncoding must be either StorageBinaryString or Base64"
     );
   const minified = minifyTimetable(timetable);
-  
+
   // eslint-disable-next-line no-undef
   return LZUTF8.compress(minified, {
     outputEncoding: outputEncoding,
