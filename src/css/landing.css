@@ -60,13 +60,6 @@
   align-items: center;
 }
 
-.tutorial-container {
-  width: 90%;
-  border: 1px solid black;
-  flex-grow: 1;
-}
-
 #dummy {
   display: none;
 }
-
