@@ -18,7 +18,3 @@
 .selector-container svg:not(.selector-container svg:last-of-type) {
   margin-right: .5rem;
 }
-
-svg {
-  transition: filter .6s ease-in-out;
-}
