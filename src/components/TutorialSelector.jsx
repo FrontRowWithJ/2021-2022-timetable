@@ -15,10 +15,7 @@ const TutorialSelector = ({ clickedBrowser, setClickedBrowser }) => {
         onmouseover={() => setBrowser(CHROME)}
         onmouseout={() => setBrowser(clickedBrowser)}
         style={browser === CHROME ? {} : gs}
-        onclick={() => {
-          setClickedBrowser(CHROME);
-          //Show chrome tutorial
-        }}
+        onclick={() => setClickedBrowser(CHROME)}
       />
       {/* <SafariSVG
           onmouseover={() => setBrowser(SAFARI)}
@@ -26,26 +23,19 @@ const TutorialSelector = ({ clickedBrowser, setClickedBrowser }) => {
           style={browser === SAFARI ? {} : gs}
           onclick={() => {
             setClickedBrowser(SAFARI);
-            // Show safari tutorial
           }}
         /> */}
       <EdgeSVG
         onmouseover={() => setBrowser(EDGE)}
         onmouseout={() => setBrowser(clickedBrowser)}
         style={browser === EDGE ? {} : gs}
-        onclick={() => {
-          setClickedBrowser(EDGE);
-          // Show edge tutorial
-        }}
+        onclick={() => setClickedBrowser(EDGE)}
       />
       <FirefoxSVG
         onmouseover={() => setBrowser(FIREFOX)}
         onmouseout={() => setBrowser(clickedBrowser)}
         style={browser === FIREFOX ? {} : gs}
-        onclick={() => {
-          setClickedBrowser(FIREFOX);
-          //Show firefox tutorial
-        }}
+        onclick={() => setClickedBrowser(FIREFOX)}
       />
     </div>
   );
