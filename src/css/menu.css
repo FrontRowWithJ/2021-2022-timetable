@@ -206,12 +206,12 @@
   }
 }
 
-.menu-item-container {
+.menu-item-container {  
   width: 100%;
   position: absolute;
   left: 0;
   top: calc(var(--kebab-container-width) * 1.5);
-  height: calc(100% - var(--kebab-container-width));
+  height: calc(100% - var(--kebab-container-width) * 1.5);
   display: flex;
   align-items: center;
   flex-direction: column;
