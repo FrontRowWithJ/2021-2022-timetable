@@ -71,7 +71,7 @@
   width: 100%;
   height: 100%;
   border: none;
-  background-color: slateblue;
+  background: linear-gradient(120deg, slateblue, rebeccapurple);
   color: white;
   font-size: 1.2rem;
   font-family: "Circular Std Book", "sans-serif";
@@ -103,7 +103,7 @@
 #button-container>div {
   position: absolute;
   height: 100%;
-  background-color: slateblue;
+  background: linear-gradient(90deg, slateblue, rebeccapurple);
   border-radius: 1rem;
   z-index: 1;
 }
