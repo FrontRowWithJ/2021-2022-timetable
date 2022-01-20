@@ -28,7 +28,7 @@ const Landing = ({ enableTimetable, setTimetable }) => {
     }
   };
   return (
-    <main>
+    <main id="top">
       <Error errorMessage={errorMessage} errorRef={errorRef} />
       <div className="landing-container">
         <div id="dummy"></div>

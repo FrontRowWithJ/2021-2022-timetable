@@ -98,6 +98,7 @@ const Tutorial = (clickedBrowser) => {
       </TutorialSection>
       <TutorialSection noImage step={7}>
         Click the "Generate timetable" button and enjoy your new timetable!
+        <a href="#top" id="move-to-top">Move to Top</a>
       </TutorialSection>
     </div>
   );
@@ -120,7 +121,11 @@ const Firefox = () => {
         Right click on the whitespace to the right of your timetable and select
         inspect.
       </TutorialSection>
-      <TutorialSection alt="User is copying the html from the page inspector." src={copyHTMLFirefox} step={7}>
+      <TutorialSection
+        alt="User is copying the html from the page inspector."
+        src={copyHTMLFirefox}
+        step={7}
+      >
         At the top of the Page Inspector, right click on the text that says:
         &nbsp;
         <div style={{ display: "inline-block" }}>
@@ -153,7 +158,11 @@ const Chrome = () => {
         Right click on the whitespace to the right of your timetable and select
         inspect.
       </TutorialSection>
-      <TutorialSection alt="User is copying the html from the page inspector." src={copyHTMLChrome} step={7}>
+      <TutorialSection
+        alt="User is copying the html from the page inspector."
+        src={copyHTMLChrome}
+        step={7}
+      >
         At the top of the Page Inspector, right click on the text that
         says:&nbsp;
         <div style={{ display: "inline-block" }}>
@@ -186,7 +195,11 @@ const Edge = () => {
         Right click on the whitespace to the right of your timetable and select
         inspect.
       </TutorialSection>
-      <TutorialSection alt="User is copying the html from the page inspector." src={copyHTMLEdge} step={7}>
+      <TutorialSection
+        alt="User is copying the html from the page inspector."
+        src={copyHTMLEdge}
+        step={7}
+      >
         At the top of the Page Inspector, right click on the text that
         says:&nbsp;
         <div style={{ display: "inline-block" }}>
