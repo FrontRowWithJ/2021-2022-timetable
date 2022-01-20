@@ -4,6 +4,9 @@ import TutorialSection from "./TutorialSection";
 import login from "../resources/mytcdie-login.png";
 import myOwnStudentTimetable from "../resources/view-student-timetable.png";
 import selectTimetable from "../resources/select-timetable.png";
+import optionsClickToExpand from "../resources/options-click-to-expand.png";
+import clickOptionsToTexpand from "../resources/click-options-to-expand.png";
+import enterDates from "../resources/enter-dates.png";
 
 import rightClickInspectFirefox from "../resources/right-click-inspect-firefox.png";
 import copyHTMLFirefox from "../resources/copy-HTML-firefox.png";
@@ -22,37 +25,61 @@ const Tutorial = (clickedBrowser) => {
         noImage
         style={{ display: "flex", justifyContent: "center" }}
       >
-        <u>
-          <i>Attention! this tutorial requires a computer.</i>
-        </u>
+        <i>
+          Attention! To use this on mobile, these steps must be completed on a
+          computer.
+        </i>
       </TutorialSection>
       <TutorialSection alt="my.tcd.ie login page" src={login} step={1}>
-        Login in to
+        Login in to&nbsp;
         <a href="https://my.tcd.ie" target="_blank" rel="noreferrer">
-          &nbsp;my.tcd.ie
+          my.tcd.ie
         </a>
       </TutorialSection>
       <TutorialSection
         step={2}
-        alt="User is hovering over the My Timetable Link"
+        alt="User is hovering over the My Timetable Link."
         src={selectTimetable}
       >
         Select the{" "}
         <img
-          alt="Plus Icon found on my.tcd.ie navigation bar"
-          style={{ width: "1rem", height: "1rem" }}
+          alt="Plus Icon found on my.tcd.ie navigation bar."
+          style={{ width: "1rem", height: "1rem", verticalAlign: "middle" }}
           src={plusIcon}
         />{" "}
         and navigate to My Timetable.
       </TutorialSection>
       <TutorialSection
         step={3}
-        alt="User is hovering over the View My Own Student Timetable link"
+        alt="User is hovering over the View My Own Student Timetable link."
         src={myOwnStudentTimetable}
       >
         In the My Timetable section, select "View my Own Student Timetable".
       </TutorialSection>
-      <Edge />
+      <TutorialSection
+        step={4}
+        alt="User selected the Options button and is about to click Go"
+        src={clickOptionsToTexpand}
+      >
+        Click on&nbsp;
+        <img
+          alt="Text that says Options click to expand."
+          style={{ width: "10.66rem", height: "2rem", verticalAlign: "middle" }}
+          src={optionsClickToExpand}
+        ></img>
+        &nbsp;and click Go.
+      </TutorialSection>
+      <TutorialSection
+        step={5}
+        alt="User enters the start and end week for the academic year and selects accept."
+        src={enterDates}
+      >
+        To ensure that Semester 2 timetable is present, set{" "}
+        <BoldText>Academic Year</BoldText> to "2021/22",{" "}
+        <BoldText>Start Week</BoldText> to "22" and{" "}
+        <BoldText>End Week</BoldText> to "39" and then click Accept.
+        <br /> <i>(You might have to repeat this step a couple times.)</i>
+      </TutorialSection>
       {((browser) => {
         switch (browser) {
           case FIREFOX:
@@ -76,18 +103,24 @@ const Tutorial = (clickedBrowser) => {
   );
 };
 
+const BoldText = ({ children }) => (
+  <span style={{ fontFamily: "open-sans, sans-serif", fontWeight: 700 }}>
+    {children}
+  </span>
+);
+
 const Firefox = () => {
   return (
     <>
       <TutorialSection
-        step={4}
+        step={6}
         alt="The context menu is open and the user is hovering over the inspect button"
         src={rightClickInspectFirefox}
       >
         Right click on the whitespace to the right of your timetable and select
         inspect.
       </TutorialSection>
-      <TutorialSection alt="" src={copyHTMLFirefox} step={5}>
+      <TutorialSection alt="User is copying the html from the page inspector." src={copyHTMLFirefox} step={7}>
         At the top of the Page Inspector, right click on the text that says:
         &nbsp;
         <div style={{ display: "inline-block" }}>
@@ -113,14 +146,14 @@ const Chrome = () => {
   return (
     <>
       <TutorialSection
-        step={4}
+        step={6}
         alt="The context menu is open and the user is hovering over the inspect button"
         src={rightClickInspectChrome}
       >
         Right click on the whitespace to the right of your timetable and select
         inspect.
       </TutorialSection>
-      <TutorialSection alt="" src={copyHTMLChrome} step={5}>
+      <TutorialSection alt="User is copying the html from the page inspector." src={copyHTMLChrome} step={7}>
         At the top of the Page Inspector, right click on the text that
         says:&nbsp;
         <div style={{ display: "inline-block" }}>
@@ -146,14 +179,14 @@ const Edge = () => {
   return (
     <>
       <TutorialSection
-        step={4}
+        step={6}
         alt="The context menu is open and the user is hovering over the inspect button"
         src={rightClickInspectEdge}
       >
         Right click on the whitespace to the right of your timetable and select
         inspect.
       </TutorialSection>
-      <TutorialSection alt="" src={copyHTMLEdge} step={5}>
+      <TutorialSection alt="User is copying the html from the page inspector." src={copyHTMLEdge} step={7}>
         At the top of the Page Inspector, right click on the text that
         says:&nbsp;
         <div style={{ display: "inline-block" }}>
