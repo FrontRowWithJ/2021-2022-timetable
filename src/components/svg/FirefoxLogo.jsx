@@ -1,4 +1,4 @@
-const FirefoxSVG = ({ style, onmouseover, onmouseout, onclick }) => {
+const FirefoxLogo = ({ style, onmouseover, onmouseout, onclick }) => {
   return (
     <svg
       style={style}
@@ -256,4 +256,4 @@ const FirefoxSVG = ({ style, onmouseover, onmouseout, onclick }) => {
   );
 };
 
-export default FirefoxSVG;
+export default FirefoxLogo;

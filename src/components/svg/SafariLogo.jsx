@@ -1,4 +1,4 @@
-const SafariSVG = ({ style, onmouseover, onmouseout, onclick }) => {
+const SafariLogo = ({ style, onmouseover, onmouseout, onclick }) => {
   return (
     <svg
       style={style}
@@ -635,4 +635,4 @@ const SafariSVG = ({ style, onmouseover, onmouseout, onclick }) => {
   );
 };
 
-export default SafariSVG;
+export default SafariLogo;

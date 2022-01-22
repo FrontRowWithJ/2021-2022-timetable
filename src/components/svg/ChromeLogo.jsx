@@ -1,6 +1,6 @@
-import "../css/chrome-svg.css";
+import "../../css/chrome-svg.css";
 
-const ChromeSVG = ({ style, onmouseover, onmouseout, onclick}) => {
+const ChromeLogo = ({ style, onmouseover, onmouseout, onclick }) => {
   return (
     <svg
       style={style}
@@ -185,4 +185,4 @@ const ChromeSVG = ({ style, onmouseover, onmouseout, onclick}) => {
   );
 };
 
-export default ChromeSVG;
+export default ChromeLogo;

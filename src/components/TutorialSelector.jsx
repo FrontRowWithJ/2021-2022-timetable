@@ -1,8 +1,8 @@
 import "../css/tutorial-selector.css";
-import EdgeSVG from "./EdgeSVG";
-import ChromeSVG from "./ChromeSVG";
-import FirefoxSVG from "./FirefoxSVG";
-import SafariSVG from "./SafariSVG";
+import EdgeLogo from "./svg/EdgeLogo";
+import ChromeLogo from "./svg/ChromeLogo";
+import FirefoxLogo from "./svg/FirefoxLogo";
+import SafariLogo from "./svg/SafariLogo";
 import { useState } from "react";
 import { FIREFOX, CHROME, SAFARI, EDGE } from "../util";
 
@@ -11,13 +11,13 @@ const TutorialSelector = ({ clickedBrowser, setClickedBrowser }) => {
   const gs = { filter: "grayscale(100%)" };
   return (
     <div className="selector-container">
-      <ChromeSVG
+      <ChromeLogo
         onmouseover={() => setBrowser(CHROME)}
         onmouseout={() => setBrowser(clickedBrowser)}
         style={browser === CHROME ? {} : gs}
         onclick={() => setClickedBrowser(CHROME)}
       />
-      {/* <SafariSVG
+      {/* <SafariLogo
           onmouseover={() => setBrowser(SAFARI)}
           onmouseout={() => setBrowser(clickedBrowser)}
           style={browser === SAFARI ? {} : gs}
@@ -25,13 +25,13 @@ const TutorialSelector = ({ clickedBrowser, setClickedBrowser }) => {
             setClickedBrowser(SAFARI);
           }}
         /> */}
-      <EdgeSVG
+      <EdgeLogo
         onmouseover={() => setBrowser(EDGE)}
         onmouseout={() => setBrowser(clickedBrowser)}
         style={browser === EDGE ? {} : gs}
         onclick={() => setClickedBrowser(EDGE)}
       />
-      <FirefoxSVG
+      <FirefoxLogo
         onmouseover={() => setBrowser(FIREFOX)}
         onmouseout={() => setBrowser(clickedBrowser)}
         style={browser === FIREFOX ? {} : gs}

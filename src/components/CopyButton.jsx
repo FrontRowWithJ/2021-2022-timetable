@@ -1,4 +1,4 @@
-import CopyLinkSVG from "./CopyLinkSVG";
+import CopyLinkSVG from "./svg/CopyLink";
 
 const CopyButton = ({ id, url, urlRef }) => {
   return (

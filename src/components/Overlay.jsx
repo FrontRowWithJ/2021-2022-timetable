@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import "../css/overlay.css";
-import XButtonBG from "./XButtonBGSVG";
+import XButtonBG from "./svg/XButtonBG";
 
 const Overlay = ({ text, setOverlay, isOverlayEnabled, textbox, button }) => {
   const xButtonRef = useRef(null);

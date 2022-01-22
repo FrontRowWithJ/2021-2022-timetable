@@ -1,4 +1,4 @@
-const EdgeSVG = ({ style, onmouseover, onmouseout, onclick }) => {
+const EdgeLogo = ({ style, onmouseover, onmouseout, onclick }) => {
   return (
     <svg
       style={style}
@@ -123,4 +123,4 @@ const EdgeSVG = ({ style, onmouseover, onmouseout, onclick }) => {
   );
 };
 
-export default EdgeSVG;
+export default EdgeLogo;
