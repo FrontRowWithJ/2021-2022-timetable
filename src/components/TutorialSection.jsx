@@ -47,7 +47,7 @@ const TutorialSection = ({ alt, src, children, noImage, step, style }) => {
         </div>
       )}
       <div className="tutorial-text-container" style={style ? style : {}}>
-        {!noImage && <div className="step-no">{step}</div>}
+        <div className="step-no">{step}</div>
         <div className="step">{children}</div>
       </div>
     </div>

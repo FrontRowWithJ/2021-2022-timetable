@@ -18,7 +18,7 @@ import rightClickInspectEdge from "../resources/right-click-inspect-edge.png";
 import copyHTMLEdge from "../resources/copy-HTML-edge.png";
 
 import { FIREFOX, CHROME, EDGE, SAFARI } from "../util";
-const Tutorial = (clickedBrowser) => {
+const Tutorial = ({ clickedBrowser }) => {
   return (
     <div className="tutorial-container">
       <TutorialSection
@@ -93,12 +93,14 @@ const Tutorial = (clickedBrowser) => {
             return null;
         }
       })(clickedBrowser)}
-      <TutorialSection noImage step={6}>
+      <TutorialSection noImage step={8}>
         Return to this website and paste the HTML into the textbox above.
       </TutorialSection>
-      <TutorialSection noImage step={7}>
+      <TutorialSection noImage step={9}>
         Click the "Generate timetable" button and enjoy your new timetable!
-        <a href="#top" id="move-to-top">Move to Top</a>
+        <a href="#top" id="move-to-top">
+          Move to Top
+        </a>
       </TutorialSection>
     </div>
   );
@@ -128,7 +130,7 @@ const Firefox = () => {
       >
         At the top of the Page Inspector, right click on the text that says:
         &nbsp;
-        <div style={{ display: "inline-block" }}>
+        <div className="code">
           <span>&lt;</span>
           <span style={{ color: "#4989F4" }}>html&nbsp;</span>
           <span style={{ color: "#DD00A9" }}>class</span>
@@ -140,6 +142,7 @@ const Firefox = () => {
           <span style={{ color: "#003EAA" }}>en-gb</span>
           <span>"&gt;</span>
         </div>
+        .
         <br />
         In the menu, hover over Copy and select <u>I</u>nner HTML.
       </TutorialSection>
@@ -165,7 +168,7 @@ const Chrome = () => {
       >
         At the top of the Page Inspector, right click on the text that
         says:&nbsp;
-        <div style={{ display: "inline-block" }}>
+        <div className="code">
           <span style={{ color: "#A894A6" }}>&lt;</span>
           <span style={{ color: "#881280" }}>html&nbsp;</span>
           <span style={{ color: "#994500" }}>lang</span>
@@ -175,8 +178,9 @@ const Chrome = () => {
           <span style={{ color: "#994500" }}>class</span>
           <span style={{ color: "#A894A6" }}>="</span>
           <span style={{ color: "#1A1AA6" }}>tablesaw-enhanced</span>
-          <span style={{ color: "#A894A6" }}>"&gt;</span>.
+          <span style={{ color: "#A894A6" }}>"&gt;</span>
         </div>
+        .
         <br />
         In the menu, hover over Copy and select Copy element.
       </TutorialSection>
@@ -202,7 +206,7 @@ const Edge = () => {
       >
         At the top of the Page Inspector, right click on the text that
         says:&nbsp;
-        <div style={{ display: "inline-block" }}>
+        <div className="code">
           <span style={{ color: "#4A69C9" }}>&lt;</span>
           <span style={{ color: "#132C79" }}>html&nbsp;</span>
           <span style={{ color: "#994500" }}>lang</span>
@@ -213,8 +217,9 @@ const Edge = () => {
           <span style={{ color: "#666666" }}>="</span>
           <span style={{ color: "#9E3379" }}>tablesaw-enhanced</span>
           <span style={{ color: "#666666" }}>"</span>
-          <span style={{ color: "#4A69C9" }}>&gt;</span>.
+          <span style={{ color: "#4A69C9" }}>&gt;</span>
         </div>
+        .
         <br />
         In the menu, hover over Copy and select Copy element.
       </TutorialSection>
