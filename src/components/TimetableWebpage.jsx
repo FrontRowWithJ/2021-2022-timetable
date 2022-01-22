@@ -4,6 +4,7 @@ import { setScrollBar, canScroll, compressTimetable } from "../util";
 import Timetable from "./Timetable";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
+import subscribeToNotifications from "../subscribeNotifications";
 const TimetableWebpage = ({
   timetableJSON,
   setOverlay,
@@ -54,7 +55,7 @@ const TimetableWebpage = ({
       />
       <Menu>
         <MenuItem
-          isReady={true}
+          isReady
           text={"Generate URL for Mobile"}
           onclick={() => {
             const base64 = compressTimetable(timetableJSON, "Base64");
@@ -64,13 +65,15 @@ const TimetableWebpage = ({
           }}
         />
         <MenuItem
-          isReady={false}
+          isReady
           text={"Enable Notifications"}
-          onclick={() => {}}
+          onclick={() => {
+            subscribeToNotifications();
+          }}
         />
-        <MenuItem isReady={false} text={"Customize"} onclick={() => {}} />
+        <MenuItem text={"Customize"} onclick={() => {}} />
         <MenuItem
-          isReady={true}
+          isReady
           text={"Reset Timetable"}
           onclick={() => {
             setCancelButton(true);
