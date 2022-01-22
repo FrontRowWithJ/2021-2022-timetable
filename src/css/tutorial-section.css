@@ -85,3 +85,8 @@
   line-height: 150%;
   position: relative;
 }
+
+.tutorial-overlay .code {
+  box-shadow: none;
+  background-color: lightgray;
+}

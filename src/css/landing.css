@@ -41,7 +41,7 @@
   padding: 1rem;
   margin: 0;
   height: calc(100% - 4rem);
-  color: gray;
+  color: rgb(65, 65, 65);
 }
 
 #text-container textarea:focus {
