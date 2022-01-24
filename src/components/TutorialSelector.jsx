@@ -4,7 +4,7 @@ import ChromeLogo from "./svg/ChromeLogo";
 import FirefoxLogo from "./svg/FirefoxLogo";
 import SafariLogo from "./svg/SafariLogo";
 import { useState } from "react";
-import { FIREFOX, CHROME, SAFARI, EDGE } from "../util";
+import { FIREFOX, CHROME, SAFARI, EDGE } from "../misc";
 
 const TutorialSelector = ({ clickedBrowser, setClickedBrowser }) => {
   const [browser, setBrowser] = useState(0);

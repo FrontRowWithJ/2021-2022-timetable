@@ -1,6 +1,6 @@
 import React, { useRef, useState } from "react";
 import "../css/landing.css";
-import { compressTimetable, generateTimetableJSON } from "../util";
+import { compressTimetable, HTMLToTimetable } from "../misc";
 import Tutorial from "./Tutorial";
 import TutorialSelector from "./TutorialSelector";
 import Error from "./Error";
@@ -14,7 +14,7 @@ const Landing = ({ enableTimetable, setTimetable }) => {
   const generateTimetable = () => {
     const { value } = textAreaRef.current;
     try {
-      const timetable = generateTimetableJSON(value);
+      const timetable = HTMLToTimetable(value);
       const compressed = compressTimetable(timetable, "StorageBinaryString");
       window.localStorage.setItem("timetable", compressed);
       setTimetable(timetable);

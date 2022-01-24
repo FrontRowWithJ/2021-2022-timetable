@@ -1,6 +1,6 @@
 import React, { useState, useRef } from "react";
 import Header from "./Header";
-import { setScrollBar, canScroll, compressTimetable } from "../util";
+import { setScrollBar, canScroll, compressTimetable } from "../misc";
 import Timetable from "./Timetable";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";

@@ -6,7 +6,7 @@ import Overlay from "./Overlay";
 import CopyButton from "./CopyButton";
 import URLDiv from "./URLDiv";
 import ResetButton from "./ResetButton";
-import { compressTimetable, decompressTimetable } from "../util";
+import { compressTimetable, decompressTimetable } from "../misc";
 
 const App = () => {
   const queryString = window.location.search;

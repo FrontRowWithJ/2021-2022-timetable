@@ -1,6 +1,6 @@
 import React from "react";
 import "../css/header.css";
-import { setScrollBar } from "../util";
+import { setScrollBar } from "../misc";
 
 const Header = (props) => {
   const { setNext, setTransition, isTransitioning, curr, isSwiping } = props;

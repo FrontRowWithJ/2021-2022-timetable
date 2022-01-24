@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { ellipsify } from "../util";
+import { ellipsify } from "../misc";
 
 const URLDiv = ({ className, url, urlRef }) => {
   useEffect(() => {

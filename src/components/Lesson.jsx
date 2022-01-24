@@ -1,5 +1,5 @@
 import { Timetable } from "../timetableData";
-import { isModuleOnThisWeek } from "../util";
+import { isModuleOnThisWeek } from "../misc";
 
 const between = (x = 0, min = 0, max = 0) => x >= min && x < max;
 const toNum = (s) => parseInt(s.substring(0, 2));
@@ -23,7 +23,7 @@ const Lesson = ({ lesson, hour, index, currDay }) => {
       ? 1
       : 0.3;
   return (
-    <div                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     
+    <div
       className="cell"
       draggable={false}
       style={{

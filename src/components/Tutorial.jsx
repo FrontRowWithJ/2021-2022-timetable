@@ -17,7 +17,7 @@ import copyHTMLChrome from "../resources/copy-HTML-chrome.png";
 import rightClickInspectEdge from "../resources/right-click-inspect-edge.png";
 import copyHTMLEdge from "../resources/copy-HTML-edge.png";
 
-import { FIREFOX, CHROME, EDGE, SAFARI } from "../util";
+import { FIREFOX, CHROME, EDGE, SAFARI } from "../misc";
 const Tutorial = ({ clickedBrowser }) => {
   return (
     <div className="tutorial-container">
