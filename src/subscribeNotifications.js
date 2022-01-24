@@ -20,7 +20,7 @@ const timetableToNotificationProfile = (timetable = {}) => {
       lecture[day] = day;
     })
   );
-  days.forEach((day) => allLectures.push(...timetableCopy[day]));
+  days.forEach((day) => allLectures.push(...timetableCopy[day].flat(1)));
   const notificationProfile = allLectures.map((lecture) => {
     const { module, activePeriods, lecturer, classroom, day } = lecture;
     const timeStart = lecture.time.match(/[0-9]{2}:00/i)[0];
@@ -84,7 +84,7 @@ const genResponse = (subscription, timetable) => {
       p256dh: subscription.getKeys("p256dh"),
       auth: subscription.getKeys("auth"),
     },
-    profile
+    profile,
   };
 };
 
@@ -111,7 +111,6 @@ const subscribeToNotifications = async () => {
 };
 
 export default subscribeToNotifications;
-
 
 //linear-gradient(rgb(101, 74, 134), rgb(83, 66, 146))
 // linear-gradient(left bottom, rgba(159, 88, 150, 0) 0px, rgba(159, 88, 150, 0.6) 100%)
