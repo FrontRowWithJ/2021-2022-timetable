@@ -1,4 +1,3 @@
-import { times } from "lodash";
 const DAY_IN_MILLISECONDS = 86_400_000;
 const getDateString = (date) => {
   const day = [
@@ -26,6 +25,8 @@ const getDateString = (date) => {
   ][date.getMonth()];
   return `${day} ${date.getDate()} ${month} ${date.getFullYear()}`;
 };
+
+const times = (number, iteratee) => [...Array(number).keys()].map(iteratee);
 
 export const getWeekDayDates = () => {
   const currDay = new Date().getDay();
