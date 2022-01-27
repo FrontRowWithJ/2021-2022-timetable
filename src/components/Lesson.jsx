@@ -1,19 +1,16 @@
 import { Timetable } from "../timetableData";
-import { isModuleOnThisWeek } from "../misc";
+import { isModuleOnThisWeek, getTextColor } from "../misc";
 
 const between = (x = 0, min = 0, max = 0) => x >= min && x < max;
 const toNum = (s) => parseInt(s.substring(0, 2));
 const getTimeRange = (s) => s.match(/[0-9]+:/g).map(toNum);
 
-const activityColors = [
-  { bgColor: "#2929A3", textColor: "white" },
-  { bgColor: "#E8AA14", textColor: "black" },
-  { bgColor: "#F5054F", textColor: "white" },
-  { bgColor: "#693696", textColor: "white" },
-];
+const activityColors = ["#2929A3", "#E8AA14", "#F5054F", "#693696"];
+const textColors = activityColors.map(getTextColor);
 
 const Lesson = ({ lesson, hour, index, currDay }) => {
-  const { bgColor, textColor } = activityColors[lesson.activity];
+  const bgColor = activityColors[lesson.activity];
+  const textColor = textColors[lesson.activity];
   const { module, isOnline, activity, time, classroom, activePeriods } = lesson;
   const [start, end] = getTimeRange(time);
   const opacity =
