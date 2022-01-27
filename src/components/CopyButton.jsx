@@ -1,9 +1,9 @@
 import CopyLinkSVG from "./svg/CopyLink";
 
-const CopyButton = ({ id, url, urlRef }) => {
+const CopyButton = ({ url, urlRef }) => {
   return (
     <div
-      id={id}
+      className="text-box-button"
       onClick={() => {
         navigator.clipboard.writeText(url);
         const { current: div } = urlRef;

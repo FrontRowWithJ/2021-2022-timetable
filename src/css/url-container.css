@@ -1,0 +1,22 @@
+.url-container {
+  width: 20rem;
+  height: 4rem;
+  border-radius: 2vmin;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  background-color: #585ce4;
+  left: calc(100vw / 2 - 10rem);
+  transition: top .8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  top: calc(100% + 3rem);
+}
+
+.url-and-copy-button-container {
+  width: 90%;
+  height: 90%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}

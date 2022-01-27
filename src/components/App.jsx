@@ -6,6 +6,7 @@ import Overlay from "./Overlay";
 import CopyButton from "./CopyButton";
 import URLDiv from "./URLDiv";
 import ResetButton from "./ResetButton";
+import URLContainer from "./URLContainer";
 import { compressTimetable, decompressTimetable } from "../misc";
 
 const App = () => {
@@ -62,29 +63,33 @@ const App = () => {
       )}
       {isOverlayEnabled ? (
         <Overlay
-          text={url}
           setOverlay={setOverlay}
           isOverlayEnabled={isOverlayEnabled}
-          textbox={({ className, text }) => (
-            <URLDiv urlRef={textboxRef} className={className} url={text} />
+          content={({ urlContainerRef, disableOverlay }) => (
+            <URLContainer
+              disableOverlay={disableOverlay}
+              urlContainerRef={urlContainerRef}
+            >
+              <URLDiv urlRef={textboxRef} url={url} />
+              <CopyButton url={url} urlRef={textboxRef} />
+            </URLContainer>
           )}
-          button={({ id, text }) => (
-            <CopyButton id={id} url={text} urlRef={textboxRef} />
-          )}
-        />
+        ></Overlay>
       ) : null}
       {isCancelButtonPressed ? (
         <Overlay
-          text="Are You Sure?"
           setOverlay={setCancelButton}
           isOverlayEnabled={isCancelButtonPressed}
-          textbox={({ className, text }) => (
-            <div className={className}>{text}</div>
+          content={({ urlContainerRef, disableOverlay }) => (
+            <URLContainer
+              urlContainerRef={urlContainerRef}
+              disableOverlay={disableOverlay}
+            >
+              <div className="text-box">{"Are You Sure?"}</div>
+              <ResetButton resetTimetable={resetTimetable} />
+            </URLContainer>
           )}
-          button={({ id }) => (
-            <ResetButton id={id} resetTimetable={resetTimetable} />
-          )}
-        />
+        ></Overlay>
       ) : null}
     </>
   );

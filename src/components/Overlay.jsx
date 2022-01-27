@@ -1,17 +1,21 @@
 import { useEffect, useRef } from "react";
 import "../css/overlay.css";
-import XButtonBG from "./svg/XButtonBG";
 
-const Overlay = ({ text, setOverlay, isOverlayEnabled, textbox, button }) => {
-  const xButtonRef = useRef(null);
+const Overlay = ({ setOverlay, isOverlayEnabled, content }) => {
   const urlContainerRef = useRef(null);
-  const backdropRef = useRef(null);
-  useEffect(() => {
-    if (isOverlayEnabled) {
-      backdropRef.current.classList.add("show-backdrop");
-      urlContainerRef.current.classList.add("translate-copy-button");
+  const overlayRef = useRef(null);
+  const toggleOverlay = (isEnabled) => {
+    const { current: overlay } = overlayRef;
+    const { current: urlContainer } = urlContainerRef;
+    if (isEnabled) {
+      overlay.classList.add("show-overlay");
+      urlContainer && urlContainer.classList.add("translate-copy-button");
+    } else {
+      overlay.classList.remove("show-overlay");
+      urlContainer && urlContainer.classList.remove("translate-copy-button");
     }
-  });
+  };
+  useEffect(() => toggleOverlay(isOverlayEnabled), [isOverlayEnabled]);
   useEffect(() => {
     const { current: div } = urlContainerRef;
     const removeOverlay = () => {
@@ -19,43 +23,19 @@ const Overlay = ({ text, setOverlay, isOverlayEnabled, textbox, button }) => {
     };
     div.addEventListener("transitionend", removeOverlay);
     return () => div.removeEventListener("transitionend", removeOverlay);
-  });
+  }, [setOverlay]);
   return (
     <div
-      className="backdrop"
-      ref={backdropRef}
+      className="overlay"
+      ref={overlayRef}
       onClick={({ target }) => {
-        if (target.classList.contains("backdrop")) {
-          urlContainerRef.current.classList.remove("translate-copy-button");
-          backdropRef.current.classList.remove("show-backdrop");
-        }
+        if (target.classList.contains("overlay")) toggleOverlay(false);
       }}
     >
-      <div className="url-container" ref={urlContainerRef}>
-        <div
-          className="x-button-container"
-          onClick={() => {
-            urlContainerRef.current.classList.remove("translate-copy-button");
-            backdropRef.current.classList.remove("show-backdrop");
-          }}
-        >
-          <XButtonBG className="x-button-bg" />
-          <div
-            className="x-button"
-            ref={xButtonRef}
-            onClick={() => {
-              urlContainerRef.current.classList.remove("translate-copy-button");
-            }}
-          >
-            <div></div>
-            <div></div>
-          </div>
-        </div>
-        <div className="url-and-copy-button-container">
-          {textbox({ className: "text-box", text: text })}
-          {button({ id: "copy-button", text: text })}
-        </div>
-      </div>
+      {content({
+        urlContainerRef: urlContainerRef,
+        disableOverlay: () => toggleOverlay(false),
+      })}
     </div>
   );
 };
