@@ -20,8 +20,8 @@ const isLocalhost = Boolean(
     )
 );
 
-const onload = (filename, config, resolve, reject) => {
-  const swUrl = `${process.env.PUBLIC_URL}/${filename}`;
+const onload = (config, resolve, reject) => {
+  const swUrl = `${process.env.PUBLIC_URL}/service-worker.js`;
   if (isLocalhost) {
     // This is running on localhost. Let's check if a service worker still exists or not.
     checkValidServiceWorker(swUrl, config, resolve, reject);
@@ -40,7 +40,7 @@ const onload = (filename, config, resolve, reject) => {
   }
 };
 
-export const register = async (filename, config) => {
+export const register = async (config) => {
   return await new Promise((resolve, reject) => {
     if (
       // process.env.NODE_ENV === "production" &&
@@ -57,10 +57,10 @@ export const register = async (filename, config) => {
       }
       //There's a chance that the document has already loaded so added the event won't work
       if (document.readyState === "complete")
-        onload(filename, config, resolve, reject);
+        onload(config, resolve, reject);
       else
         window.addEventListener("load", () =>
-          onload(filename, config, resolve, reject)
+          onload(config, resolve, reject)
         );
     } else reject("Browser doesn't support notifications");
   });
