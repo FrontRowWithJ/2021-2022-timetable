@@ -30,7 +30,6 @@ const TimetableWebpage = ({
           setCount && setCount(0);
           return setTimeout(() => setTransition(false), 100);
         } else if (count < 7) return setCount(count + 1);
-
         if (!isTransitioning && !isSwiping) {
           const newNext = deltaY > 0 ? curr + 1 : curr - 1;
           if (newNext === -1 || newNext === 5) return;
@@ -65,7 +64,6 @@ const TimetableWebpage = ({
           }}
         />
         <MenuItem
-          isReady
           text={"Enable Notifications"}
           onclick={() => {
             subscribeToNotifications();
