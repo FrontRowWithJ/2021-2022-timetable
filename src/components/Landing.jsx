@@ -12,15 +12,15 @@ const Landing = ({ enableTimetable, setTimetable }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const errorRef = useRef(null);
   const generateTimetable = () => {
-    const { value } = textAreaRef.current;
+    const { html } = textAreaRef.current;
     try {
-      const timetable = HTMLToTimetable(value);
+      const timetable = HTMLToTimetable(html);
       const compressed = compressTimetable(timetable, "StorageBinaryString");
       window.localStorage.setItem("timetable", compressed);
       setTimetable(timetable);
       enableTimetable(true);
     } catch (error) {
-      if (value.length === 0) setErrorMessage("Textbox is empty.");
+      if (html.length === 0) setErrorMessage("Textbox is empty.");
       else setErrorMessage("HTML is incorrect.");
       const { current } = errorRef;
       current.style.top = "0";
