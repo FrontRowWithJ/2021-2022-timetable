@@ -15,21 +15,22 @@ const timetableToNotificationProfile = (timetable = {}) => {
   const allLectures = [];
   const timetableCopy = JSON.parse(JSON.stringify(timetable));
   //! Populate each lecture with which day it is on
-  days.forEach((day) =>
+  days.forEach((day) => {
     timetableCopy[day].forEach((lecture) => {
-      lecture[day] = day;
-    })
-  );
+      if (Array.isArray(lecture))
+        lecture.forEach((lect) => (lect["day"] = day));
+      else lecture["day"] = day;
+    });
+  });
   days.forEach((day) => allLectures.push(...timetableCopy[day].flat(1)));
   const notificationProfile = allLectures.map((lecture) => {
-    const { module, activePeriods, lecturer, classroom, day } = lecture;
-    const timeStart = lecture.time.match(/[0-9]{2}:00/i)[0];
+    const { module, activePeriods, classroom, day, time } = lecture;
+    const timeStart = +time.split(":")[0];
     const notifyBeforeStart = DEFAULT_MINUTES;
     return {
       module,
       activePeriods,
-      lecturer,
-      classroom: classroom[0],
+      classroom: classroom.join("|"),
       day,
       timeStart,
       notifyBeforeStart,
@@ -75,27 +76,24 @@ const subscribeUserToPush = async () => {
   }
 };
 
-const genResponse = (subscription, timetable) => {
-  //TODO convert timetable to notification profile for user.
-  const profile = timetableToNotificationProfile(timetable);
+const genBody = (subscription, timetable) => {
   return {
     endpoint: subscription.endpoint,
     keys: {
       p256dh: subscription.getKeys("p256dh"),
       auth: subscription.getKeys("auth"),
     },
-    profile,
+    profile: timetableToNotificationProfile(timetable),
   };
 };
 
-const sendSubscriptionToBackEnd = async (subscription) => {
-  //TODO at this point I will also need to build a notification profile for  the user and send that as well
+const sendSubscriptionToBackEnd = async (subscription, timetable) => {
   const response = await fetch("/api/save-subscription/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(subscription),
+    body: genBody(subscription, timetable),
   });
   if (!response.ok) throw new Error("Bad status code from server.");
   const responseData = await response.json();
@@ -103,11 +101,11 @@ const sendSubscriptionToBackEnd = async (subscription) => {
     throw new Error("Bad response from server.");
 };
 
-const subscribeToNotifications = async () => {
-  askPermisson()
+const subscribeToNotifications = async (timetable) => {
+  const subscription = await askPermisson()
     .then(subscribeUserToPush)
-    //.then(sendSubscriptionToBackEnd)
     .catch((err) => console.error(err));
+  //TODO send to backend
 };
 
 export default subscribeToNotifications;
