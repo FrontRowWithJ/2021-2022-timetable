@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react";
 import "../css/overlay.css";
 
-const Overlay = ({ setOverlay, isOverlayEnabled, content }) => {
+const Overlay = ({ disableOverlay, isOverlayEnabled, content }) => {
   const urlContainerRef = useRef(null);
   const overlayRef = useRef(null);
   const toggleOverlay = (isEnabled) => {
@@ -19,11 +19,11 @@ const Overlay = ({ setOverlay, isOverlayEnabled, content }) => {
   useEffect(() => {
     const { current: div } = urlContainerRef;
     const removeOverlay = () => {
-      if (!div.classList.contains("translate-copy-button")) setOverlay(false);
+      if (!div.classList.contains("translate-copy-button")) disableOverlay();
     };
     div.addEventListener("transitionend", removeOverlay);
     return () => div.removeEventListener("transitionend", removeOverlay);
-  }, [setOverlay]);
+  }, [disableOverlay]);
   return (
     <div
       className="overlay"
@@ -33,7 +33,7 @@ const Overlay = ({ setOverlay, isOverlayEnabled, content }) => {
       }}
     >
       {content({
-        urlContainerRef: urlContainerRef,
+        urlContainerRef,
         disableOverlay: () => toggleOverlay(false),
       })}
     </div>
