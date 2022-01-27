@@ -5,12 +5,8 @@ import Timetable from "./Timetable";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 import subscribeToNotifications from "../subscribeNotifications";
-const TimetableWebpage = ({
-  timetableJSON,
-  setOverlay,
-  setUrl,
-  setCancelButton,
-}) => {
+import { CLEAR_TIMETABLE, COPY } from "../misc";
+const TimetableWebpage = ({ timetableJSON, setOverlay, setUrl }) => {
   const day = new Date().getDay() - 1;
   const [curr, setCurr] = useState(day < 0 || day > 4 ? 0 : day);
   const [next, setNext] = useState(curr);
@@ -60,7 +56,7 @@ const TimetableWebpage = ({
             const base64 = compressTimetable(timetableJSON, "Base64");
             const url = `${window.location.origin}?timetable=${base64}`;
             setUrl(url);
-            setOverlay(true);
+            setOverlay(COPY);
           }}
         />
         <MenuItem
@@ -73,9 +69,7 @@ const TimetableWebpage = ({
         <MenuItem
           isReady
           text={"Reset Timetable"}
-          onclick={() => {
-            setCancelButton(true);
-          }}
+          onclick={() => setOverlay(CLEAR_TIMETABLE)}
         />
       </Menu>
       <Timetable

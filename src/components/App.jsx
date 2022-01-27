@@ -8,7 +8,7 @@ import URLDiv from "./URLDiv";
 import ResetButton from "./ResetButton";
 import URLContainer from "./URLContainer";
 import { compressTimetable, decompressTimetable } from "../misc";
-
+import { DEFAULT, CLEAR_TIMETABLE, COPY } from "../misc";
 const App = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
@@ -20,28 +20,23 @@ const App = () => {
     if (localStorageString !== storageString)
       window.localStorage.setItem("timetable", storageString);
   }
-  const [isOverlayEnabled, setOverlay] = useState(false);
   const [timetable, setTimetable] = useState(null);
   const [isTimetableEnabled, enableTimetable] = useState(false);
   const compressedTimetable = window.localStorage.getItem("timetable");
   const [url, setUrl] = useState("");
-  const [isCancelButtonPressed, setCancelButton] = useState(false);
   const textboxRef = useRef(null);
+  const [overlay, setOverlay] = useState(DEFAULT);
+  const disableOverlay = () => setOverlay(DEFAULT);
   const resetTimetable = () => {
-    setTimetable(null);
-    enableTimetable(false);
     window.localStorage.removeItem("timetable");
-    setUrl("");
-    setOverlay(false);
-    setCancelButton(false);
     window.location.href = window.location.origin;
   };
   if (compressedTimetable !== null && timetable === null) {
-    const _timetable = decompressTimetable(
+    const uncompressed = decompressTimetable(
       compressedTimetable,
       "StorageBinaryString"
     );
-    if (timetable === null) setTimetable(_timetable);
+    if (timetable === null) setTimetable(uncompressed);
     if (!isTimetableEnabled) enableTimetable(true);
   }
 
@@ -51,7 +46,6 @@ const App = () => {
         <TimetableWebpage
           timetableJSON={timetable}
           setOverlay={setOverlay}
-          setCancelButton={setCancelButton}
           setUrl={setUrl}
           resetTimetable={resetTimetable}
         />
@@ -61,36 +55,44 @@ const App = () => {
           setTimetable={setTimetable}
         />
       )}
-      {isOverlayEnabled ? (
-        <Overlay
-          setOverlay={setOverlay}
-          isOverlayEnabled={isOverlayEnabled}
-          content={({ urlContainerRef, disableOverlay }) => (
-            <URLContainer
-              disableOverlay={disableOverlay}
-              urlContainerRef={urlContainerRef}
-            >
-              <URLDiv urlRef={textboxRef} url={url} />
-              <CopyButton url={url} urlRef={textboxRef} />
-            </URLContainer>
-          )}
-        ></Overlay>
-      ) : null}
-      {isCancelButtonPressed ? (
-        <Overlay
-          setOverlay={setCancelButton}
-          isOverlayEnabled={isCancelButtonPressed}
-          content={({ urlContainerRef, disableOverlay }) => (
-            <URLContainer
-              urlContainerRef={urlContainerRef}
-              disableOverlay={disableOverlay}
-            >
-              <div className="text-box">{"Are You Sure?"}</div>
-              <ResetButton resetTimetable={resetTimetable} />
-            </URLContainer>
-          )}
-        ></Overlay>
-      ) : null}
+      {((overlay) => {
+        switch (overlay) {
+          case COPY:
+            return (
+              <Overlay
+                disableOverlay={disableOverlay}
+                isOverlayEnabled={overlay === COPY}
+                content={({ urlContainerRef, disableOverlay }) => (
+                  <URLContainer
+                    disableOverlay={disableOverlay}
+                    urlContainerRef={urlContainerRef}
+                  >
+                    <URLDiv urlRef={textboxRef} url={url} />
+                    <CopyButton url={url} urlRef={textboxRef} />
+                  </URLContainer>
+                )}
+              />
+            );
+          case CLEAR_TIMETABLE:
+            return (
+              <Overlay
+                disableOverlay={disableOverlay}
+                isOverlayEnabled={overlay === CLEAR_TIMETABLE}
+                content={({ urlContainerRef, disableOverlay }) => (
+                  <URLContainer
+                    urlContainerRef={urlContainerRef}
+                    disableOverlay={disableOverlay}
+                  >
+                    <div className="text-box">{"Are You Sure?"}</div>
+                    <ResetButton resetTimetable={resetTimetable} />
+                  </URLContainer>
+                )}
+              ></Overlay>
+            );
+          default:
+            return null;
+        }
+      })(overlay)}
     </>
   );
 };
