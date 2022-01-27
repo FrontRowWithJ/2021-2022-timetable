@@ -23,7 +23,3 @@
   height: var(--text-box-button-height);
   cursor: pointer;
 }
-
-.translate-copy-button {
-  top: 50%;
-}
