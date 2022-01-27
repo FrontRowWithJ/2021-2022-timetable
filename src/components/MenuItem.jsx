@@ -5,13 +5,13 @@ const MenuItem = ({ text, onclick, isReady }) => {
   useEffect(() => {
     if (!isReady)
       buttonRef.current.style.cssText =
-        "font-size: unset !important; cursor: default";
+        "font-size: unset !important; cursor: not-allowed";
   });
+
   return (
     <div className="menu-item" style={isReady ? {} : { opacity: 0.3 }}>
       <button
         ref={buttonRef}
-        style={isReady ? {} : { cursor: "alias" }}
         type="button"
         onClick={() => isReady && onclick()}
       >
