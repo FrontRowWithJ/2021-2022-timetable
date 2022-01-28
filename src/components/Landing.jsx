@@ -12,7 +12,7 @@ const Landing = ({ enableTimetable, setTimetable }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const errorRef = useRef(null);
   const generateTimetable = () => {
-    const { html } = textAreaRef.current;
+    const { value: html } = textAreaRef.current;
     try {
       const timetable = HTMLToTimetable(html);
       const compressed = compressTimetable(timetable, "StorageBinaryString");
