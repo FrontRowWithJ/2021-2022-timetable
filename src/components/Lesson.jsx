@@ -1,12 +1,13 @@
-import { Timetable } from "../timetableData";
-import { isModuleOnThisWeek, getTextColor } from "../misc";
+import {
+  isModuleOnThisWeek,
+  ACTIVITIES,
+  activityColors,
+  textColors,
+} from "../misc";
 
 const between = (x = 0, min = 0, max = 0) => x >= min && x < max;
 const toNum = (s) => parseInt(s.substring(0, 2));
 const getTimeRange = (s) => s.match(/[0-9]+:/g).map(toNum);
-
-const activityColors = ["#2929A3", "#E8AA14", "#F5054F", "#693696"];
-const textColors = activityColors.map(getTextColor);
 
 const Lesson = ({ lesson, hour, index, currDay }) => {
   const bgColor = activityColors[lesson.activity];
@@ -44,7 +45,7 @@ const Lesson = ({ lesson, hour, index, currDay }) => {
         <div draggable={false}>{module}</div>
         <div draggable={false}>Classroom: {classroom}</div>
         <div draggable={false}>{time}</div>
-        <div draggable={false}>{Timetable.ACTIVITIES[activity]}</div>
+        <div draggable={false}>{ACTIVITIES[activity]}</div>
       </div>
     </div>
   );
