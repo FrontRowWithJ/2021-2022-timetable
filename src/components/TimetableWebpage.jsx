@@ -1,11 +1,20 @@
 import React, { useState, useRef } from "react";
 import Header from "./Header";
-import { setScrollBar, canScroll, compressTimetable } from "../misc";
 import Timetable from "./Timetable";
 import Menu from "./Menu";
 import MenuItem from "./MenuItem";
 import subscribeToNotifications from "../subscribeNotifications";
-import { CLEAR_TIMETABLE, COPY } from "../misc";
+import {
+  setScrollBar,
+  canScroll,
+  compressTimetable,
+  base64ToURLSafe,
+  getBaseURL,
+  CLEAR_TIMETABLE,
+  COPY,
+  CUSTOMIZE,
+} from "../misc";
+
 const TimetableWebpage = ({ timetableJSON, setOverlay, setUrl }) => {
   const day = new Date().getDay() - 1;
   const [curr, setCurr] = useState(day < 0 || day > 4 ? 0 : day);
@@ -54,7 +63,7 @@ const TimetableWebpage = ({ timetableJSON, setOverlay, setUrl }) => {
           text={"Generate URL for Mobile"}
           onclick={() => {
             const base64 = compressTimetable(timetableJSON, "Base64");
-            const url = `${window.location.origin}?timetable=${base64}`;
+            const url = `${getBaseURL()}?timetable=${base64ToURLSafe(base64)}`;
             setUrl(url);
             setOverlay(COPY);
           }}
@@ -65,7 +74,12 @@ const TimetableWebpage = ({ timetableJSON, setOverlay, setUrl }) => {
             subscribeToNotifications();
           }}
         />
-        <MenuItem text={"Customize"} onclick={() => {}} />
+        <MenuItem
+          text={"Customize"}
+          onclick={() => {
+            setOverlay(CUSTOMIZE);
+          }}
+        />
         <MenuItem
           isReady
           text={"Reset Timetable"}
