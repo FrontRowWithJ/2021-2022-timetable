@@ -26,7 +26,8 @@ const getDateString = (date) => {
   return `${day} ${date.getDate()} ${month} ${date.getFullYear()}`;
 };
 
-const times = (number, iteratee) => [...Array(number).keys()].map(iteratee);
+export const times = (number, iteratee) =>
+  [...Array(number).keys()].map(iteratee);
 
 export const getWeekDayDates = () => {
   const currDay = new Date().getDay();
