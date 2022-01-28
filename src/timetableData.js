@@ -4,12 +4,6 @@ export const Timetable = {
   LABORATORY: 2,
   ONLINE_LIVE_EVENT: 3,
   ACTIVITIES: ["Lecture", "Tutorial", "Laboratory", "Online Live Event"],
-  CSU33081: 0,
-  CSU33012: 1,
-  CSU34016: 2,
-  CSU33031: 3,
-  CSU34011: 4,
-  MODULE_CODES: ["CSU33081", "CSU33012", "CSU34016", "CSU33031", "CSU34011"],
   DAYS: ["mon", "tue", "wed", "thu", "fri"],
 };
 
