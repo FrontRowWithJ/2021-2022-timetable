@@ -11,8 +11,8 @@
   height: var(--kebab-container-width);
   border-radius: 1rem;
   position: absolute;
-  top: 1vmin;
-  left: 1vmin;
+  top: clamp(calc(1rem + var(--min-width) * .15), calc(1rem + 20% * .15), calc(1rem + var(--max-width) * .15));
+  left: calc((10rem - var(--kebab-container-width)) / 2);
   cursor: pointer;
   align-items: center;
   z-index: 3;
@@ -206,7 +206,7 @@
   }
 }
 
-.menu-item-container {  
+.menu-item-container {
   width: 100%;
   position: absolute;
   left: 0;
