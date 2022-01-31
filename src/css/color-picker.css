@@ -61,7 +61,7 @@
   z-index: 2;
 }
 
-.circle {
+.picker-circle {
   position: absolute;
   left: 0;
   top: 0;
@@ -71,6 +71,7 @@
   background-color: transparent;
   border: 3px solid white;
   z-index: 3;
+  transform: translate(-50%, -50%);
 }
 
 .color-slider {
@@ -82,10 +83,11 @@
 }
 
 .slider-circle {
-  width: 2.2rem;
-  height: 2.2rem;
+  box-sizing: border-box;
+  width: calc(2.2rem - 6px);
+  height: calc(2.2rem - 6px);
   border-radius: 5rem;
-  border: 3px solid white;
+  outline: 3px solid white;
   position: absolute;
   left: 0;
   top: 50%;
@@ -93,4 +95,3 @@
   z-index: 3;
   cursor: pointer;
 }
-
