@@ -19,7 +19,7 @@ const Lesson = ({ lesson, hour, index, currDay }) => {
     between(hour, start, end) &&
     isModuleOnThisWeek(activePeriods)
       ? 1
-      : 0.3;
+      : 0.5;
   return (
     <div
       className="cell"
@@ -27,7 +27,7 @@ const Lesson = ({ lesson, hour, index, currDay }) => {
       style={{
         boxShadow: "0px 7px 13px -7px " + bgColor,
         color: textColor,
-        opacity: opacity,
+        opacity,
         height: `${(end - start) * 6}rem`,
       }}
     >
