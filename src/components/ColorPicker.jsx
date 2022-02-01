@@ -10,19 +10,17 @@ import {
 } from "../misc";
 const { max, min } = Math;
 
-const useData = () => {
-  const savedData = window.localStorage.getItem("color-data");
-  const [data, set] = useState(
-    savedData === null ? defaultSettings : JSON.parse(savedData)
+const useSettings = () => {
+  const savedSettings = window.localStorage.getItem("color-settings");
+  const [settings, set] = useState(
+    savedSettings === null ? defaultSettings : JSON.parse(savedSettings)
   );
-
-  const setData = (focus, obj) => {
-    const newData = [...data];
-    newData[focus] = obj;
-    set(newData);
+  const setSettings = (obj, focus) => {
+    const newSettings = [...settings];
+    newSettings[focus] = obj;
+    set(newSettings);
   };
-
-  return [data, setData];
+  return [settings, setSettings, set];
 };
 
 const ColorPicker = () => {
@@ -38,7 +36,8 @@ const ColorPicker = () => {
   const [hue, setHue] = useState(0);
   const [sat, setSat] = useState(0);
   const [lum, setLum] = useState(0);
-  const [data, setData] = useData();
+  const [settings, setSettings, resetSettings] = useSettings();
+
   useEffect(() => {
     const onmousemove = ({ clientX, clientY }) =>
       (mousePos.current = { clientX, clientY });
@@ -55,7 +54,7 @@ const ColorPicker = () => {
   });
 
   useEffect(() => {
-    const obj = data[focus];
+    const obj = settings[focus];
     const { x, y, right, bottom } =
       colorPickerRef.current.getBoundingClientRect();
     const [w, h] = [right - x, bottom - y];
@@ -71,40 +70,44 @@ const ColorPicker = () => {
     setHue(_hue);
     setSat(_sat);
     setLum(_lum);
-  }, [focus, data]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [focus]);
 
   const pickerInterval = () => {
     const { x, y, right, bottom } =
       colorPickerRef.current.getBoundingClientRect();
-    const { left, top } = getPos(mousePos.current, x, y);
     const [w, h] = [right - x, bottom - y];
+    const { left, top } = getPos(mousePos.current, x, y, w, h);
     const _sat = left / w;
     const _lum = (1 - (left / w) * 0.5) * (1 - top / h);
     const color = hsl2rgb(hue, _sat, _lum);
-    const txtColor = getTextColor(hex2rgb(color));
+    const txtColor = getTextColor(...hex2rgb(color));
     setSat(_sat);
     setLum(_lum);
-    setPos({ left: max(0, min(w, left)), top: max(0, min(h, top)) });
-    setData(focus, { hue, sat: _sat, lum: _lum, color, txtColor });
+    setPos({ left, top });
+    setSettings({ hue, sat: _sat, lum: _lum, color, txtColor }, focus);
   };
 
   const sliderInterval = () => {
     const { x, right } = colorSliderRef.current.getBoundingClientRect();
-    const { left } = getPos(mousePos.current, x);
-    const width = right - x;
-    const trueLeft = max(0, min(width, left));
-    const _hue = trueLeft / width;
+    const w = right - x;
+    const { left } = getPos(mousePos.current, x, 0, w);
+    const _hue = left / w;
     const color = hsl2rgb(_hue, sat, lum);
-    const txtColor = getTextColor(hex2rgb(color));
+    const txtColor = getTextColor(...hex2rgb(color));
     setBGColor(hsl2rgb(_hue));
     setHue(_hue);
-    setSlider(trueLeft);  
-    setData(focus, { hue: _hue, sat, lum, color, txtColor });
+    setSlider(left);
+    setSettings({ hue: _hue, sat, lum, color, txtColor }, focus);
   };
 
-  const getPos = ({ clientX, clientY }, x, y = 0) => {
-    return { left: clientX - x, top: clientY - y };
+  const getPos = ({ clientX, clientY }, x, y = 0, w, h) => {
+    return {
+      left: max(0, min(clientX - x, w)),
+      top: max(0, min(clientY - y, h)),
+    };
   };
+
   return (
     <div className="customizer">
       <div className="preview">
@@ -112,9 +115,9 @@ const ColorPicker = () => {
           <div
             key={activity}
             style={{
-              color: data[i].txtColor,
-              backgroundColor: data[i].color,
-              opacity: i === focus ? 1 : 0.4,
+              color: settings[i].txtColor,
+              backgroundColor: settings[i].color,
+              opacity: i === focus ? 1 : 0.5,
             }}
             onClick={() => {
               setFocus(i);
@@ -123,11 +126,11 @@ const ColorPicker = () => {
             {activity}
             <div
               className="bg-div"
-              style={{ backgroundColor: data[i].color }}
+              style={{ backgroundColor: settings[i].color }}
             ></div>
             <div
               className="bg-div"
-              style={{ backgroundColor: data[i].color }}
+              style={{ backgroundColor: settings[i].color }}
             ></div>
           </div>
         ))}
@@ -139,8 +142,10 @@ const ColorPicker = () => {
           draggable="false"
           style={{ backgroundColor }}
           onMouseDown={() => {
-            const { x, y } = colorPickerRef.current.getBoundingClientRect();
-            setPos(getPos(mousePos.current, x, y));
+            const { x, y, right, bottom } =
+              colorPickerRef.current.getBoundingClientRect();
+            const [w, h] = [right - x, bottom - y];
+            setPos(getPos(mousePos.current, x, y, w, h));
             setPickerIID(setInterval(pickerInterval, 17));
           }}
         >
@@ -153,8 +158,8 @@ const ColorPicker = () => {
           ref={colorSliderRef}
           draggable="false"
           onMouseDown={() => {
-            const { x } = colorSliderRef.current.getBoundingClientRect();
-            setSlider(getPos(mousePos.current, x).left);
+            const { x, right } = colorSliderRef.current.getBoundingClientRect();
+            setSlider(getPos(mousePos.current, x, 0, right - x).left);
             setSliderIID(setInterval(sliderInterval, 17));
           }}
         >
@@ -163,14 +168,53 @@ const ColorPicker = () => {
             style={{
               left: sliderPos,
               backgroundColor,
-              boxShadow: `inset -5px -5px 10px ${colorLuminance(
-                backgroundColor,
-                -0.3
-              )},
+              boxShadow: `inset -5px -5px 10px 
+              ${colorLuminance(backgroundColor, -0.3)},
                inset 5px 5px 10px ${colorLuminance(backgroundColor, 0.3)}`,
             }}
           ></div>
         </div>
+        <button
+          className="save-button"
+          type="button"
+          onClick={(evt) => {
+            const { target: button } = evt;
+            if (button.textContent === "Save") {
+              const colorSettings = JSON.stringify(settings);
+              window.localStorage.setItem("color-settings", colorSettings);
+              // window.localStorage.removeItem("color-settings");
+              evt.target.textContent = "Saved!";
+              setTimeout(() => (evt.target.textContent = "Save"), 600);
+            }
+          }}
+        >
+          Save
+        </button>
+        <button
+          className="set-to-default-button"
+          onClick={() => {
+            resetSettings(defaultSettings);
+            window.localStorage.removeItem("color-settings");
+            const obj = defaultSettings[focus];
+            const { x, y, right, bottom } =
+              colorPickerRef.current.getBoundingClientRect();
+            const [w, h] = [right - x, bottom - y];
+            const { sat: _sat, lum: _lum, hue: _hue } = obj;
+            const left = _sat * w;
+            const top = h - (2 * w * h * _lum) / (2 * w - left);
+            const { x: sliderX, right: sliderRight } =
+              colorSliderRef.current.getBoundingClientRect();
+            const width = sliderRight - sliderX;
+            setPos({ left, top });
+            setBGColor(hsl2rgb(_hue));
+            setSlider(width * _hue);
+            setHue(_hue);
+            setSat(_sat);
+            setLum(_lum);
+          }}
+        >
+          Set To Default
+        </button>
       </div>
     </div>
   );
