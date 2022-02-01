@@ -95,3 +95,10 @@
   z-index: 3;
   cursor: pointer;
 }
+
+.save-button {
+  cursor: pointer;
+  width: 16rem;
+  height: 2rem;
+  margin-top: 2rem;
+}
