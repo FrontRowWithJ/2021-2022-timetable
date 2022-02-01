@@ -4,12 +4,7 @@ export const hex2rgb = (hex = "") =>
     .match(/.{1,2}/g)
     .map((str) => parseInt(str, 16) / 255);
 
-const getLuminosity = (r, g, b) => {
-  const [rl, gl, bl] = [r, g, b].map((c) =>
-    c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
-  );
-  return 0.2126 * rl + 0.7152 * gl + 0.0722 * bl;
-};
+const getLuminosity = (r, g, b) => 0.299 * r + 0.587 * g + 0.115 * b;
 
 const { max, min } = Math;
 /**
@@ -51,12 +46,12 @@ const rgb2hsl = (r = 0, g = 0, b = 0) => {
 };
 
 export const getTextColor = (r, g, b) =>
-  getLuminosity(r, g, b) > 0.179 ? "#000000" : "#FFFFFF";
+  getLuminosity(r, g, b) > 0.5 ? "#000000" : "#FFFFFF";
 
 export const activityColors = ["#2929A3", "#E8AA14", "#F5054F", "#693696"];
 
 export const textColors = activityColors.map((color) =>
-  getTextColor(hex2rgb(color))
+  getTextColor(...hex2rgb(color))
 );
 
 // input: h,s,l in [0,1] - output: r,g,b in [0,1]
@@ -83,7 +78,7 @@ export const colorLuminance = (hex, lum = 0) => {
 export const defaultSettings = activityColors.map((color = "") => {
   const [r, g, b] = hex2rgb(color);
   const [hue, sat, lum] = rgb2hsl(r, g, b);
-  const txtColor = getTextColor(color);
+  const txtColor = getTextColor(r, g, b);
   return {
     hue,
     sat,
@@ -92,3 +87,11 @@ export const defaultSettings = activityColors.map((color = "") => {
     txtColor,
   };
 });
+
+export const applyOpacity = (bg, fg, opacity) => {
+  const rgb_bg = hex2rgb(bg);
+  const rgb_fg = hex2rgb(fg);
+  const newRGB = rgb_bg.map((c, i) => c * (1 - opacity) + rgb_fg[i] * opacity);
+  const hex = newRGB.map((c) => ((c * 255) | 0).toString(16).padStart(2, "0"));
+  return "#" + hex.join("");
+};
