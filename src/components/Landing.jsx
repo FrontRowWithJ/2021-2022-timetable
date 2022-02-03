@@ -35,7 +35,8 @@ const Landing = ({ enableTimetable, setTimetable }) => {
         <div className="input-container">
           <div id="wrapper">
             <div id="text-container">
-              <textarea spellCheck="false"
+              <textarea
+                spellCheck="false"
                 ref={textAreaRef}
                 onChange={({ target }) => {
                   setText(target.value.length !== 0);

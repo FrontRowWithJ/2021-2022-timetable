@@ -56,12 +56,9 @@ export const register = async (config) => {
         throw new Error("PUBLIC_URL is on a different origin");
       }
       //There's a chance that the document has already loaded so added the event won't work
-      if (document.readyState === "complete")
-        onload(config, resolve, reject);
+      if (document.readyState === "complete") onload(config, resolve, reject);
       else
-        window.addEventListener("load", () =>
-          onload(config, resolve, reject)
-        );
+        window.addEventListener("load", () => onload(config, resolve, reject));
     } else reject("Browser doesn't support notifications");
   });
 };

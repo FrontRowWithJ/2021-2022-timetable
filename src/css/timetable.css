@@ -1,7 +1,7 @@
 .timetable-container {
-    position: relative;
-    width: 100%;
-    flex-grow: 1;
-    overflow-x: hidden;
-    scroll-behavior: smooth;
+  position: relative;
+  width: 100%;
+  flex-grow: 1;
+  overflow-x: hidden;
+  scroll-behavior: smooth;
 }

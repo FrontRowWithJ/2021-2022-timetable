@@ -40,4 +40,3 @@ export const URLSafetoBase64 = (str = "") => {
 
 export const getBaseURL = (url = window.location) =>
   `${url.protocol}//${url.host}/${url.pathname.split("/")[1]}`;
-
