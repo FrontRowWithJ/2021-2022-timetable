@@ -20,7 +20,7 @@ const useSettings = () => {
     newSettings[focus] = obj;
     set(newSettings);
   };
-  return [settings, setSettings, set];
+  return [settings, setSettings, () => set(defaultSettings)];
 };
 
 const ColorPicker = () => {
@@ -37,7 +37,6 @@ const ColorPicker = () => {
   const [sat, setSat] = useState(0);
   const [lum, setLum] = useState(0);
   const [settings, setSettings, resetSettings] = useSettings();
-
   useEffect(() => {
     const onmousemove = ({ clientX, clientY }) =>
       (mousePos.current = { clientX, clientY });
@@ -52,13 +51,11 @@ const ColorPicker = () => {
       document.removeEventListener("mouseup", onmouseup);
     };
   });
-
-  useEffect(() => {
-    const obj = settings[focus];
+  const setColorPicker = (setting) => {
+    const { sat: _sat, lum: _lum, hue: _hue } = setting;
     const { x, y, right, bottom } =
       colorPickerRef.current.getBoundingClientRect();
     const [w, h] = [right - x, bottom - y];
-    const { sat: _sat, lum: _lum, hue: _hue } = obj;
     const left = _sat * w;
     const top = h - (2 * w * h * _lum) / (2 * w - left);
     const { x: sliderX, right: sliderRight } =
@@ -70,6 +67,9 @@ const ColorPicker = () => {
     setHue(_hue);
     setSat(_sat);
     setLum(_lum);
+  };
+  useEffect(() => {
+    setColorPicker(settings[focus]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focus]);
 
@@ -119,9 +119,7 @@ const ColorPicker = () => {
               backgroundColor: settings[i].color,
               opacity: i === focus ? 1 : 0.5,
             }}
-            onClick={() => {
-              setFocus(i);
-            }}
+            onClick={() => setFocus(i)}
           >
             {activity}
             <div
@@ -151,7 +149,15 @@ const ColorPicker = () => {
         >
           <div className="picker-area-bg" draggable="false"></div>
           <div className="picker-area-bg" draggable="false"></div>
-          <div className="picker-circle" draggable="false" style={pos}></div>
+          <div
+            className="picker-circle"
+            draggable="false"
+            style={{
+              ...pos,
+              backgroundColor: settings[focus].color,
+              outlineColor: settings[focus].txtColor,
+            }}
+          ></div>
         </div>
         <div
           className="color-slider"
@@ -174,46 +180,38 @@ const ColorPicker = () => {
             }}
           ></div>
         </div>
+        <div className="save-button-container">
+          <button
+            className="save-button"
+            type="button"
+            onClick={(evt) => {
+              const { target: button } = evt;
+              if (button.textContent === "Save") {
+                const colorSettings = JSON.stringify(settings);
+                window.localStorage.setItem("color-settings", colorSettings);
+                evt.target.textContent = "Saved!";
+                setTimeout(() => (evt.target.textContent = "Save"), 600);
+              }
+            }}
+          >
+            Save
+          </button>
+          <div style={{ backgroundColor: "#663399" }}></div>
+          <div style={{ backgroundColor: "#663399" }}></div>
+        </div>
+
         <button
-          className="save-button"
           type="button"
-          onClick={(evt) => {
-            const { target: button } = evt;
-            if (button.textContent === "Save") {
-              const colorSettings = JSON.stringify(settings);
-              window.localStorage.setItem("color-settings", colorSettings);
-              // window.localStorage.removeItem("color-settings");
-              evt.target.textContent = "Saved!";
-              setTimeout(() => (evt.target.textContent = "Save"), 600);
-            }
-          }}
-        >
-          Save
-        </button>
-        <button
           className="set-to-default-button"
-          onClick={() => {
-            resetSettings(defaultSettings);
+          onMouseDown={({ target }) => {
+            resetSettings();
             window.localStorage.removeItem("color-settings");
-            const obj = defaultSettings[focus];
-            const { x, y, right, bottom } =
-              colorPickerRef.current.getBoundingClientRect();
-            const [w, h] = [right - x, bottom - y];
-            const { sat: _sat, lum: _lum, hue: _hue } = obj;
-            const left = _sat * w;
-            const top = h - (2 * w * h * _lum) / (2 * w - left);
-            const { x: sliderX, right: sliderRight } =
-              colorSliderRef.current.getBoundingClientRect();
-            const width = sliderRight - sliderX;
-            setPos({ left, top });
-            setBGColor(hsl2rgb(_hue));
-            setSlider(width * _hue);
-            setHue(_hue);
-            setSat(_sat);
-            setLum(_lum);
+            setColorPicker(defaultSettings[focus]);
+            target.textContent = "Defaulted!";
+            setTimeout(() => (target.textContent = "Set to Default"), 600);
           }}
         >
-          Set To Default
+          Set to Default
         </button>
       </div>
     </div>
