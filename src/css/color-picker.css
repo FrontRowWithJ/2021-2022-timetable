@@ -5,10 +5,6 @@
   grid-template: 1fr / 1fr 1fr;
 }
 
-.customizer>div {
-  border: 1px solid black;
-}
-
 .preview {
   grid-column: 1 / 2;
   padding: 1rem;
@@ -42,6 +38,7 @@
   position: relative;
   overflow: hidden;
   cursor: pointer;
+  border-radius: 1rem 1rem 0 0;
 }
 
 .picker-area-bg {
@@ -61,17 +58,19 @@
   z-index: 2;
 }
 
-.picker-circle {
+.picker-circle,
+.slider-circle {
+  box-sizing: border-box;
   position: absolute;
   left: 0;
-  top: 0;
-  border-radius: 10rem;
-  width: 1rem;
-  height: 1rem;
-  background-color: transparent;
-  border: 3px solid white;
   z-index: 3;
+  border-radius: 5rem;
+  width: calc(2.2rem - 6px);
+  height: calc(2.2rem - 6px);
+  outline: 3px solid white;
+  cursor: pointer;
   transform: translate(-50%, -50%);
+  top: 50%;
 }
 
 .color-slider {
@@ -80,25 +79,91 @@
   background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(255, 255, 0) 17%, rgb(0, 255, 0) 33%, rgb(0, 255, 255) 50%, rgb(0, 0, 255) 66%, rgb(255, 0, 255) 83%, rgb(255, 0, 0) 100%);
   position: relative;
   cursor: pointer;
+  border-radius: 0 0 1rem 1rem;
 }
 
-.slider-circle {
-  box-sizing: border-box;
-  width: calc(2.2rem - 6px);
-  height: calc(2.2rem - 6px);
-  border-radius: 5rem;
-  outline: 3px solid white;
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 3;
-  cursor: pointer;
+.save-button-container {
+  position: relative;
+  width: 9rem;
+  height: 3rem;
+  margin-bottom: 5rem;
 }
 
 .save-button {
   cursor: pointer;
-  width: 16rem;
-  height: 2rem;
-  margin-top: 2rem;
+  width: 9rem;
+  height: 3rem;
+  border-radius: 5px;
+  border: none;
+  font-family: "Circular Std Book";
+  border-radius: 5px;
+  background: linear-gradient(120deg, #6a5acd, #663399);
+  color: white;
+  font-weight: bolder;
+  z-index: 1;
+  position: relative;
+}
+
+.save-button-container>div::before,
+.save-button::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, .2);
+  transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  z-index: -1;
+  border-radius: 0 0 5px 5px;
+}
+
+.save-button-container:hover>div::before,
+.save-button:hover::before {
+  width: 100%;
+}
+
+.save-button-container>div {
+  position: absolute;
+  height: 100%;
+  background: linear-gradient(90deg, slateblue, rebeccapurple);
+  border-radius: 5px;
+}
+
+.save-button-container>div:nth-of-type(1) {
+  width: 95%;
+  z-index: -2;
+  top: 10%;
+  opacity: .5;
+  left: 2.5%;
+}
+
+.save-button-container>div:nth-of-type(2) {
+  width: 85%;
+  top: 20%;
+  opacity: .3;
+  z-index: -1;
+  left: 7.5%;
+}
+
+.set-to-default-button {
+  height: 3rem;
+  width: 9rem;
+  background: linear-gradient(120deg, #ffffff, #555757);
+  border: none;
+  box-shadow: 14px 14px 28px #d9d9d9,
+    -14px -14px 28px #ffffff;
+  border-radius: 5px;
+  color: black;
+  font-family: "Circular Std Book";
+  cursor: pointer;
+  background-size: 350%;
+  background-position: left;
+  transition: background-position .8s ease-in-out, color .8s ease-in-out;
+  position: relative;
+}
+
+.set-to-default-button:hover {
+  background-position: right;
+  color: white;
 }
