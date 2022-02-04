@@ -48,10 +48,13 @@ const ColorPicker = ({ onclick, customizerRef }) => {
       clearInterval(pickerIID) || setPickerIID(undefined);
       clearInterval(sliderIID) || setSliderIID(undefined);
     };
+
     document.addEventListener("mouseup", onmouseup);
+    document.addEventListener("touchend", onmouseup);
     return () => {
       document.removeEventListener("mousemove", onmousemove);
       document.removeEventListener("mouseup", onmouseup);
+      document.removeEventListener("touchend", onmouseup);
     };
   });
   const setColorPicker = (setting) => {
