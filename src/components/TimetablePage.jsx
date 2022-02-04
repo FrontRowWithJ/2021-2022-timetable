@@ -1,10 +1,12 @@
 import React, { useEffect, useCallback } from "react";
 import "../css/timetable-page.css";
-import { setScrollBar, getLeft } from "../misc";
+import { setScrollBar, getLeft, defaultSettings } from "../misc";
 import Lesson from "./Lesson";
 
 const TimetablePage = (props) => {
   const { refs, curr, index, date, hour, schedule, tableRef } = props;
+  const cache = window.localStorage.getItem("color-settings");
+  const settings = cache ? JSON.parse(cache) : defaultSettings;
   const currDay = new Date().getDay() - 1;
   const classes = schedule.filter((cell) => cell !== undefined);
   const handleResize = useCallback(
@@ -37,6 +39,7 @@ const TimetablePage = (props) => {
                     hour={hour}
                     index={index}
                     currDay={currDay}
+                    settings={settings}
                   />
                 );
               })
@@ -46,6 +49,7 @@ const TimetablePage = (props) => {
                 hour={hour}
                 index={index}
                 currDay={currDay}
+                settings={settings}
               />
             )}
           </div>
