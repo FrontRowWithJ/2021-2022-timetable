@@ -8,6 +8,7 @@ import {
   defaultSettings,
   hex2rgb,
 } from "../misc";
+import CancelButton from "./CancelButton";
 const { max, min } = Math;
 
 const useSettings = () => {
@@ -23,13 +24,15 @@ const useSettings = () => {
   return [settings, setSettings, () => set(defaultSettings)];
 };
 
-const ColorPicker = () => {
+const ColorPicker = ({ onclick, customizerRef }) => {
   const [focus, setFocus] = useState(0);
   const [pos, setPos] = useState({ left: 0, top: 0 });
   const [backgroundColor, setBGColor] = useState("#FF0000");
   const [sliderPos, setSlider] = useState(0);
   const colorPickerRef = useRef(null);
   const colorSliderRef = useRef(null);
+  const sliderCircle = useRef(null);
+  const pickerCircle = useRef(null);
   const [pickerIID, setPickerIID] = useState(undefined);
   const [sliderIID, setSliderIID] = useState(undefined);
   const mousePos = useRef({ clientX: 0, clientY: 0 });
@@ -109,7 +112,7 @@ const ColorPicker = () => {
   };
 
   return (
-    <div className="customizer">
+    <div ref={customizerRef} className="customizer">
       <div className="preview">
         {ACTIVITIES.map((activity, i) => (
           <div
@@ -119,13 +122,18 @@ const ColorPicker = () => {
               backgroundColor: settings[i].color,
               opacity: i === focus ? 1 : 0.5,
             }}
-            onClick={() => setFocus(i)}
+            onClick={() => {
+              setFocus(i);
+              sliderCircle.current.classList.add("transition-circles");
+              pickerCircle.current.classList.add("transition-circles");
+            }}
           >
             {activity}
             <div
               className="bg-div"
               style={{ backgroundColor: settings[i].color }}
             ></div>
+
             <div
               className="bg-div"
               style={{ backgroundColor: settings[i].color }}
@@ -134,85 +142,99 @@ const ColorPicker = () => {
         ))}
       </div>
       <div className="color-picker">
-        <div
-          className="picker-area"
-          ref={colorPickerRef}
-          draggable="false"
-          style={{ backgroundColor }}
-          onMouseDown={() => {
-            const { x, y, right, bottom } =
-              colorPickerRef.current.getBoundingClientRect();
-            const [w, h] = [right - x, bottom - y];
-            setPos(getPos(mousePos.current, x, y, w, h));
-            setPickerIID(setInterval(pickerInterval, 17));
-          }}
-        >
-          <div className="picker-area-bg" draggable="false"></div>
-          <div className="picker-area-bg" draggable="false"></div>
+        <CancelButton onclick={onclick} />
+        <div>
           <div
-            className="picker-circle"
+            className="picker-area"
+            ref={colorPickerRef}
             draggable="false"
-            style={{
-              ...pos,
-              backgroundColor: settings[focus].color,
-              outlineColor: settings[focus].txtColor,
-            }}
-          ></div>
-        </div>
-        <div
-          className="color-slider"
-          ref={colorSliderRef}
-          draggable="false"
-          onMouseDown={() => {
-            const { x, right } = colorSliderRef.current.getBoundingClientRect();
-            setSlider(getPos(mousePos.current, x, 0, right - x).left);
-            setSliderIID(setInterval(sliderInterval, 17));
-          }}
-        >
-          <div
-            className="slider-circle"
-            style={{
-              left: sliderPos,
-              backgroundColor,
-              boxShadow: `inset -5px -5px 10px 
-              ${colorLuminance(backgroundColor, -0.3)},
-               inset 5px 5px 10px ${colorLuminance(backgroundColor, 0.3)}`,
-            }}
-          ></div>
-        </div>
-        <div className="save-button-container">
-          <button
-            className="save-button"
-            type="button"
-            onClick={(evt) => {
-              const { target: button } = evt;
-              if (button.textContent === "Save") {
-                const colorSettings = JSON.stringify(settings);
-                window.localStorage.setItem("color-settings", colorSettings);
-                evt.target.textContent = "Saved!";
-                setTimeout(() => (evt.target.textContent = "Save"), 600);
-              }
+            style={{ backgroundColor }}
+            onMouseDown={() => {
+              const { x, y, right, bottom } =
+                colorPickerRef.current.getBoundingClientRect();
+              const [w, h] = [right - x, bottom - y];
+              setPos(getPos(mousePos.current, x, y, w, h));
+              setPickerIID(setInterval(pickerInterval, 17));
             }}
           >
-            Save
-          </button>
-          <div style={{ backgroundColor: "#663399" }}></div>
-          <div style={{ backgroundColor: "#663399" }}></div>
-        </div>
+            <div className="picker-area-bg" draggable="false"></div>
+            <div className="picker-area-bg" draggable="false"></div>
 
-        <button
-          type="button"
-          className="set-to-default-button"
-          onMouseDown={({ target }) => {
-            resetSettings();
-            window.localStorage.removeItem("color-settings");
-            setColorPicker(defaultSettings[focus]);
-            target.textContent = "Defaulted!";
-            setTimeout(() => (target.textContent = "Set to Default"), 600);
-          }}
-        >
-          Set to Default
-        </button>
+            <div
+              className="picker-circle"
+              ref={pickerCircle}
+              onTransitionEnd={({ target }) =>
+                target.classList.remove("transition-circles")
+              }
+              draggable="false"
+              style={{
+                ...pos,
+                backgroundColor: settings[focus].color,
+                outlineColor: settings[focus].txtColor,
+              }}
+            ></div>
+          </div>
+          <div
+            className="color-slider"
+            ref={colorSliderRef}
+            draggable="false"
+            onMouseDown={() => {
+              const { x, right } =
+                colorSliderRef.current.getBoundingClientRect();
+              setSlider(getPos(mousePos.current, x, 0, right - x).left);
+              setSliderIID(setInterval(sliderInterval, 17));
+            }}
+          >
+            <div
+              className="slider-circle"
+              ref={sliderCircle}
+              onTransitionEnd={({ target }) =>
+                target.classList.remove("transition-circles")
+              }
+              style={{
+                left: sliderPos,
+                backgroundColor,
+                boxShadow: `inset -5px -5px 10px 
+              ${colorLuminance(backgroundColor, -0.3)},
+               inset 5px 5px 10px ${colorLuminance(backgroundColor, 0.3)}`,
+              }}
+            ></div>
+          </div>
+          <div className="save-button-container">
+            <button
+              className="save-button"
+              type="button"
+              onClick={(evt) => {
+                const { target: button } = evt;
+                if (button.textContent === "Save") {
+                  const colorSettings = JSON.stringify(settings);
+                  window.localStorage.setItem("color-settings", colorSettings);
+                  evt.target.textContent = "Saved!";
+                  setTimeout(() => (evt.target.textContent = "Save"), 600);
+                }
+              }}
+            >
+              Save
+            </button>
+            <div style={{ backgroundColor: "#663399" }}></div>
+            <div style={{ backgroundColor: "#663399" }}></div>
+          </div>
+          <button
+            type="button"
+            className="set-to-default-button"
+            onMouseDown={({ target }) => {
+              resetSettings();
+              window.localStorage.removeItem("color-settings");
+              setColorPicker(defaultSettings[focus]);
+              sliderCircle.current.classList.add("transition-circles");
+              pickerCircle.current.classList.add("transition-circles");
+              target.textContent = "Defaulted!";
+              setTimeout(() => (target.textContent = "Set to Default"), 600);
+            }}
+          >
+            Set to Default
+          </button>
+        </div>
       </div>
     </div>
   );
