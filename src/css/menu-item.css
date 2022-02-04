@@ -19,7 +19,6 @@
   border-radius: var(--menu-item-radius);
   border: 0;
   cursor: pointer;
-  transition: font-size .2s;
   position: absolute;
   left: 0;
   top: 0;
