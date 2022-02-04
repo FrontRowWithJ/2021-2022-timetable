@@ -1,17 +1,12 @@
-import {
-  isModuleOnThisWeek,
-  ACTIVITIES,
-  activityColors,
-  textColors,
-} from "../misc";
+import { isModuleOnThisWeek, ACTIVITIES } from "../misc";
 
 const between = (x = 0, min = 0, max = 0) => x >= min && x < max;
 const toNum = (s) => parseInt(s.substring(0, 2));
 const getTimeRange = (s) => s.match(/[0-9]+:/g).map(toNum);
 
-const Lesson = ({ lesson, hour, index, currDay }) => {
-  const bgColor = activityColors[lesson.activity];
-  const textColor = textColors[lesson.activity];
+const Lesson = ({ lesson, hour, index, currDay, settings }) => {
+  const bgColor = settings[lesson.activity].color;
+  const textColor = settings[lesson.activity].txtColor;
   const { module, isOnline, activity, time, classroom, activePeriods } = lesson;
   const [start, end] = getTimeRange(time);
   const opacity =
