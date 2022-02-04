@@ -1,0 +1,34 @@
+.cancel-button {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 3rem;
+  height: 3rem;
+  background-color: transparent;
+  cursor: pointer;
+  border: none;
+}
+
+.cancel-button span {
+  background-color: black;
+  width: calc(3rem * .7);
+  height: 4px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  border-radius: 100px;
+}
+
+.cancel-button span:first-of-type {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.cancel-button span:nth-of-type(2) {
+  width: 8px;
+  height: 8px;
+  transform: translate(-50%, -50%);
+}
+
+.cancel-button span:last-of-type {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
