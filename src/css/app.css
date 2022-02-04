@@ -32,16 +32,3 @@ main {
 * {
   box-sizing: border-box;
 }
-
-.text-box {
-  color: white;
-  font-family: "Poppins";
-  width: 15rem;
-  height: 2.5rem;
-  display: flex;
-  align-items: center;
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  font-size: 1rem;
-}

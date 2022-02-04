@@ -6,7 +6,7 @@ export * from "./misc/ellipsify.js";
 export * from "./misc/colourFunctions.js";
 
 export const [CHROME, SAFARI, EDGE, FIREFOX] = [0, 1, 2, 3];
-export const [DEFAULT, CLEAR_TIMETABLE, COPY, CUSTOMIZE] = [0, 1, 2, 3];
+export const [DEFAULT, CUSTOMIZE] = [0, 1];
 export const ACTIVITIES = [
   "Lecture",
   "Tutorial",

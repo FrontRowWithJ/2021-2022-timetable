@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Header from "./Header";
 import Timetable from "./Timetable";
 import Menu from "./Menu";
@@ -10,12 +10,10 @@ import {
   compressTimetable,
   base64ToURLSafe,
   getBaseURL,
-  CLEAR_TIMETABLE,
-  COPY,
   CUSTOMIZE,
 } from "../misc";
 
-const TimetableWebpage = ({ timetableJSON, setOverlay, setUrl }) => {
+const TimetableWebpage = ({ timetableJSON, setOverlay }) => {
   const day = new Date().getDay() - 1;
   const [curr, setCurr] = useState(day < 0 || day > 4 ? 0 : day);
   const [next, setNext] = useState(curr);
@@ -23,6 +21,25 @@ const TimetableWebpage = ({ timetableJSON, setOverlay, setUrl }) => {
   const [isSwiping, setSwiping] = useState(false);
   const [count, setCount] = useState(0);
   const tableRefs = useRef([0, 0, 0, 0, 0].map(React.createRef));
+  const [buttonText, setText] = useState("Copy URL for Mobile");
+  const [resetText, setResetText] = useState("Hold To Reset Timetable");
+  const variable = useRef(false);
+  const resetTimetable = () => {
+    window.localStorage.clear();
+    window.location.href = window.location.origin;
+  };
+  useEffect(() => {
+    const onmouseup = () => {
+      setResetText("Hold To Reset Timetable");
+      variable.current = false;
+    };
+    document.addEventListener("mouseup", onmouseup);
+    document.addEventListener("touchend", onmouseup);
+    return () => {
+      document.removeEventListener("mouseup", onmouseup);
+      document.removeEventListener("touchend", onmouseup);
+    };
+  });
   return (
     <main
       onWheel={({ deltaY }) => {
@@ -59,31 +76,48 @@ const TimetableWebpage = ({ timetableJSON, setOverlay, setUrl }) => {
       />
       <Menu>
         <MenuItem
-          text={"Generate URL for Mobile"}
+          text={buttonText}
           onclick={() => {
             const base64 = compressTimetable(timetableJSON, "Base64");
             const url = `${getBaseURL()}?timetable=${base64ToURLSafe(base64)}`;
-            setUrl(url);
-            setOverlay(COPY);
+            navigator.clipboard.writeText(url).then(() => {
+              setText("Copied!");
+              setTimeout(() => setText("Copy URL for Mobile"), 600);
+            });
           }}
         />
         <MenuItem
           disabled
           text={"Enable Notifications"}
-          onclick={() => {
-            subscribeToNotifications();
-          }}
+          onclick={() => subscribeToNotifications()}
         />
         <MenuItem
           disabled
           text={"Customize"}
-          onclick={() => {
-            setOverlay(CUSTOMIZE);
-          }}
+          onclick={() => setOverlay(CUSTOMIZE)}
         />
         <MenuItem
-          text={"Reset Timetable"}
-          onclick={() => setOverlay(CLEAR_TIMETABLE)}
+          text={resetText}
+          onmousedown={() => {
+            variable.current = true;
+            setResetText("Resetting");
+            setTimeout(
+              () => variable.current && setResetText("Resetting."),
+              250
+            );
+            setTimeout(
+              () => variable.current && setResetText("Resetting.."),
+              500
+            );
+            setTimeout(
+              () => variable.current && setResetText("Resetting..."),
+              750
+            );
+            setTimeout(() => {
+              if (variable.current) resetTimetable();
+              else setResetText("Hold To Reset Timetable");
+            }, 1000);
+          }}
         />
       </Menu>
       <Timetable

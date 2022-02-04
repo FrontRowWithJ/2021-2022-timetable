@@ -1,7 +1,3 @@
-:root {
-  --text-box-button-height: 2.5rem;
-}
-
 .overlay {
   position: absolute;
   width: 100%;
@@ -16,10 +12,4 @@
 
 .show-overlay {
   background-color: rgba(0, 0, 0, .7);
-}
-
-.text-box-button {
-  width: var(--text-box-button-height);
-  height: var(--text-box-button-height);
-  cursor: pointer;
 }
