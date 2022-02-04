@@ -109,19 +109,19 @@
 }
 
 #button-container>div:nth-of-type(1) {
-  width: 95%;
+  width: 97.5%;
   z-index: -2;
-  top: .8rem;
+  top: 20%;
   opacity: .5;
-  left: 2.5%;
+  left: 1.25%;
 }
 
 #button-container>div:nth-of-type(2) {
-  width: 85%;
-  top: 1.6rem;
+  width: 95%;
+  top: 40%;
   opacity: .3;
   z-index: -1;
-  left: 7.5%;
+  left: 2.5%;
 }
 
 #text-container * {
