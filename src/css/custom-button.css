@@ -1,0 +1,58 @@
+.button-container {
+  position: relative;
+  border-radius: 5px;
+  overflow: hidden;
+  height: 3rem;
+}
+
+.button-container button {
+  width: 100%;
+  height: 100%;
+  color: white;
+  font-weight: bolder;
+  font-family: "Poppins";
+  background: linear-gradient(90deg, slateblue, rebeccapurple);
+  border: 0;
+  cursor: pointer;
+  z-index: 1;
+}
+
+.button-container>div {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.button-container>div:first-of-type {
+  width: 95%;
+  z-index: -2;
+  top: 10%;
+  opacity: .5;
+  left: 2.5%;
+}
+
+.button-container>div:last-of-type {
+  width: 85%;
+  top: 20%;
+  opacity: .3;
+  z-index: -1;
+  left: 7.5%;
+}
+
+.button-container button::before,
+.buton-container>div::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 100%;
+  background-color: rgb(102, 51, 153);
+  transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  z-index: -1;
+}
+
+.button-container button:hover::before,
+.button-container:hover>div::before {
+  width: 100%;
+}
