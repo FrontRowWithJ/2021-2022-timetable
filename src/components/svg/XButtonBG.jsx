@@ -8,8 +8,6 @@ const XButtonBG = () => {
       x="0px"
       y="0px"
       viewBox="0 0 1000 500"
-      enableBackground="new 0 0 1000 500"
-      xmlSpace="preserve"
     >
       <path
         fill="#585ce4"
