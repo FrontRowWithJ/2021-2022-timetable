@@ -3,13 +3,11 @@
   width: 45rem;
   display: grid;
   grid-template: 1fr / 1fr 1fr;
-  border: 1px solid black;
 }
 
 .preview {
   grid-column: 1 / 2;
   padding: 1rem;
-  border: 1px solid black;
 }
 
 .preview>div {
@@ -34,9 +32,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
 }
-
 
 .color-picker>div {
   display: grid;
@@ -176,8 +172,6 @@
   width: 8rem;
   background: linear-gradient(120deg, #ffffff, #555757);
   border: none;
-  box-shadow: 14px 14px 28px #adadad,
-    -14px -14px 28px #ffffff;
   border-radius: 5px;
   color: black;
   font-family: "Circular Std Book";
