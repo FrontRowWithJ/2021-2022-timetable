@@ -24,7 +24,7 @@ const useSettings = () => {
   return [settings, setSettings, () => set(defaultSettings)];
 };
 
-const ColorPicker = ({ onclick, customizerRef }) => {
+const ColorPicker = ({ onClick }) => {
   const [focus, setFocus] = useState(0);
   const [pos, setPos] = useState({ left: 0, top: 0 });
   const [backgroundColor, setBGColor] = useState("#FF0000");
@@ -115,7 +115,7 @@ const ColorPicker = ({ onclick, customizerRef }) => {
   };
 
   return (
-    <div ref={customizerRef} className="customizer">
+    <div className="customizer">
       <div className="preview">
         {ACTIVITIES.map((activity, i) => (
           <div
@@ -145,7 +145,7 @@ const ColorPicker = ({ onclick, customizerRef }) => {
         ))}
       </div>
       <div className="color-picker">
-        <CancelButton onclick={onclick} />
+        <CancelButton onClick={onClick} />
         <div>
           <div
             className="picker-area"
