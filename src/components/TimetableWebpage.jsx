@@ -11,9 +11,11 @@ import {
   base64ToURLSafe,
   getBaseURL,
   CUSTOMIZE,
+  times,
+  DEFAULT,
 } from "../misc";
 
-const TimetableWebpage = ({ timetableJSON, setOverlay }) => {
+const TimetableWebpage = ({ timetableJSON, setOverlay, overlay }) => {
   const day = new Date().getDay() - 1;
   const [curr, setCurr] = useState(day < 0 || day > 4 ? 0 : day);
   const [next, setNext] = useState(curr);
@@ -42,6 +44,7 @@ const TimetableWebpage = ({ timetableJSON, setOverlay }) => {
   });
   return (
     <main
+      style={{ filter: overlay === DEFAULT ? "" : "blur(10px)" }}
       onWheel={({ deltaY }) => {
         const innerH =
           window.innerHeight || document.documentElement.clientHeight;
@@ -77,7 +80,7 @@ const TimetableWebpage = ({ timetableJSON, setOverlay }) => {
       <Menu>
         <MenuItem
           text={buttonText}
-          onclick={() => {
+          onClick={() => {
             const base64 = compressTimetable(timetableJSON, "Base64");
             const url = `${getBaseURL()}?timetable=${base64ToURLSafe(base64)}`;
             navigator.clipboard.writeText(url).then(() => {
@@ -89,29 +92,19 @@ const TimetableWebpage = ({ timetableJSON, setOverlay }) => {
         <MenuItem
           disabled
           text={"Enable Notifications"}
-          onclick={() => subscribeToNotifications()}
+          onClick={subscribeToNotifications}
         />
-        <MenuItem
-          disabled
-          text={"Customize"}
-          onclick={() => setOverlay(CUSTOMIZE)}
-        />
+        <MenuItem text={"Customize"} onClick={() => setOverlay(CUSTOMIZE)} />
         <MenuItem
           text={resetText}
           onmousedown={() => {
             variable.current = true;
             setResetText("Resetting");
-            setTimeout(
-              () => variable.current && setResetText("Resetting."),
-              250
-            );
-            setTimeout(
-              () => variable.current && setResetText("Resetting.."),
-              500
-            );
-            setTimeout(
-              () => variable.current && setResetText("Resetting..."),
-              750
+            times(3, (i) =>
+              setTimeout(
+                () => variable.current && setResetText((s) => `${s}.`),
+                (i + 1) * 250
+              )
             );
             setTimeout(() => {
               if (variable.current) resetTimetable();
