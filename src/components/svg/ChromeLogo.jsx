@@ -1,12 +1,12 @@
 import "../../css/chrome-svg.css";
 
-const ChromeLogo = ({ style, onmouseover, onmouseout, onclick }) => {
+const ChromeLogo = ({ style, onmouseover, onmouseout, onClick }) => {
   return (
     <svg
       style={style}
       onMouseOver={onmouseover}
       onMouseOut={onmouseout}
-      onClick={onclick}
+      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
       viewBox="1 1 176 176"

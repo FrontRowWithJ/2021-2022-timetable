@@ -1,10 +1,10 @@
-const FirefoxLogo = ({ style, onmouseover, onmouseout, onclick }) => {
+const FirefoxLogo = ({ style, onmouseover, onmouseout, onClick }) => {
   return (
     <svg
       style={style}
       onMouseOver={onmouseover}
       onMouseOut={onmouseout}
-      onClick={onclick}
+      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       viewBox="0 0 80 80"
     >

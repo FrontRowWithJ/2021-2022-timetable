@@ -1,9 +1,9 @@
-const OperaLogo = ({ style, onmouseover, onmouseout, onclick }) => (
+const OperaLogo = ({ style, onmouseover, onmouseout, onClick }) => (
   <svg
     style={style}
     onMouseOver={onmouseover}
     onMouseOut={onmouseout}
-    onClick={onclick}
+    onClick={onClick}
     viewBox="0 0 75.591 75.591"
     xmlns="http://www.w3.org/2000/svg"
     xmlnsXlink="http://www.w3.org/1999/xlink"

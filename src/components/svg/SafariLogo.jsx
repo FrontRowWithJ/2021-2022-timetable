@@ -1,10 +1,10 @@
-const SafariLogo = ({ style, onmouseover, onmouseout, onclick }) => {
+const SafariLogo = ({ style, onmouseover, onmouseout, onClick }) => {
   return (
     <svg
       style={style}
       onMouseOver={onmouseover}
       onMouseOut={onmouseout}
-      onClick={onclick}
+      onClick={onClick}
       xmlns="http://www.w3.org/2000/svg"
       preserveAspectRatio="xMidYMid"
       viewBox="0 0 256 256"

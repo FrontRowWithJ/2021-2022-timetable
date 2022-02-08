@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import "../css/menu-item.css";
-const MenuItem = ({ text, onclick, disabled, onmousedown }) => {
+const MenuItem = ({ text, onClick, disabled, onmousedown }) => {
   const noop = () => {};
   const buttonRef = useRef(null);
   useEffect(() => {
@@ -18,7 +18,7 @@ const MenuItem = ({ text, onclick, disabled, onmousedown }) => {
       <button
         ref={buttonRef}
         type="button"
-        onClick={onclick ? () => !disabled && onclick() : noop}
+        onClick={onClick ? () => !disabled && onClick() : noop}
       >
         {text}
       </button>

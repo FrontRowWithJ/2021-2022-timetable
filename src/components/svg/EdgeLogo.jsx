@@ -1,4 +1,4 @@
-const EdgeLogo = ({ style, onmouseover, onmouseout, onclick }) => {
+const EdgeLogo = ({ style, onmouseover, onmouseout, onClick }) => {
   return (
     <svg
       style={style}
@@ -6,7 +6,7 @@ const EdgeLogo = ({ style, onmouseover, onmouseout, onclick }) => {
       viewBox="0 0 256 256"
       onMouseOver={onmouseover}
       onMouseOut={onmouseout}
-      onClick={onclick}
+      onClick={onClick}
     >
       <defs>
         <radialGradient

@@ -1,8 +1,8 @@
 import "../css/cancel-button.css";
 
-const CancelButton = ({ onclick }) => {
+const CancelButton = ({ onClick }) => {
   return (
-    <button type="button" className="cancel-button" onClick={onclick}>
+    <button type="button" className="cancel-button" onClick={onClick}>
       <span></span>
       <span></span>
       <span></span>

@@ -1,7 +1,7 @@
 import "../css/custom-button.css"
 
 const CustomButton = ({
-  onclick,
+  onClick,
   text,
   className,
   bgColor,
@@ -10,7 +10,7 @@ const CustomButton = ({
 }) => {
   return (
     <div className={`button-container ${className}`} style={style}>
-      <button type="button" onClick={onclick} ref={buttonRef}>
+      <button type="button" onClick={onClick} ref={buttonRef}>
         {text}
       </button>
       <div style={{ backgroundColor: bgColor }}></div>
