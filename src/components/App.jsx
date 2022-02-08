@@ -1,21 +1,24 @@
-import React, { useRef, useState } from "react";
+import React, { useState } from "react";
 import "../css/app.css";
 import Landing from "./Landing";
 import TimetableWebpage from "./TimetableWebpage";
 import Overlay from "./Overlay";
-import CopyButton from "./CopyButton";
-import URLDiv from "./URLDiv";
-import ResetButton from "./ResetButton";
-import URLContainer from "./URLContainer";
-import { compressTimetable, decompressTimetable } from "../misc";
-import { DEFAULT, CLEAR_TIMETABLE, COPY } from "../misc";
+import {
+  compressTimetable,
+  decompressTimetable,
+  URLSafetoBase64,
+} from "../misc";
+import { DEFAULT, CUSTOMIZE } from "../misc";
+import ColorPicker from "./ColorPicker";
+
 const App = () => {
   const queryString = window.location.search;
   const urlParams = new URLSearchParams(queryString);
   const timetableBase64 = urlParams.get("timetable");
   if (timetableBase64) {
-    const timetable = decompressTimetable(timetableBase64, "Base64");
-    const storageString = compressTimetable(timetable, "StorageString");
+    const base64 = URLSafetoBase64(timetableBase64);
+    const timetable = decompressTimetable(base64, "Base64");
+    const storageString = compressTimetable(timetable, "StorageBinaryString");
     const localStorageString = window.localStorage.getItem("timetable");
     if (localStorageString !== storageString)
       window.localStorage.setItem("timetable", storageString);
@@ -23,14 +26,7 @@ const App = () => {
   const [timetable, setTimetable] = useState(null);
   const [isTimetableEnabled, enableTimetable] = useState(false);
   const compressedTimetable = window.localStorage.getItem("timetable");
-  const [url, setUrl] = useState("");
-  const textboxRef = useRef(null);
   const [overlay, setOverlay] = useState(DEFAULT);
-  const disableOverlay = () => setOverlay(DEFAULT);
-  const resetTimetable = () => {
-    window.localStorage.removeItem("timetable");
-    window.location.href = window.location.origin;
-  };
   if (compressedTimetable !== null && timetable === null) {
     const uncompressed = decompressTimetable(
       compressedTimetable,
@@ -46,8 +42,7 @@ const App = () => {
         <TimetableWebpage
           timetableJSON={timetable}
           setOverlay={setOverlay}
-          setUrl={setUrl}
-          resetTimetable={resetTimetable}
+          overlay={overlay}
         />
       ) : (
         <Landing
@@ -57,37 +52,14 @@ const App = () => {
       )}
       {((overlay) => {
         switch (overlay) {
-          case COPY:
+          case CUSTOMIZE:
             return (
               <Overlay
-                disableOverlay={disableOverlay}
-                isOverlayEnabled={overlay === COPY}
-                content={({ urlContainerRef, disableOverlay }) => (
-                  <URLContainer
-                    disableOverlay={disableOverlay}
-                    urlContainerRef={urlContainerRef}
-                  >
-                    <URLDiv urlRef={textboxRef} url={url} />
-                    <CopyButton url={url} urlRef={textboxRef} />
-                  </URLContainer>
+                disableOverlay={() => setOverlay(DEFAULT)}
+                content={({ disableOverlay }) => (
+                  <ColorPicker onClick={disableOverlay} />
                 )}
               />
-            );
-          case CLEAR_TIMETABLE:
-            return (
-              <Overlay
-                disableOverlay={disableOverlay}
-                isOverlayEnabled={overlay === CLEAR_TIMETABLE}
-                content={({ urlContainerRef, disableOverlay }) => (
-                  <URLContainer
-                    urlContainerRef={urlContainerRef}
-                    disableOverlay={disableOverlay}
-                  >
-                    <div className="text-box">{"Are You Sure?"}</div>
-                    <ResetButton resetTimetable={resetTimetable} />
-                  </URLContainer>
-                )}
-              ></Overlay>
             );
           default:
             return null;
