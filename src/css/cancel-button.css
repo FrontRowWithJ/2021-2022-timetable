@@ -10,7 +10,7 @@
 }
 
 .cancel-button span {
-  background-color: black;
+  background-color: white;
   width: calc(3rem * .7);
   height: 4px;
   position: absolute;
