@@ -17,6 +17,7 @@ const Landing = ({ enableTimetable, setTimetable }) => {
   const errorRef = useRef(null);
   const htmlAreaRef = useRef(null);
   const urlAreaRef = useRef(null);
+  
   const handleError = (errorMessage) => {
     setErrorMessage(errorMessage);
     const { current } = errorRef;
