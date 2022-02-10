@@ -22,7 +22,7 @@ const Header = (props) => {
   const tid = useRef(0);
   const resetTimetable = () => {
     window.localStorage.clear();
-    window.location.href = window.location.origin;
+    window.location.href = getBaseURL();
   };
 
   useEffect(() => {
