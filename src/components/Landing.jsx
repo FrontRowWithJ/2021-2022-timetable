@@ -17,26 +17,14 @@ const Landing = ({ enableTimetable, setTimetable }) => {
   const errorRef = useRef(null);
   const htmlAreaRef = useRef(null);
   const urlAreaRef = useRef(null);
-  
+
   const handleError = (errorMessage) => {
     setErrorMessage(errorMessage);
     const { current } = errorRef;
     current.style.top = "0";
     setTimeout(() => (current.style.top = ""), 2000);
   };
-  const generateTimetable = (ref, errorMessage) => {
-    const { value: text } = ref.current;
-    try {
-      const timetable = HTMLToTimetable(text);
-      const compressed = compressTimetable(timetable, "StorageBinaryString");
-      window.localStorage.setItem("timetable", compressed);
-      setTimetable(timetable);
-      enableTimetable(true);
-    } catch (error) {
-      if (text.length === 0) handleError("Textbox is empty");
-      else handleError(errorMessage);
-    }
-  };
+
   return (
     <main id="top">
       <Error errorMessage={errorMessage} errorRef={errorRef} />
@@ -44,13 +32,26 @@ const Landing = ({ enableTimetable, setTimetable }) => {
         <div id="dummy" style={{ display: "none" }}></div>
         <Input
           placeholder="PASTE HTML HERE"
+          buttonText="Generate Timetable from HTMLi"
           inputRef={htmlAreaRef}
-          generateTimetable={() =>
-            generateTimetable(htmlAreaRef, "HTML is incorrect.")
+          generateTimetable={() => {
+            const { value: text } = htmlAreaRef.current;
+            try {
+              const timetable = HTMLToTimetable(text);
+              const compressed = compressTimetable(timetable, "StorageBinaryString");
+              window.localStorage.setItem("timetable", compressed);
+              setTimetable(timetable);
+              enableTimetable(true);
+            } catch (error) {
+              if (text.length === 0) handleError("Textbox is empty.");
+              else handleError("HTML is malformed.");
+            }
+          }
           }
         />
         <Input
           placeholder="PASTE URL HERE"
+          buttonText="Generate Timetable from URL"
           inputRef={urlAreaRef}
           generateTimetable={() => {
             const { value: url } = urlAreaRef.current;
