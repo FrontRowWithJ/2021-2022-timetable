@@ -35,7 +35,7 @@ registerRoute(
 
     if (url.pathname.startsWith("/_")) {
       return false;
-    } // If this looks like a URL for a resource, because it contains // a file extension, skip.
+    } // If this looks like a URL for a resource, because it contains  a file extension, skip.
 
     if (url.pathname.match(fileExtensionRegexp)) {
       return false;
@@ -50,8 +50,7 @@ registerRoute(
 // precache, in this case same-origin .png requests like those from in public/
 registerRoute(
   // Add in any other file extensions or routing criteria as needed.
-  ({ url }) =>
-    url.origin === self.location.origin && url.pathname.endsWith(".png"), // Customize this strategy as needed, e.g., by changing to CacheFirst.
+  () => true, // Customize this strategy as needed, e.g., by changing to CacheFirst.
   new StaleWhileRevalidate({
     cacheName: "images",
     plugins: [
@@ -62,7 +61,7 @@ registerRoute(
   })
 );
 
-// This allows the web app to trigger skipWaiting via
+// This allows the web app to trigger skipWaiting via  https://fonts.googleapis.com/css2?family=Poppins:wght@500&display=swap
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener("message", (event) => {
   if (event.data && event.data.type === "SKIP_WAITING") {
