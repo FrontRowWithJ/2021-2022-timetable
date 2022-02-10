@@ -1,7 +1,7 @@
 import { useState } from "react";
 import "../css/input.css";
 
-const Input = ({ generateTimetable, placeholder, inputRef }) => {
+const Input = ({ generateTimetable, placeholder, inputRef, buttonText }) => {
   const [hasText, setText] = useState(false);
   return (
     <div className="wrapper">
@@ -25,7 +25,7 @@ const Input = ({ generateTimetable, placeholder, inputRef }) => {
           type="button"
           onClick={generateTimetable}
         >
-          Generate Timetable
+          {buttonText}
         </button>
         <div></div>
         <div></div>
