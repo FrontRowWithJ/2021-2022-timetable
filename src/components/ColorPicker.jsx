@@ -7,6 +7,9 @@ import {
   colorLuminance,
   defaultSettings,
   hex2rgb,
+  getEvent,
+  isTouchEvent,
+  isPinching,
 } from "../misc";
 import CancelButton from "./CancelButton";
 const { max, min } = Math;
@@ -36,43 +39,45 @@ const ColorPicker = ({ onClick }) => {
   const [pickerIID, setPickerIID] = useState(undefined);
   const [sliderIID, setSliderIID] = useState(undefined);
   const mousePos = useRef({ clientX: 0, clientY: 0 });
-  const [hue, setHue] = useState(0);
-  const [sat, setSat] = useState(0);
-  const [lum, setLum] = useState(0);
+  const [hsl, setHSL] = useState([0, 0, 0]);
   const [settings, setSettings, resetSettings] = useSettings();
   useEffect(() => {
-    const onmousemove = ({ clientX, clientY }) =>
-      (mousePos.current = { clientX, clientY });
-    document.addEventListener("mousemove", onmousemove);
-    const onmouseup = () => {
+    const setMousePos = (evt) => {
+      if (isTouchEvent(evt) && isPinching(evt)) return;
+      const { clientX, clientY } = getEvent(evt);
+      mousePos.current = { clientX, clientY };
+    };
+
+    document.addEventListener("mousemove", setMousePos);
+    document.addEventListener("touchmove", setMousePos);
+    const clearIntervals = () => {
       clearInterval(pickerIID) || setPickerIID(undefined);
       clearInterval(sliderIID) || setSliderIID(undefined);
     };
 
-    document.addEventListener("mouseup", onmouseup);
-    document.addEventListener("touchend", onmouseup);
+    document.addEventListener("mouseup", clearIntervals);
+    document.addEventListener("touchend", clearIntervals);
     return () => {
-      document.removeEventListener("mousemove", onmousemove);
-      document.removeEventListener("mouseup", onmouseup);
-      document.removeEventListener("touchend", onmouseup);
+      document.removeEventListener("mousemove", setMousePos);
+      document.removeEventListener("touchmove", setMousePos);
+      document.removeEventListener("mouseup", clearIntervals);
+      document.removeEventListener("touchend", clearIntervals);
     };
   });
   const setColorPicker = (setting) => {
-    const { sat: _sat, lum: _lum, hue: _hue } = setting;
+    const { sat, lum, hue } = setting;
     const { x, y, right, bottom } =
       colorPickerRef.current.getBoundingClientRect();
     const [w, h] = [right - x, bottom - y];
-    const left = _sat * w;
-    const top = h - (2 * w * h * _lum) / (2 * w - left);
+    const left = sat * w;
+    const top = h - (2 * w * h * lum) / (2 * w - left);
     const { x: sliderX, right: sliderRight } =
       colorSliderRef.current.getBoundingClientRect();
     const width = sliderRight - sliderX;
     setPos({ left, top });
-    setBGColor(hsl2rgb(_hue));
-    setSlider(width * _hue);
-    setHue(_hue);
-    setSat(_sat);
-    setLum(_lum);
+    setBGColor(hsl2rgb(hue));
+    setSlider(width * hue);
+    setHSL([hue, sat, lum]);
   };
   useEffect(() => {
     setColorPicker(settings[focus]);
@@ -80,31 +85,32 @@ const ColorPicker = ({ onClick }) => {
   }, [focus]);
 
   const pickerInterval = () => {
+    const [hue] = hsl;
     const { x, y, right, bottom } =
       colorPickerRef.current.getBoundingClientRect();
     const [w, h] = [right - x, bottom - y];
     const { left, top } = getPos(mousePos.current, x, y, w, h);
-    const _sat = left / w;
-    const _lum = (1 - (left / w) * 0.5) * (1 - top / h);
-    const color = hsl2rgb(hue, _sat, _lum);
+    const sat = left / w;
+    const lum = (1 - (left / w) * 0.5) * (1 - top / h);
+    const color = hsl2rgb(hue, sat, lum);
     const txtColor = getTextColor(...hex2rgb(color));
-    setSat(_sat);
-    setLum(_lum);
+    setHSL([hue, sat, lum]);
     setPos({ left, top });
-    setSettings({ hue, sat: _sat, lum: _lum, color, txtColor }, focus);
+    setSettings({ hue, sat, lum, color, txtColor }, focus);
   };
 
   const sliderInterval = () => {
+    const [, sat, lum] = hsl;
     const { x, right } = colorSliderRef.current.getBoundingClientRect();
     const w = right - x;
     const { left } = getPos(mousePos.current, x, 0, w);
-    const _hue = left / w;
-    const color = hsl2rgb(_hue, sat, lum);
+    const hue = left / w;
+    const color = hsl2rgb(hue, sat, lum);
     const txtColor = getTextColor(...hex2rgb(color));
-    setBGColor(hsl2rgb(_hue));
-    setHue(_hue);
+    setBGColor(hsl2rgb(hue));
+    setHSL([hue, sat, lum]);
     setSlider(left);
-    setSettings({ hue: _hue, sat, lum, color, txtColor }, focus);
+    setSettings({ hue, sat, lum, color, txtColor }, focus);
   };
 
   const getPos = ({ clientX, clientY }, x, y = 0, w, h) => {
@@ -113,7 +119,36 @@ const ColorPicker = ({ onClick }) => {
       top: max(0, min(clientY - y, h)),
     };
   };
+  const setToDefault = (evt) => {
+    const { target } = getEvent(evt);
+    resetSettings();
+    window.localStorage.removeItem("color-settings");
+    setColorPicker(defaultSettings[focus]);
+    sliderCircle.current.classList.add("transition-circles");
+    pickerCircle.current.classList.add("transition-circles");
+    target.textContent = "Defaulted!";
+    setTimeout(() => (target.textContent = "Set to Default"), 600);
+  };
 
+  const setPickerCircle = (evt) => {
+    const { x, y, right, bottom } =
+      colorPickerRef.current.getBoundingClientRect();
+    const [w, h] = [right - x, bottom - y];
+    const { clientX, clientY } = getEvent(evt);
+    const pos = { clientX, clientY };
+    mousePos.current = isTouchEvent(evt) ? pos : mousePos.current;
+    setPos(getPos(mousePos.current, x, y, w, h));
+    setPickerIID(setInterval(pickerInterval, 17));
+  };
+
+  const setSliderCircle = (evt) => {
+    const { x, right } = colorSliderRef.current.getBoundingClientRect();
+    const { clientX, clientY } = getEvent(evt);
+    const pos = { clientX, clientY };
+    mousePos.current = isTouchEvent(evt) ? pos : mousePos.current;
+    setSlider(getPos(mousePos.current, x, 0, right - x).left);
+    setSliderIID(setInterval(sliderInterval, 17));
+  };
   return (
     <div className="customizer">
       <div className="preview">
@@ -152,13 +187,8 @@ const ColorPicker = ({ onClick }) => {
             ref={colorPickerRef}
             draggable="false"
             style={{ backgroundColor }}
-            onMouseDown={() => {
-              const { x, y, right, bottom } =
-                colorPickerRef.current.getBoundingClientRect();
-              const [w, h] = [right - x, bottom - y];
-              setPos(getPos(mousePos.current, x, y, w, h));
-              setPickerIID(setInterval(pickerInterval, 17));
-            }}
+            onMouseDown={setPickerCircle}
+            onTouchStart={setPickerCircle}
           >
             <div className="picker-area-bg" draggable="false"></div>
             <div className="picker-area-bg" draggable="false"></div>
@@ -181,12 +211,8 @@ const ColorPicker = ({ onClick }) => {
             className="color-slider"
             ref={colorSliderRef}
             draggable="false"
-            onMouseDown={() => {
-              const { x, right } =
-                colorSliderRef.current.getBoundingClientRect();
-              setSlider(getPos(mousePos.current, x, 0, right - x).left);
-              setSliderIID(setInterval(sliderInterval, 17));
-            }}
+            onMouseDown={setSliderCircle}
+            onTouchStart={setSliderCircle}
           >
             <div
               className="slider-circle"
@@ -225,15 +251,8 @@ const ColorPicker = ({ onClick }) => {
           <button
             type="button"
             className="set-to-default-button"
-            onMouseDown={({ target }) => {
-              resetSettings();
-              window.localStorage.removeItem("color-settings");
-              setColorPicker(defaultSettings[focus]);
-              sliderCircle.current.classList.add("transition-circles");
-              pickerCircle.current.classList.add("transition-circles");
-              target.textContent = "Defaulted!";
-              setTimeout(() => (target.textContent = "Set to Default"), 600);
-            }}
+            onMouseDown={setToDefault}
+            onTouchStart={setToDefault}
           >
             Set to Default
           </button>
