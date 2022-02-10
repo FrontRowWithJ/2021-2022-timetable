@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/2021-2022-timetable/static/css/main.565c516e.css",
-    "main.js": "/2021-2022-timetable/static/js/main.c6ea2082.js",
+    "main.js": "/2021-2022-timetable/static/js/main.1b67e3c1.js",
     "static/js/787.311260c8.chunk.js": "/2021-2022-timetable/static/js/787.311260c8.chunk.js",
     "static/media/copy-HTML-firefox.png": "/2021-2022-timetable/static/media/copy-HTML-firefox.9f5d79cf9ae3e0bf167c.png",
     "static/media/right-click-inspect-edge.png": "/2021-2022-timetable/static/media/right-click-inspect-edge.7e64017ed515b1df610b.png",
@@ -18,11 +18,11 @@
     "index.html": "/2021-2022-timetable/index.html",
     "static/media/index.cjs": "/2021-2022-timetable/static/media/index.06ad11ea3e32fd3e4303.cjs",
     "main.565c516e.css.map": "/2021-2022-timetable/static/css/main.565c516e.css.map",
-    "main.c6ea2082.js.map": "/2021-2022-timetable/static/js/main.c6ea2082.js.map",
+    "main.1b67e3c1.js.map": "/2021-2022-timetable/static/js/main.1b67e3c1.js.map",
     "787.311260c8.chunk.js.map": "/2021-2022-timetable/static/js/787.311260c8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.565c516e.css",
-    "static/js/main.c6ea2082.js"
+    "static/js/main.1b67e3c1.js"
   ]
 }
