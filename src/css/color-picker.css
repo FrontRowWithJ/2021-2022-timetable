@@ -25,6 +25,7 @@
   cursor: pointer;
   transition: opacity .3s ease-in-out;
   opacity: 1;
+  text-align: center;
 }
 
 .color-picker {
@@ -43,8 +44,8 @@
 
 .picker-area {
   background-color: rebeccapurple;
-  width: 16rem;
-  height: 16rem;
+  width: 100%;
+  height: 100%;
   position: relative;
   overflow: hidden;
   cursor: pointer;
@@ -86,14 +87,14 @@
 }
 
 .transition-circles {
-  transition-timing-function: ease-in-out;
-  transition-duration: .3s;
-  transition-property: left, top, outline-color, background-color;
+  transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition-duration: .5s;
+  transition-property: left, top, outline-color, background-color box-shadow;
 }
 
 .color-slider {
-  height: 2rem;
-  width: 16rem;
+  height: 100%;
+  width: 100%;
   background: linear-gradient(to right, rgb(255, 0, 0) 0%, rgb(255, 255, 0) 17%, rgb(0, 255, 0) 33%, rgb(0, 255, 255) 50%, rgb(0, 0, 255) 66%, rgb(255, 0, 255) 83%, rgb(255, 0, 0) 100%);
   position: relative;
   cursor: pointer;
@@ -187,4 +188,73 @@
 .set-to-default-button:hover {
   background-position: right;
   color: white;
+}
+
+@media screen and (max-width: 612px) {
+  .customizer {
+    /* padding-top: var(--cancel-button-width);
+    grid-template: 1fr 1fr / 1fr;
+    width: 100%;
+    position: absolute;
+    top: 0;
+    z-index: 10;
+    overflow-y: scroll;
+    height: 100vh;
+    width: 100%; */
+  }
+
+  .preview {
+    /* grid-column: 1 / 2;
+    grid-row: 1 / 2; */
+    width: 100%;
+  }
+
+  .preview>div {
+    font-size: medium;
+  }
+
+  .color-picker {
+    /* grid-column: 1 / 2;
+    grid-row: 2 / 3; */
+  }
+
+  .color-picker>div {
+    width: 100%;
+  }
+
+  .save-button-container {
+    width: 100%;
+    height: 100%;
+    transform: translateX(1rem);
+  }
+
+  .set-to-default-button {
+    width: 100%;
+    height: 100%;
+    transform: translateX(-1rem);
+  }
+}
+
+
+@media screen and (max-height: 500px) {
+
+  .customizer {
+    height: 100%;
+  }
+
+  .preview {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .preview>div {
+    height: 15vh;
+    margin: 0;
+  }
+
+  .color-picker>div {
+    height: 85vh;
+  }
 }
