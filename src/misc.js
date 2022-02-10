@@ -1,3 +1,4 @@
+import { decompressTimetable, compressTimetable } from "./misc.js";
 export * from "./misc/HTMLToTimetable.js";
 export * from "./misc/compressTimetable.js";
 export * from "./misc/getWeekdayDates.js";
@@ -48,3 +49,18 @@ export const getEvent = (event) =>
 
 export const isPinching = (event) =>
   event.touches.length > 1 || (event.scale && event.scale !== 1);
+
+export const setTimetableLocalStorage = (queryString = "") => {
+  const urlParams = new URLSearchParams(queryString);
+  const timetableBase64 = urlParams.get("timetable");
+  if (timetableBase64) {
+    const base64 = URLSafetoBase64(timetableBase64);
+    const timetable = decompressTimetable(base64, "Base64");
+    const storageString = compressTimetable(timetable, "StorageBinaryString");
+    const localStorageString = window.localStorage.getItem("timetable");
+    if (localStorageString !== storageString)
+      window.localStorage.setItem("timetable", storageString);
+    return storageString;
+  }
+  return null;
+};
