@@ -1,22 +1,28 @@
 {
   "files": {
-    "main.css": "/2021-2022-timetable/static/css/main.9e03d911.chunk.css",
-    "main.js": "/2021-2022-timetable/static/js/main.790365e1.chunk.js",
-    "main.js.map": "/2021-2022-timetable/static/js/main.790365e1.chunk.js.map",
-    "runtime-main.js": "/2021-2022-timetable/static/js/runtime-main.22c89257.js",
-    "runtime-main.js.map": "/2021-2022-timetable/static/js/runtime-main.22c89257.js.map",
-    "static/js/2.9f92ad19.chunk.js": "/2021-2022-timetable/static/js/2.9f92ad19.chunk.js",
-    "static/js/2.9f92ad19.chunk.js.map": "/2021-2022-timetable/static/js/2.9f92ad19.chunk.js.map",
-    "static/js/3.45b07598.chunk.js": "/2021-2022-timetable/static/js/3.45b07598.chunk.js",
-    "static/js/3.45b07598.chunk.js.map": "/2021-2022-timetable/static/js/3.45b07598.chunk.js.map",
+    "main.css": "/2021-2022-timetable/static/css/main.dca5ba80.css",
+    "main.js": "/2021-2022-timetable/static/js/main.75ea5720.js",
+    "static/js/787.311260c8.chunk.js": "/2021-2022-timetable/static/js/787.311260c8.chunk.js",
+    "static/media/copy-HTML-firefox.png": "/2021-2022-timetable/static/media/copy-HTML-firefox.9f5d79cf9ae3e0bf167c.png",
+    "static/media/right-click-inspect-edge.png": "/2021-2022-timetable/static/media/right-click-inspect-edge.7e64017ed515b1df610b.png",
+    "static/media/copy-HTML-chrome.png": "/2021-2022-timetable/static/media/copy-HTML-chrome.802eb77170d0776fdad9.png",
+    "static/media/mytcdie-login.png": "/2021-2022-timetable/static/media/mytcdie-login.df3bdaac068a79cc2026.png",
+    "static/media/copy-HTML-edge.png": "/2021-2022-timetable/static/media/copy-HTML-edge.45044c0157951fc63bf8.png",
+    "static/media/right-click-inspect-firefox.png": "/2021-2022-timetable/static/media/right-click-inspect-firefox.2907b763c4028e1cb97f.png",
+    "static/media/select-timetable.png": "/2021-2022-timetable/static/media/select-timetable.0b69c9364eb3541feff9.png",
+    "static/media/right-click-inspect-chrome.png": "/2021-2022-timetable/static/media/right-click-inspect-chrome.32a05d0a64650c700546.png",
+    "static/media/view-student-timetable.png": "/2021-2022-timetable/static/media/view-student-timetable.02e094ef96855c0968d4.png",
+    "service-worker.js": "/2021-2022-timetable/service-worker.js",
+    "static/media/enter-dates.png": "/2021-2022-timetable/static/media/enter-dates.b90209b83b9375e5ec80.png",
+    "static/media/click-options-to-expand.png": "/2021-2022-timetable/static/media/click-options-to-expand.1b360c03a6d9dde19d89.png",
     "index.html": "/2021-2022-timetable/index.html",
-    "static/css/main.9e03d911.chunk.css.map": "/2021-2022-timetable/static/css/main.9e03d911.chunk.css.map",
-    "static/js/2.9f92ad19.chunk.js.LICENSE.txt": "/2021-2022-timetable/static/js/2.9f92ad19.chunk.js.LICENSE.txt"
+    "static/media/index.cjs": "/2021-2022-timetable/static/media/index.06ad11ea3e32fd3e4303.cjs",
+    "main.dca5ba80.css.map": "/2021-2022-timetable/static/css/main.dca5ba80.css.map",
+    "main.75ea5720.js.map": "/2021-2022-timetable/static/js/main.75ea5720.js.map",
+    "787.311260c8.chunk.js.map": "/2021-2022-timetable/static/js/787.311260c8.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/runtime-main.22c89257.js",
-    "static/js/2.9f92ad19.chunk.js",
-    "static/css/main.9e03d911.chunk.css",
-    "static/js/main.790365e1.chunk.js"
+    "static/css/main.dca5ba80.css",
+    "static/js/main.75ea5720.js"
   ]
 }
