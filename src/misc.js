@@ -40,3 +40,11 @@ export const URLSafetoBase64 = (str = "") => {
 
 export const getBaseURL = (url = window.location) =>
   `${url.protocol}//${url.host}/${url.pathname.split("/")[1]}`;
+
+export const isTouchEvent = (event) => !/[Mm]ouse/i.test(event.type);
+
+export const getEvent = (event) =>
+  isTouchEvent(event) ? event.touches[0] : event;
+
+export const isPinching = (event) =>
+  event.touches.length > 1 || (event.scale && event.scale !== 1);
