@@ -36,14 +36,16 @@ const Landing = ({ enableTimetable, setTimetable }) => {
           <div id="wrapper">
             <div id="text-container">
               <textarea
+                style={{ backgroundColor: hasText ? "white" : "" }}
                 spellCheck="false"
                 ref={textAreaRef}
                 onChange={({ target }) => {
                   setText(target.value.length !== 0);
                 }}
+                onKeyDown={(evt) => evt.key === "Enter" && generateTimetable()}
               ></textarea>
               <div id="placeholder" style={{ display: hasText ? "none" : "" }}>
-                Paste HTML Here
+                PASTE HTML HERE
               </div>
             </div>
             <div id="button-container">
