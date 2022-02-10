@@ -2,11 +2,16 @@ import React, { useState, useRef, useEffect } from "react";
 import "../css/timetable.css";
 import TimetablePage from "./TimetablePage";
 
-import { getWeekDayDates, getLeft, setScrollBar } from "../misc";
+import {
+  getWeekDayDates,
+  getLeft,
+  setScrollBar,
+  isTouchEvent,
+  getEvent,
+  isPinching,
+} from "../misc";
 
 const translate = (e, d) => e && (e.style.left = d + "px");
-const isMouseEvent = (event) => /[Mm]ouse/i.test(event.type);
-const getEvent = (event) => (isMouseEvent(event) ? event : event.touches[0]);
 
 const Timetable = (props) => {
   const { isTransitioning, setTransition, next, curr, setCurr, setSwiping } =
@@ -40,17 +45,13 @@ const Timetable = (props) => {
 
   const moveSwipe = (event) => {
     if (!start) return;
-    if (!isMouseEvent(event))
-      if (event.touches.length > 1 || (event.scale && event.scale !== 1))
-        return;
+    if (isTouchEvent(event) && isPinching(event)) return;
     const evt = getEvent(event);
     const { pageX, pageY } = evt;
     const d = { x: pageX - start.x, y: pageY - start.y };
     setDelta(d);
     const refs = props.tableRefs.current;
-    const l = curr ? refs[curr - 1].current : undefined;
-    const m = refs[curr].current;
-    const r = curr !== 4 ? refs[curr + 1].current : undefined;
+    const [l, m, r] = [-1, 0, 1].map((i) => refs[curr + i]?.current);
     const w = timetbaleRef.current.clientWidth;
     if (isScrolling === undefined)
       setScrolling(!!(isScrolling || Math.abs(d.x) < Math.abs(d.y)));
