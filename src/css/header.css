@@ -1,6 +1,7 @@
 :root {
-  --min-width: 40px;
+  --min-width: 60px;
   --max-width: 150px;
+  --button-width: clamp(var(--min-width), 15vmin, var(--max-width));
 }
 
 #header {
@@ -13,27 +14,30 @@
   justify-content: space-evenly;
 }
 
-#header>div {
+.header-button-container {
   display: flex;
   justify-content: center;
   align-items: center;
   position: relative;
-  width: clamp(var(--min-width), 20%, var(--max-width));
-  padding-bottom: clamp(var(--min-width), 20%, var(--max-width));
+  width: var(--button-width);
+  height: var(--button-width);
 }
 
-#header>div>div {
-  position: absolute;
-  left: 50%;
-  top: 50%;
+.header-button {
   width: 70%;
   height: 70%;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 25%;
-  transform: translate(-50%, -50%);
   cursor: pointer;
   background-color: #D1CCC3;
   box-shadow: 20px 20px 70px #d4d4d4, -20px -20px 70px #FFFFFF;
+}
+
+
+@media screen and (max-width: 1549px) {
+  #header {
+    margin-top: var(--button-width);
+  }
 }
