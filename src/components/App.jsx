@@ -10,7 +10,7 @@ import ColorPicker from "./ColorPicker";
 const App = () => {
   const [timetable, setTimetable] = useState(null);
   const [isTimetableEnabled, enableTimetable] = useState(false);
-  const compressedTimetable = setTimetableLocalStorage(window.location.search);
+  const compressedTimetable = setTimetableLocalStorage(window.location.search) ?? window.localStorage.getItem("timetable");
   const [overlay, setOverlay] = useState(DEFAULT);
   if (compressedTimetable !== null && timetable === null) {
     const uncompressed = decompressTimetable(
