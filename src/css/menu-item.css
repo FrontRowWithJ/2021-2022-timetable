@@ -5,7 +5,7 @@
 .menu-item {
   width: 90%;
   border-radius: var(--menu-item-radius);
-  height: 3vh;
+  height: clamp(2.5rem, 10vmin, 3rem);
   position: relative;
 }
 
@@ -25,8 +25,7 @@
   z-index: 1;
 }
 
-.menu-item button::before,
-.bg-div::before {
+.nice-button-style::before {
   content: "";
   position: absolute;
   left: 0;
@@ -39,8 +38,7 @@
   border-radius: var(--menu-item-radius);
 }
 
-.menu-item button:hover::before,
-.menu-item:hover .bg-div::before {
+.nice-button-style:hover::before {
   width: 100%;
 }
 
