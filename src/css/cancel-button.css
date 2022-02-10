@@ -1,18 +1,29 @@
+:root {
+  --cancel-button-width: 5rem;
+  --cancel-button-middle: calc(var(--cancel-button-width) / 6);
+  --cancel-button-bar: calc(var(--cancel-button-width) / 12)
+}
+
 .cancel-button {
-  position: absolute;
+  position: fixed;
   right: 0;
   top: 0;
-  width: 3rem;
-  height: 3rem;
+  width: var(--cancel-button-width);
+  height: var(--cancel-button-width);
   background-color: transparent;
   cursor: pointer;
   border: none;
+  z-index: 4;
+}
+
+.cancel-button:hover {
+  animation: wiggle .5s linear 0s 1 normal forwards;
 }
 
 .cancel-button span {
-  background-color: white;
-  width: calc(3rem * .7);
-  height: 4px;
+  background-color: black;
+  width: calc(var(--cancel-button-width) * .7);
+  height: var(--cancel-button-bar);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -24,11 +35,40 @@
 }
 
 .cancel-button span:nth-of-type(2) {
-  width: 8px;
-  height: 8px;
+  width: var(--cancel-button-middle);
+  height: var(--cancel-button-middle);
   transform: translate(-50%, -50%);
 }
 
 .cancel-button span:last-of-type {
   transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+@keyframes wiggle {
+  0% {
+    transform: rotate(10deg);
+  }
+
+  25% {
+    transform: rotate(-10deg);
+  }
+
+  50% {
+    transform: rotate(20deg);
+  }
+
+  75% {
+    transform: rotate(-5deg);
+  }
+
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+@media screen and (max-width: 750px) {
+  :root {
+    --cancel-button-width: 2.4rem;
+  }
+
 }
