@@ -7,52 +7,9 @@ export const hex2rgb = (hex = "") =>
 const getLuminosity = (r, g, b) => 0.299 * r + 0.587 * g + 0.115 * b;
 
 const { max, min } = Math;
-/**
- * Converts an RGB color value to HSL. Conversion formula
- * adapted from http://en.wikipedia.org/wiki/HSL_color_space.
- * Assumes r, g, and b are contained in the set [0, 1] and
- * returns h, s, and l in the set [0, 1].
- *
- * @param   {number}  r       The red color value
- * @param   {number}  g       The green color value
- * @param   {number}  b       The blue color value
- * @return  {Array}           The HSL representation
- */
-const rgb2hsl = (r = 0, g = 0, b = 0) => {
-  const max = Math.max(r, g, b);
-  const min = Math.min(r, g, b);
-  let h,
-    s,
-    l = (max + min) / 2;
-  if (max === min) {
-    h = s = 0; // achromatic
-  } else {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-    switch (max) {
-      case r:
-        h = (g - b) / d + (g < b ? 6 : 0);
-        break;
-      case g:
-        h = (b - r) / d + 2;
-        break;
-      default:
-        h = (r - g) / d + 4;
-        break;
-    }
-    h /= 6;
-  }
-  return [h, s, l];
-};
 
 export const getTextColor = (r, g, b) =>
   getLuminosity(r, g, b) > 0.5 ? "#000000" : "#FFFFFF";
-
-export const activityColors = ["#2929A3", "#E8AA14", "#F5054F", "#693696"];
-
-export const textColors = activityColors.map((color) =>
-  getTextColor(...hex2rgb(color))
-);
 
 // input: h,s,l in [0,1] - output: r,g,b in [0,1]
 export const hsl2rgb = (h = 0, s = 1, l = 0.5) => {
@@ -75,23 +32,33 @@ export const colorLuminance = (hex, lum = 0) => {
   return "#" + res.join("");
 };
 
-export const defaultSettings = activityColors.map((color = "") => {
-  const [r, g, b] = hex2rgb(color);
-  const [hue, sat, lum] = rgb2hsl(r, g, b);
-  const txtColor = getTextColor(r, g, b);
-  return {
-    hue,
-    sat,
-    lum,
-    color,
-    txtColor,
-  };
-});
-
-export const applyOpacity = (bg, fg, opacity) => {
-  const rgb_bg = hex2rgb(bg);
-  const rgb_fg = hex2rgb(fg);
-  const newRGB = rgb_bg.map((c, i) => c * (1 - opacity) + rgb_fg[i] * opacity);
-  const hex = newRGB.map((c) => ((c * 255) | 0).toString(16).padStart(2, "0"));
-  return "#" + hex.join("");
-};
+export const defaultSettings = [
+  {
+    hue: 0.6666666666666666,
+    sat: 0.5980392156862745,
+    lum: 0.39999999999999997,
+    color: "#2929A3",
+    txtColor: "#FFFFFF",
+  },
+  {
+    hue: 0.11792452830188678,
+    sat: 0.8412698412698412,
+    lum: 0.49411764705882355,
+    color: "#E8AA14",
+    txtColor: "#000000",
+  },
+  {
+    hue: 0.9486111111111111,
+    sat: 0.96,
+    lum: 0.4901960784313726,
+    color: "#F5054F",
+    txtColor: "#FFFFFF",
+  },
+  {
+    hue: 0.7552083333333334,
+    sat: 0.47058823529411764,
+    lum: 0.4,
+    color: "#693696",
+    txtColor: "#FFFFFF",
+  },
+];
