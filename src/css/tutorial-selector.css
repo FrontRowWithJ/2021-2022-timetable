@@ -1,13 +1,14 @@
 .selector-container {
   display: flex;
   position: relative;
+  --svg-width: clamp(4.5rem, 17vmin, 7rem);
 }
 
 .selector-container svg {
   flex-grow: 1;
   cursor: pointer;
-  width: 7rem;
-  height: 7rem;
+  width: var(--svg-width);
+  height: var(--svg-width);
   z-index: 1;
 }
 

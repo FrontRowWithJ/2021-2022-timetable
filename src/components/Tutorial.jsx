@@ -23,7 +23,10 @@ const Tutorial = ({ clickedBrowser }) => {
     <div className="tutorial-container">
       <TutorialSection
         noImage
-        style={{ display: "flex", justifyContent: "center" }}
+        style={{
+          display: "flex",
+          justifyContent: "center",
+        }}
       >
         <i>
           Attention! To use this on mobile, these steps must be completed on a
@@ -97,10 +100,21 @@ const Tutorial = ({ clickedBrowser }) => {
         Return to this website and paste the HTML into the textbox above.
       </TutorialSection>
       <TutorialSection noImage step={9}>
-        Click the "Generate timetable" button and enjoy your new timetable!
-        <a href="#top" id="move-to-top">
-          Move to Top
-        </a>
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "center",
+          }}
+        >
+          <div>
+            Click the "Generate timetable" button and enjoy your new timetable!
+          </div>
+          <a href="#top" id="move-to-top">
+            Move to Top
+          </a>
+        </div>
       </TutorialSection>
     </div>
   );

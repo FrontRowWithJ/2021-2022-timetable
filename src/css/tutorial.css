@@ -5,13 +5,9 @@
 }
 
 #move-to-top {
-  position: absolute;
-  right: 0;
-  top: 0;
-  height: 100%;
   cursor: pointer;
-  vertical-align: middle;
   display: flex;
+  width: 100%;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
@@ -19,6 +15,7 @@
   color: white;
   padding: 0 1rem;
   text-decoration: none;
+  text-align: center;
 }
 
 .code {
