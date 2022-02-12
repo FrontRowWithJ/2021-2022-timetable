@@ -8,8 +8,6 @@ import {
   defaultSettings,
   hex2rgb,
   getEvent,
-  isTouchEvent,
-  isPinching,
 } from "../misc";
 import CancelButton from "./CancelButton";
 const { max, min } = Math;
@@ -36,32 +34,58 @@ const ColorPicker = ({ onClick }) => {
   const colorSliderRef = useRef(null);
   const sliderCircle = useRef(null);
   const pickerCircle = useRef(null);
-  const [pickerIID, setPickerIID] = useState(undefined);
-  const [sliderIID, setSliderIID] = useState(undefined);
-  const mousePos = useRef({ clientX: 0, clientY: 0 });
-  const [hsl, setHSL] = useState([0, 0, 0]);
   const [settings, setSettings, resetSettings] = useSettings();
+  const mousemoves = useRef([]);
+  const touchmoves = useRef([]);
+
+  const setPickerCircle = (evt) => {
+    const { x, y, right, bottom } =
+      colorPickerRef.current.getBoundingClientRect();
+    const [w, h] = [right - x, bottom - y];
+    const { clientX, clientY } = getEvent(evt);
+    const { left, top } = getPos({ clientX, clientY }, x, y, w, h);
+    const { hue } = settings[focus];
+    const sat = left / w;
+    const lum = (1 - (left / w) * 0.5) * (1 - top / h);
+    const color = hsl2rgb(hue, sat, lum);
+    const txtColor = getTextColor(...hex2rgb(color));
+    setPos({ left, top });
+    setSettings({ hue, sat, lum, color, txtColor }, focus);
+    evt.preventDefault();
+    evt.stopPropagation();
+  };
+
+  const setSliderCircle = (evt) => {
+    const { x, right } = colorSliderRef.current.getBoundingClientRect();
+    const { clientX, clientY } = getEvent(evt);
+    const w = right - x;
+    const { left } = getPos({ clientX, clientY }, x, 0, right - x);
+    const hue = left / w;
+    const { sat, lum } = settings[focus];
+    const color = hsl2rgb(hue, sat, lum);
+    const txtColor = getTextColor(...hex2rgb(color));
+    setSlider(left);
+    setSettings({ hue, sat, lum, color, txtColor }, focus);
+    setBGColor(hsl2rgb(hue));
+    evt.preventDefault();
+    evt.stopPropagation();
+  };
+
   useEffect(() => {
-    const setMousePos = (evt) => {
-      if (isTouchEvent(evt) && isPinching(evt)) return;
-      const { clientX, clientY } = getEvent(evt);
-      mousePos.current = { clientX, clientY };
+    const removeMouseEvents = () => {
+      while (mousemoves.current.length)
+        document.removeEventListener("mousemove", mousemoves.current.shift());
     };
 
-    document.addEventListener("mousemove", setMousePos);
-    document.addEventListener("touchmove", setMousePos);
-    const clearIntervals = () => {
-      clearInterval(pickerIID) || setPickerIID(undefined);
-      clearInterval(sliderIID) || setSliderIID(undefined);
+    const removeTouchEvents = () => {
+      while (touchmoves.current.length)
+        document.removeEventListener("touchmove", touchmoves.current.shift());
     };
-
-    document.addEventListener("mouseup", clearIntervals);
-    document.addEventListener("touchend", clearIntervals);
+    document.addEventListener("mouseup", removeMouseEvents);
+    document.addEventListener("touchend", removeTouchEvents);
     return () => {
-      document.removeEventListener("mousemove", setMousePos);
-      document.removeEventListener("touchmove", setMousePos);
-      document.removeEventListener("mouseup", clearIntervals);
-      document.removeEventListener("touchend", clearIntervals);
+      document.removeEventListener("mouseup", removeMouseEvents);
+      document.removeEventListener("touchend", removeTouchEvents);
     };
   });
   const setColorPicker = (setting) => {
@@ -77,41 +101,11 @@ const ColorPicker = ({ onClick }) => {
     setPos({ left, top });
     setBGColor(hsl2rgb(hue));
     setSlider(width * hue);
-    setHSL([hue, sat, lum]);
   };
   useEffect(() => {
     setColorPicker(settings[focus]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [focus]);
-
-  const pickerInterval = () => {
-    const [hue] = hsl;
-    const { x, y, right, bottom } =
-      colorPickerRef.current.getBoundingClientRect();
-    const [w, h] = [right - x, bottom - y];
-    const { left, top } = getPos(mousePos.current, x, y, w, h);
-    const sat = left / w;
-    const lum = (1 - (left / w) * 0.5) * (1 - top / h);
-    const color = hsl2rgb(hue, sat, lum);
-    const txtColor = getTextColor(...hex2rgb(color));
-    setHSL([hue, sat, lum]);
-    setPos({ left, top });
-    setSettings({ hue, sat, lum, color, txtColor }, focus);
-  };
-
-  const sliderInterval = () => {
-    const [, sat, lum] = hsl;
-    const { x, right } = colorSliderRef.current.getBoundingClientRect();
-    const w = right - x;
-    const { left } = getPos(mousePos.current, x, 0, w);
-    const hue = left / w;
-    const color = hsl2rgb(hue, sat, lum);
-    const txtColor = getTextColor(...hex2rgb(color));
-    setBGColor(hsl2rgb(hue));
-    setHSL([hue, sat, lum]);
-    setSlider(left);
-    setSettings({ hue, sat, lum, color, txtColor }, focus);
-  };
 
   const getPos = ({ clientX, clientY }, x, y = 0, w, h) => {
     return {
@@ -130,25 +124,6 @@ const ColorPicker = ({ onClick }) => {
     setTimeout(() => (target.textContent = "Set to Default"), 600);
   };
 
-  const setPickerCircle = (evt) => {
-    const { x, y, right, bottom } =
-      colorPickerRef.current.getBoundingClientRect();
-    const [w, h] = [right - x, bottom - y];
-    const { clientX, clientY } = getEvent(evt);
-    const pos = { clientX, clientY };
-    mousePos.current = isTouchEvent(evt) ? pos : mousePos.current;
-    setPos(getPos(mousePos.current, x, y, w, h));
-    setPickerIID(setInterval(pickerInterval, 17));
-  };
-
-  const setSliderCircle = (evt) => {
-    const { x, right } = colorSliderRef.current.getBoundingClientRect();
-    const { clientX, clientY } = getEvent(evt);
-    const pos = { clientX, clientY };
-    mousePos.current = isTouchEvent(evt) ? pos : mousePos.current;
-    setSlider(getPos(mousePos.current, x, 0, right - x).left);
-    setSliderIID(setInterval(sliderInterval, 17));
-  };
   return (
     <div className="customizer">
       <div className="preview">
@@ -187,8 +162,14 @@ const ColorPicker = ({ onClick }) => {
             ref={colorPickerRef}
             draggable="false"
             style={{ backgroundColor }}
-            onMouseDown={setPickerCircle}
-            onTouchStart={setPickerCircle}
+            onMouseDown={() => {
+              mousemoves.current.push(setPickerCircle);
+              document.addEventListener("mousemove", setPickerCircle);
+            }}
+            onTouchStart={() => {
+              touchmoves.current.push(setPickerCircle);
+              document.addEventListener("touchmove", setPickerCircle);
+            }}
           >
             <div className="picker-area-bg" draggable="false"></div>
             <div className="picker-area-bg" draggable="false"></div>
@@ -211,8 +192,14 @@ const ColorPicker = ({ onClick }) => {
             className="color-slider"
             ref={colorSliderRef}
             draggable="false"
-            onMouseDown={setSliderCircle}
-            onTouchStart={setSliderCircle}
+            onMouseDown={() => {
+              mousemoves.current.push(setSliderCircle);
+              document.addEventListener("mousemove", setSliderCircle);
+            }}
+            onTouchStart={() => {
+              touchmoves.current.push(setSliderCircle);
+              document.addEventListener("touchmove", setSliderCircle);
+            }}
           >
             <div
               className="slider-circle"
