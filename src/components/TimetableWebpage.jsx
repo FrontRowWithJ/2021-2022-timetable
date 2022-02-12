@@ -15,7 +15,7 @@ const TimetableWebpage = ({ timetableJSON, setOverlay, overlay }) => {
     <main
       style={{
         filter: overlay === DEFAULT ? "" : "blur(10px)",
-        height: "100vh",
+        height: "100%",
       }}
       onWheel={({ deltaY }) => {
         const innerH =
