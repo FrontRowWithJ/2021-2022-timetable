@@ -38,6 +38,8 @@ const ColorPicker = ({ onClick }) => {
   const mousemoves = useRef([]);
   const touchmoves = useRef([]);
 
+  const isMouseEvent = useRef(false);
+  const isTouchEvent = useRef(false);
   const setPickerCircle = (evt) => {
     const { x, y, right, bottom } =
       colorPickerRef.current.getBoundingClientRect();
@@ -75,11 +77,13 @@ const ColorPicker = ({ onClick }) => {
     const removeMouseEvents = () => {
       while (mousemoves.current.length)
         document.removeEventListener("mousemove", mousemoves.current.shift());
+      isMouseEvent.current = false;
     };
 
     const removeTouchEvents = () => {
       while (touchmoves.current.length)
         document.removeEventListener("touchmove", touchmoves.current.shift());
+      isTouchEvent.current = false;
     };
     document.addEventListener("mouseup", removeMouseEvents);
     document.addEventListener("touchend", removeTouchEvents);
@@ -163,12 +167,18 @@ const ColorPicker = ({ onClick }) => {
             draggable="false"
             style={{ backgroundColor }}
             onMouseDown={() => {
-              mousemoves.current.push(setPickerCircle);
-              document.addEventListener("mousemove", setPickerCircle);
+              if (!isMouseEvent.current) {
+                mousemoves.current.push(setPickerCircle);
+                document.addEventListener("mousemove", setPickerCircle);
+                isMouseEvent.current = true;
+              }
             }}
             onTouchStart={() => {
-              touchmoves.current.push(setPickerCircle);
-              document.addEventListener("touchmove", setPickerCircle);
+              if (!isTouchEvent.current) {
+                touchmoves.current.push(setPickerCircle);
+                document.addEventListener("touchmove", setPickerCircle);
+                isTouchEvent.current = true;
+              }
             }}
           >
             <div className="picker-area-bg" draggable="false"></div>
@@ -193,12 +203,18 @@ const ColorPicker = ({ onClick }) => {
             ref={colorSliderRef}
             draggable="false"
             onMouseDown={() => {
-              mousemoves.current.push(setSliderCircle);
-              document.addEventListener("mousemove", setSliderCircle);
+              if (!isMouseEvent.current) {
+                mousemoves.current.push(setSliderCircle);
+                document.addEventListener("mousemove", setSliderCircle);
+                isMouseEvent.current = true;
+              }
             }}
             onTouchStart={() => {
-              touchmoves.current.push(setSliderCircle);
-              document.addEventListener("touchmove", setSliderCircle);
+              if (!isTouchEvent.current) {
+                touchmoves.current.push(setSliderCircle);
+                document.addEventListener("touchmove", setSliderCircle);
+                isTouchEvent.current = true;
+              }
             }}
           >
             <div
