@@ -5,7 +5,7 @@
 .menu-item {
   width: 90%;
   border-radius: var(--menu-item-radius);
-  height: clamp(2.5rem, 10vmin, 3rem);
+  height: clamp(2rem, 10vh, 4rem);
   position: relative;
 }
 
@@ -71,4 +71,12 @@
   opacity: .3;
   z-index: -1;
   left: 7.5%;
+}
+
+@media screen and (max-height: 400px) {
+
+  .menu-item button {
+    font-size: small;
+  }
+  
 }
