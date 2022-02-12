@@ -32,7 +32,7 @@ const Landing = ({ enableTimetable, setTimetable }) => {
         <div id="dummy" style={{ display: "none" }}></div>
         <Input
           placeholder="PASTE HTML HERE"
-          buttonText="Generate Timetable from HTMLi"
+          buttonText="Generate Timetable from HTML"
           inputRef={htmlAreaRef}
           generateTimetable={() => {
             const { value: text } = htmlAreaRef.current;
