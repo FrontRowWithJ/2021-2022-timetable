@@ -2,6 +2,7 @@
   --kebab-container-width: clamp(var(--min-width), 15vmin, var(--max-width));
   --kebab-width: calc(var(--kebab-container-width) / 12);
   --kebab-anim-time: .2s;
+  --menu-width: 12rem;
 }
 
 .circle {
@@ -125,7 +126,7 @@
 
 .menu {
   height: 100%;
-  width: 12rem;
+  width: var(--menu-width);
   position: absolute;
   left: -100%;
   top: 0;
@@ -170,4 +171,11 @@
   display: flex;
   align-items: center;
   flex-direction: column;
+}
+
+.cancel-area {
+  position: fixed;
+  width: calc(100% - var(--menu-width));
+  height: 100%;
+  left: var(--menu-width);
 }
