@@ -1,7 +1,7 @@
 .error-message {
   background-color: rgba(255, 0, 0, .1);
   color: #ff2400;
-  font-family: "Circular Std Book";
+  font-family: "Roboto", sans-serif;
   transition: top .5s ease-in-out;
   position: fixed;
   left: 50%;

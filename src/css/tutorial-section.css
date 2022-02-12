@@ -62,7 +62,7 @@
   width: 100%;
   font-size: 1.2rem;
   padding: 0 1rem;
-  font-family: "Circular Std Book";
+  font-family: "Roboto", sans-serif;
   margin: 1rem 0;
   display: grid;
   grid-template-columns: 2rem auto;
