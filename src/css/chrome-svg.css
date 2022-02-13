@@ -1,4 +1,5 @@
 .B {
+  -webkit-clip-path: url(#C);
   clip-path: url(#C);
 }
 

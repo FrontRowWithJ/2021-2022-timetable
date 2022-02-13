@@ -15,6 +15,8 @@
   color: white;
   font-weight: bolder;
   font-family: "Poppins";
+  background: -webkit-gradient(linear, left top, right top, from(slateblue), to(#585ce4));
+  background: -o-linear-gradient(left, slateblue, #585ce4);
   background: linear-gradient(90deg, slateblue, #585ce4);
   border-radius: var(--menu-item-radius);
   border: 0;
@@ -33,6 +35,8 @@
   width: 0%;
   height: 100%;
   background-color: rgba(102, 51, 153, 1);
+  -webkit-transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  -o-transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   z-index: -1;
   border-radius: var(--menu-item-radius);
@@ -78,5 +82,5 @@
   .menu-item button {
     font-size: small;
   }
-  
+
 }

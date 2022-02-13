@@ -1,10 +1,14 @@
 .selector-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
   position: relative;
   --svg-width: clamp(4.5rem, 17vmin, 7rem);
 }
 
 .selector-container svg {
+  -webkit-box-flex: 1;
+  -ms-flex-positive: 1;
   flex-grow: 1;
   cursor: pointer;
   width: var(--svg-width);

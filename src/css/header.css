@@ -6,16 +6,29 @@
 
 #header {
   width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
   flex-direction: row;
   padding: 1rem;
   font-size: 1.5rem;
+  -webkit-box-pack: space-evenly;
+  -ms-flex-pack: space-evenly;
   justify-content: space-evenly;
 }
 
 .header-button-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   position: relative;
   width: var(--button-width);
@@ -25,12 +38,19 @@
 .header-button {
   width: 70%;
   height: 70%;
+  display: -webkit-box;
+  display: -ms-flexbox;
   display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
   justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
   align-items: center;
   border-radius: 25%;
   cursor: pointer;
   background-color: #D1CCC3;
+  -webkit-box-shadow: 20px 20px 70px #d4d4d4, -20px -20px 70px #FFFFFF;
   box-shadow: 20px 20px 70px #d4d4d4, -20px -20px 70px #FFFFFF;
 }
 
