@@ -22,12 +22,14 @@ const Timetable = (props) => {
   const [start, setStart] = useState(undefined);
   const [delta, setDelta] = useState(undefined);
   const [isScrolling, setScrolling] = useState(undefined);
+
   useEffect(() => {
     timetbaleRef.current.scrollTop = 0;
     props.tableRefs.current.forEach((ref, i) => {
       ref.current.style.left = getLeft(i, next);
     });
   }, [next, props.tableRefs]);
+
   useEffect(() => {
     setScrollBar(props.tableRefs.current[curr].current);
     const iid = setInterval(() => {
@@ -35,6 +37,13 @@ const Timetable = (props) => {
     }, 1000);
     return () => clearInterval(iid);
   }, [curr, props.tableRefs]);
+
+  useEffect(() => {
+    const handleResize = () =>
+      setScrollBar(props.tableRefs.current[curr].current);
+    document.addEventListener("resize", handleResize);
+    return () => document.removeEventListener("resize", handleResize);
+  }, [props.tableRefs, curr]);
 
   const startSwipe = (event) => {
     if (isTransitioning) return;
@@ -117,7 +126,6 @@ const Timetable = (props) => {
           isTransitioning={isTransitioning}
           isSwiping={props.isSwiping}
           setSwiping={setSwiping}
-          refs={props.tableRefs.current}
         />
       ))}
     </div>

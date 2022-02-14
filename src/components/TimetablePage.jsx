@@ -1,22 +1,15 @@
-import React, { useEffect, useCallback } from "react";
+import React from "react";
 import "../css/timetable-page.css";
-import { setScrollBar, getLeft, defaultSettings } from "../misc";
+import { getLeft, defaultSettings } from "../misc";
 import Lesson from "./Lesson";
 
 const TimetablePage = (props) => {
-  const { refs, curr, index, date, hour, schedule, tableRef } = props;
+  const { curr, index, date, hour, schedule, tableRef } = props;
   const cache = window.localStorage.getItem("color-settings");
   const settings = cache ? JSON.parse(cache) : defaultSettings;
   const currDay = new Date().getDay() - 1;
   const classes = schedule.filter((cell) => cell !== undefined);
-  const handleResize = useCallback(
-    () => setScrollBar(refs[curr].current),
-    [curr, refs]
-  );
-  useEffect(() => {
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, [handleResize]);
+  
   return (
     <div
       className="timetable-page-container"
