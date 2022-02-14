@@ -7,6 +7,7 @@
   -ms-grid-columns: 1fr 1fr;
   grid-template: 1fr / 1fr 1fr;
   font-family: "Roboto", sans-serif;
+  touch-action: none;
 }
 
 .preview {
@@ -126,9 +127,9 @@
   -webkit-transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
   -o-transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
   transition-timing-function: cubic-bezier(0.34, 1.56, 0.64, 1);
-  -webkit-transition-duration: .5s;
-  -o-transition-duration: .5s;
-  transition-duration: .5s;
+  -webkit-transition-duration: 0s;
+  -o-transition-duration: 0s;
+  transition-duration: 0s;
   -webkit-transition-property: left, top, outline-color, background-color box-shadow;
   -o-transition-property: left, top, outline-color, background-color box-shadow;
   transition-property: left, top, outline-color, background-color box-shadow;

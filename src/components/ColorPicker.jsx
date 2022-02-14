@@ -11,7 +11,7 @@ import {
 } from "../misc";
 import CancelButton from "./CancelButton";
 const { max, min } = Math;
-
+const TRANSITION_TIME = 500;
 const useSettings = () => {
   const savedSettings = window.localStorage.getItem("color-settings");
   const [settings, set] = useState(
@@ -29,20 +29,19 @@ const ColorPicker = ({ onClick }) => {
   const [focus, setFocus] = useState(0);
   const [pos, setPos] = useState({ left: 0, top: 0 });
   const [backgroundColor, setBGColor] = useState("#FF0000");
-  const [sliderPos, setSlider] = useState(0);
-  const colorPickerRef = useRef(null);
-  const colorSliderRef = useRef(null);
-  const sliderCircle = useRef(null);
-  const pickerCircle = useRef(null);
+  const [sliderPos, setSliderPos] = useState(0);
+  const pickerAreaRef = useRef(null);
+  const sliderAreaRef = useRef(null);
+  const sliderRef = useRef(null);
+  const pickerRef = useRef(null);
   const [settings, setSettings, resetSettings] = useSettings();
   const mousemoves = useRef([]);
   const touchmoves = useRef([]);
-
-  const isMouseEvent = useRef(false);
-  const isTouchEvent = useRef(false);
-  const setPickerCircle = (evt) => {
+  const hasPressed = useRef(false);
+  const hasTouched = useRef(false);
+  const setPicker = (evt) => {
     const { x, y, right, bottom } =
-      colorPickerRef.current.getBoundingClientRect();
+      pickerAreaRef.current.getBoundingClientRect();
     const [w, h] = [right - x, bottom - y];
     const { clientX, clientY } = getEvent(evt);
     const { left, top } = getPos({ clientX, clientY }, x, y, w, h);
@@ -51,14 +50,13 @@ const ColorPicker = ({ onClick }) => {
     const lum = (1 - (left / w) * 0.5) * (1 - top / h);
     const color = hsl2rgb(hue, sat, lum);
     const txtColor = getTextColor(...hex2rgb(color));
-    setPos({ left, top });
+    setPos({ left: `${(left * 100) / w}%`, top: `${(top * 100) / h}%` });
     setSettings({ hue, sat, lum, color, txtColor }, focus);
     evt.preventDefault();
     evt.stopPropagation();
   };
-
-  const setSliderCircle = (evt) => {
-    const { x, right } = colorSliderRef.current.getBoundingClientRect();
+  const setSlider = (evt) => {
+    const { x, right } = sliderAreaRef.current.getBoundingClientRect();
     const { clientX, clientY } = getEvent(evt);
     const w = right - x;
     const { left } = getPos({ clientX, clientY }, x, 0, right - x);
@@ -66,24 +64,39 @@ const ColorPicker = ({ onClick }) => {
     const { sat, lum } = settings[focus];
     const color = hsl2rgb(hue, sat, lum);
     const txtColor = getTextColor(...hex2rgb(color));
-    setSlider(left);
+    setSliderPos(`${(left / w) * 100}%`);
     setSettings({ hue, sat, lum, color, txtColor }, focus);
     setBGColor(hsl2rgb(hue));
     evt.preventDefault();
     evt.stopPropagation();
   };
 
+  const setColorPicker = (setting) => {
+    const { sat, lum, hue } = setting;
+    const { x, y, right, bottom } =
+      pickerAreaRef.current.getBoundingClientRect();
+    const [w, h] = [right - x, bottom - y];
+    const left = sat * w;
+    const top = h - (2 * w * h * lum) / (2 * w - left);
+    const { x: sliderX, right: sliderRight } =
+      sliderAreaRef.current.getBoundingClientRect();
+    const width = sliderRight - sliderX;
+    setPos({ left: `${(left * 100) / w}%`, top: `${(top * 100) / h}%` });
+    setBGColor(hsl2rgb(hue));
+    setSliderPos(`${(width * hue * 100) / w}%`);
+  };
+
   useEffect(() => {
     const removeMouseEvents = () => {
       while (mousemoves.current.length)
         document.removeEventListener("mousemove", mousemoves.current.shift());
-      isMouseEvent.current = false;
+      hasPressed.current = false;
     };
 
     const removeTouchEvents = () => {
       while (touchmoves.current.length)
         document.removeEventListener("touchmove", touchmoves.current.shift());
-      isTouchEvent.current = false;
+      hasTouched.current = false;
     };
     document.addEventListener("mouseup", removeMouseEvents);
     document.addEventListener("touchend", removeTouchEvents);
@@ -92,20 +105,7 @@ const ColorPicker = ({ onClick }) => {
       document.removeEventListener("touchend", removeTouchEvents);
     };
   });
-  const setColorPicker = (setting) => {
-    const { sat, lum, hue } = setting;
-    const { x, y, right, bottom } =
-      colorPickerRef.current.getBoundingClientRect();
-    const [w, h] = [right - x, bottom - y];
-    const left = sat * w;
-    const top = h - (2 * w * h * lum) / (2 * w - left);
-    const { x: sliderX, right: sliderRight } =
-      colorSliderRef.current.getBoundingClientRect();
-    const width = sliderRight - sliderX;
-    setPos({ left, top });
-    setBGColor(hsl2rgb(hue));
-    setSlider(width * hue);
-  };
+
   useEffect(() => {
     setColorPicker(settings[focus]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -122,12 +122,26 @@ const ColorPicker = ({ onClick }) => {
     resetSettings();
     window.localStorage.removeItem("color-settings");
     setColorPicker(defaultSettings[focus]);
-    sliderCircle.current.classList.add("transition-circles");
-    pickerCircle.current.classList.add("transition-circles");
+    const { current: slider } = sliderRef;
+    const { current: picker } = pickerRef;
+    slider.style.transitionDuration =
+      picker.style.transitionDuration = `${TRANSITION_TIME}ms`;
+    setTimeout(() => {
+      slider.style.transitionDuration = picker.style.transitionDuration = "";
+    }, TRANSITION_TIME);
     target.textContent = "Defaulted!";
     setTimeout(() => (target.textContent = "Set to Default"), 600);
   };
-
+  const handleEvent = (evt, cache, ref, func, type, evtCheck) => {
+    const { current: target } = ref;
+    target.style.transitionDuration = "";
+    func(evt);
+    if (!evtCheck.current) {
+      cache.current.push(func);
+      document.addEventListener(type, func);
+      evtCheck.current = true;
+    }
+  };
   return (
     <div className="customizer">
       <div className="preview">
@@ -140,9 +154,15 @@ const ColorPicker = ({ onClick }) => {
               opacity: i === focus ? 1 : 0.5,
             }}
             onClick={() => {
+              const { current: slider } = sliderRef;
+              const { current: picker } = pickerRef;
+              slider.style.transitionDuration =
+                picker.style.transitionDuration = `${TRANSITION_TIME}ms`;
+              setTimeout(() => {
+                slider.style.transitionDuration =
+                  picker.style.transitionDuration = "";
+              }, TRANSITION_TIME);
               setFocus(i);
-              sliderCircle.current.classList.add("transition-circles");
-              pickerCircle.current.classList.add("transition-circles");
             }}
           >
             {activity}
@@ -163,33 +183,36 @@ const ColorPicker = ({ onClick }) => {
         <div>
           <div
             className="picker-area"
-            ref={colorPickerRef}
+            ref={pickerAreaRef}
             draggable="false"
             style={{ backgroundColor }}
-            onMouseDown={() => {
-              if (!isMouseEvent.current) {
-                mousemoves.current.push(setPickerCircle);
-                document.addEventListener("mousemove", setPickerCircle);
-                isMouseEvent.current = true;
-              }
-            }}
-            onTouchStart={() => {
-              if (!isTouchEvent.current) {
-                touchmoves.current.push(setPickerCircle);
-                document.addEventListener("touchmove", setPickerCircle);
-                isTouchEvent.current = true;
-              }
-            }}
+            onMouseDown={(e) =>
+              handleEvent(
+                e,
+                mousemoves,
+                pickerRef,
+                setPicker,
+                "mousemove",
+                hasPressed
+              )
+            }
+            onTouchStart={(e) =>
+              handleEvent(
+                e,
+                touchmoves,
+                pickerRef,
+                setPicker,
+                "touchmove",
+                hasTouched
+              )
+            }
           >
             <div className="picker-area-bg" draggable="false"></div>
             <div className="picker-area-bg" draggable="false"></div>
 
             <div
-              className="picker-circle"
-              ref={pickerCircle}
-              onTransitionEnd={({ target }) =>
-                target.classList.remove("transition-circles")
-              }
+              className="picker-circle transition-circles"
+              ref={pickerRef}
               draggable="false"
               style={{
                 ...pos,
@@ -200,29 +223,32 @@ const ColorPicker = ({ onClick }) => {
           </div>
           <div
             className="color-slider"
-            ref={colorSliderRef}
+            ref={sliderAreaRef}
             draggable="false"
-            onMouseDown={() => {
-              if (!isMouseEvent.current) {
-                mousemoves.current.push(setSliderCircle);
-                document.addEventListener("mousemove", setSliderCircle);
-                isMouseEvent.current = true;
-              }
-            }}
-            onTouchStart={() => {
-              if (!isTouchEvent.current) {
-                touchmoves.current.push(setSliderCircle);
-                document.addEventListener("touchmove", setSliderCircle);
-                isTouchEvent.current = true;
-              }
-            }}
+            onMouseDown={(e) =>
+              handleEvent(
+                e,
+                mousemoves,
+                sliderRef,
+                setSlider,
+                "mousemove",
+                hasPressed
+              )
+            }
+            onTouchStart={(e) =>
+              handleEvent(
+                e,
+                touchmoves,
+                sliderRef,
+                setSlider,
+                "touchmove",
+                hasTouched
+              )
+            }
           >
             <div
-              className="slider-circle"
-              ref={sliderCircle}
-              onTransitionEnd={({ target }) =>
-                target.classList.remove("transition-circles")
-              }
+              className="slider-circle transition-circles"
+              ref={sliderRef}
               style={{
                 left: sliderPos,
                 backgroundColor,
