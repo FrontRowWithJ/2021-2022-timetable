@@ -1,20 +1,13 @@
-import "../css/custom-button.css"
+import "../css/custom-button.css";
 
-const CustomButton = ({
-  onClick,
-  text,
-  className,
-  bgColor,
-  style,
-  buttonRef,
-}) => {
+const CustomButton = ({ onClick, text, className, buttonRef }) => {
   return (
-    <div className={`button-container ${className}`} style={style}>
+    <div className={`c-button-container ${className}`}>
       <button type="button" onClick={onClick} ref={buttonRef}>
         {text}
       </button>
-      <div style={{ backgroundColor: bgColor }}></div>
-      <div style={{ backgroundColor: bgColor }}></div>
+      <div></div>
+      <div></div>
     </div>
   );
 };
