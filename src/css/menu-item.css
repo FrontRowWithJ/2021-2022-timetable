@@ -9,72 +9,12 @@
   position: relative;
 }
 
-.menu-item button {
-  width: 100%;
-  height: 100%;
-  color: white;
-  font-weight: bolder;
-  font-family: "Poppins";
-  background: -webkit-gradient(linear, left top, right top, from(slateblue), to(#585ce4));
-  background: -o-linear-gradient(left, slateblue, #585ce4);
-  background: linear-gradient(90deg, slateblue, #585ce4);
-  border-radius: var(--menu-item-radius);
-  border: 0;
-  cursor: pointer;
-  position: absolute;
-  left: 0;
-  top: 0;
-  z-index: 1;
-}
-
-.nice-button-style::before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 100%;
-  background-color: rgba(102, 51, 153, 1);
-  -webkit-transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
-  -o-transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
-  transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
-  z-index: -1;
-  border-radius: var(--menu-item-radius);
-}
-
-.nice-button-style:hover::before {
-  width: 100%;
-}
-
 .menu-item:not(.menu-item:first-of-type) {
   margin-top: .5rem;
 }
 
 .menu-item:not(.menu-item:last-of-type) {
   margin-bottom: .5rem;
-}
-
-.bg-div {
-  width: 100%;
-  height: 100%;
-  position: absolute;
-  border-radius: var(--menu-item-radius);
-}
-
-.bg-div:nth-of-type(1) {
-  width: 95%;
-  z-index: -2;
-  top: 10%;
-  opacity: .5;
-  left: 2.5%;
-}
-
-.bg-div:nth-of-type(2) {
-  width: 85%;
-  top: 20%;
-  opacity: .3;
-  z-index: -1;
-  left: 7.5%;
 }
 
 @media screen and (max-height: 400px) {

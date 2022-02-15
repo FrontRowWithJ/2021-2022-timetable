@@ -1,6 +1,6 @@
 import { useEffect, useRef } from "react";
 import "../css/menu-item.css";
-
+import CustomButton from "./CustomButton";
 const MenuItem = ({ text, onClick, disabled, onMouseDown }) => {
   const noop = () => {};
   const evtHandler = onMouseDown ?? noop;
@@ -8,7 +8,6 @@ const MenuItem = ({ text, onClick, disabled, onMouseDown }) => {
   useEffect(() => {
     if (disabled) buttonRef.current.style.cssText = "cursor: not-allowed";
   });
-  const buttonStyle = disabled ? "" : "nice-button-style";
   return (
     <div
       className="menu-item"
@@ -16,22 +15,13 @@ const MenuItem = ({ text, onClick, disabled, onMouseDown }) => {
       onMouseDown={evtHandler}
       onTouchStart={evtHandler}
     >
-      <button
-        className={buttonStyle}
-        ref={buttonRef}
+      <CustomButton
+        buttonRef={buttonRef}
         type="button"
         onClick={onClick ? () => !disabled && onClick() : noop}
-      >
-        {text}
-      </button>
-      <div
-        className={`bg-div ${buttonStyle}`}
-        style={{ backgroundColor: "#585ce4" }}
-      ></div>
-      <div
-        className={`bg-div ${buttonStyle}`}
-        style={{ backgroundColor: "#585ce4" }}
-      ></div>
+        text={text}
+        backgroundColor="#585ce4"
+      />
     </div>
   );
 };

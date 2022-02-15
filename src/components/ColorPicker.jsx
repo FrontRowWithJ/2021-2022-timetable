@@ -10,6 +10,8 @@ import {
   getEvent,
 } from "../misc";
 import CancelButton from "./CancelButton";
+import CustomButton from "./CustomButton";
+
 const { max, min } = Math;
 const TRANSITION_TIME = 500;
 const useSettings = () => {
@@ -230,25 +232,19 @@ const ColorPicker = ({ onClick }) => {
               }}
             ></div>
           </div>
-          <div className="save-button-container">
-            <button
-              className="save-button"
-              type="button"
-              onClick={(evt) => {
-                const { target: button } = evt;
-                if (button.textContent === "Save") {
-                  const colorSettings = JSON.stringify(settings);
-                  window.localStorage.setItem("color-settings", colorSettings);
-                  evt.target.textContent = "Saved!";
-                  setTimeout(() => (evt.target.textContent = "Save"), 600);
-                }
-              }}
-            >
-              Save
-            </button>
-            <div style={{ backgroundColor: "#663399" }}></div>
-            <div style={{ backgroundColor: "#663399" }}></div>
-          </div>
+          <CustomButton
+            className="save-button-container"
+            text="Save"
+            onClick={(evt) => {
+              const { target: button } = evt;
+              if (button.textContent === "Save") {
+                const colorSettings = JSON.stringify(settings);
+                window.localStorage.setItem("color-settings", colorSettings);
+                evt.target.textContent = "Saved!";
+                setTimeout(() => (evt.target.textContent = "Save"), 600);
+              }
+            }}
+          />
           <button
             type="button"
             className="set-to-default-button"
