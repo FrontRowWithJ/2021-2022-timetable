@@ -1,6 +1,5 @@
 import { useState } from "react";
 import "../css/input.css";
-
 const Input = ({ generateTimetable, placeholder, inputRef, buttonText }) => {
   const [hasText, setText] = useState(false);
   return (

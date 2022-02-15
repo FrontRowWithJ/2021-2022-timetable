@@ -37,7 +37,7 @@ const Header = (props) => {
       document.removeEventListener("mouseup", onmouseup);
       document.removeEventListener("touchend", onmouseup);
     };
-  });
+  }, []);
 
   return (
     <div id="header">

@@ -10,7 +10,7 @@ const TutorialSection = ({ alt, src, children, noImage, step, style }) => {
       const { current: div } = overlayRef;
       div.style.opacity = opacity;
     }
-  });
+  }, [opacity]);
   return (
     <div
       className="tutorial-section-container"
@@ -18,7 +18,7 @@ const TutorialSection = ({ alt, src, children, noImage, step, style }) => {
       onClick={() =>
         !isOverlayVisible &&
         !opacity &&
-        (setOpacity(() => 1) || setOverlayVisibility(true))
+        (setOpacity(1) || setOverlayVisibility(true))
       }
     >
       {!noImage && isOverlayVisible && (
@@ -28,7 +28,7 @@ const TutorialSection = ({ alt, src, children, noImage, step, style }) => {
           onClick={() =>
             isOverlayVisible &&
             opacity &&
-            (setOpacity(() => 0) ||
+            (setOpacity(0) ||
               setTimeout(() => setOverlayVisibility(false), 600))
           }
         >
