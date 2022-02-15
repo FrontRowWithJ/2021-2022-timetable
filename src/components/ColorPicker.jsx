@@ -38,7 +38,6 @@ const ColorPicker = ({ onClick }) => {
   const mousemoves = useRef([]);
   const touchmoves = useRef([]);
   const hasPressed = useRef(false);
-  const hasTouched = useRef(false);
   const setPicker = (evt) => {
     const { x, y, right, bottom } =
       pickerAreaRef.current.getBoundingClientRect();
@@ -96,7 +95,7 @@ const ColorPicker = ({ onClick }) => {
     const removeTouchEvents = () => {
       while (touchmoves.current.length)
         document.removeEventListener("touchmove", touchmoves.current.shift());
-      hasTouched.current = false;
+      hasPressed.current = false;
     };
     document.addEventListener("mouseup", removeMouseEvents);
     document.addEventListener("touchend", removeTouchEvents);
@@ -104,7 +103,7 @@ const ColorPicker = ({ onClick }) => {
       document.removeEventListener("mouseup", removeMouseEvents);
       document.removeEventListener("touchend", removeTouchEvents);
     };
-  });
+  }, []);
 
   useEffect(() => {
     setColorPicker(settings[focus]);
@@ -117,6 +116,7 @@ const ColorPicker = ({ onClick }) => {
       top: max(0, min(clientY - y, h)),
     };
   };
+
   const setToDefault = (evt) => {
     const { target } = getEvent(evt);
     resetSettings();
@@ -132,14 +132,14 @@ const ColorPicker = ({ onClick }) => {
     target.textContent = "Defaulted!";
     setTimeout(() => (target.textContent = "Set to Default"), 600);
   };
-  const handleEvent = (evt, cache, ref, func, type, evtCheck) => {
+  const handleEvent = (evt, cache, ref, func, type) => {
     const { current: target } = ref;
     target.style.transitionDuration = "";
     func(evt);
-    if (!evtCheck.current) {
+    if (!hasPressed.current) {
       cache.current.push(func);
       document.addEventListener(type, func);
-      evtCheck.current = true;
+      hasPressed.current = true;
     }
   };
   return (
@@ -187,24 +187,10 @@ const ColorPicker = ({ onClick }) => {
             draggable="false"
             style={{ backgroundColor }}
             onMouseDown={(e) =>
-              handleEvent(
-                e,
-                mousemoves,
-                pickerRef,
-                setPicker,
-                "mousemove",
-                hasPressed
-              )
+              handleEvent(e, mousemoves, pickerRef, setPicker, "mousemove")
             }
             onTouchStart={(e) =>
-              handleEvent(
-                e,
-                touchmoves,
-                pickerRef,
-                setPicker,
-                "touchmove",
-                hasTouched
-              )
+              handleEvent(e, touchmoves, pickerRef, setPicker, "touchmove")
             }
           >
             <div className="picker-area-bg" draggable="false"></div>
@@ -226,24 +212,10 @@ const ColorPicker = ({ onClick }) => {
             ref={sliderAreaRef}
             draggable="false"
             onMouseDown={(e) =>
-              handleEvent(
-                e,
-                mousemoves,
-                sliderRef,
-                setSlider,
-                "mousemove",
-                hasPressed
-              )
+              handleEvent(e, mousemoves, sliderRef, setSlider, "mousemove")
             }
             onTouchStart={(e) =>
-              handleEvent(
-                e,
-                touchmoves,
-                sliderRef,
-                setSlider,
-                "touchmove",
-                hasTouched
-              )
+              handleEvent(e, touchmoves, sliderRef, setSlider, "touchmove")
             }
           >
             <div
