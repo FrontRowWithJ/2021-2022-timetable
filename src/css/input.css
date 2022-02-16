@@ -66,75 +66,39 @@
   background-color: white;
 }
 
-.button-container {
-  position: absolute;
-  bottom: 0;
-  z-index: 1;
+#button-container {
   width: 100%;
+  position: absolute;
+  z-index: 1;
   height: 4rem;
-  border: none;
+  bottom: 0;
   border-radius: 0 0 1rem 1rem;
   outline: 2px solid slateblue;
 }
 
-.button-container>div {
-  position: absolute;
-  height: 100%;
-  background: -webkit-gradient(linear, left top, right top, from(slateblue), to(rebeccapurple));
-  background: -o-linear-gradient(left, slateblue, rebeccapurple);
-  background: linear-gradient(90deg, slateblue, rebeccapurple);
+#button-container>div {
   border-radius: 1rem;
-  z-index: 1;
 }
 
-.button-container>div:nth-of-type(1) {
-  width: 97.5%;
-  z-index: -2;
+#button-container>div:nth-of-type(1) {
   top: 20%;
-  opacity: .5;
-  left: 1.25%;
 }
 
-.button-container>div:nth-of-type(2) {
-  width: 95%;
+#button-container>div:nth-of-type(2) {
   top: 40%;
-  opacity: .3;
-  z-index: -1;
-  left: 2.5%;
 }
 
-.timetable-button {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: -o-linear-gradient(330deg, slateblue, rebeccapurple);
-  background: linear-gradient(120deg, slateblue, rebeccapurple);
-  color: white;
+#button-container button {
   font-size: 1.2rem;
-  font-family: "Roboto", sans-serif;
-  cursor: pointer;
-  position: relative;
-  z-index: 1;
   border-radius: 0 0 1rem 1rem;
 }
 
-.timetable-button:before,
-.button-container>div:before {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 0%;
-  height: 100%;
-  background-color: rgba(0, 0, 0, .2);
-  -webkit-transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
-  -o-transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
-  transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
-  z-index: -1;
+#button-container button:before,
+#button-container>div:before {
   border-radius: 0 0 1rem 1rem;
 }
 
-.timetable-button:hover:before,
-.button-container:hover>div:before {
+#button-container button:hover:before,
+#button-container:hover>div:before {
   width: 100%;
 }

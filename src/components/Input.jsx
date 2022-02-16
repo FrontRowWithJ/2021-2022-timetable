@@ -1,5 +1,7 @@
 import { useState } from "react";
 import "../css/input.css";
+import CustomButton from "./CustomButton";
+
 const Input = ({ generateTimetable, placeholder, inputRef, buttonText }) => {
   const [hasText, setText] = useState(false);
   return (
@@ -18,17 +20,11 @@ const Input = ({ generateTimetable, placeholder, inputRef, buttonText }) => {
           {placeholder}
         </div>
       </div>
-      <div className="button-container">
-        <button
-          className="timetable-button"
-          type="button"
-          onClick={generateTimetable}
-        >
-          {buttonText}
-        </button>
-        <div></div>
-        <div></div>
-      </div>
+      <CustomButton
+        id="button-container"
+        onClick={generateTimetable}
+        text={buttonText}
+      />
     </div>
   );
 };
