@@ -164,7 +164,7 @@
   grid-column: 2 / 5;
 }
 
-.save-button-container {
+#save-button-container {
   width: 8rem;
   height: 3rem;
   -ms-grid-row: 4;
@@ -216,7 +216,7 @@
     width: 100%;
   }
 
-  .save-button-container {
+  #save-button-container {
     width: 100%;
     height: 100%;
     -webkit-transform: translateX(1rem);

@@ -233,7 +233,7 @@ const ColorPicker = ({ onClick }) => {
             ></div>
           </div>
           <CustomButton
-            className="save-button-container"
+            id="save-button-container"
             text="Save"
             onClick={(evt) => {
               const { target: button } = evt;

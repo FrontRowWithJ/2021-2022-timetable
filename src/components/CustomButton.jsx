@@ -1,8 +1,8 @@
 import "../css/custom-button.css";
 
-const CustomButton = ({ onClick, text, className, buttonRef }) => {
+const CustomButton = ({ onClick, text, id, buttonRef }) => {
   return (
-    <div className={`c-button-container ${className}`}>
+    <div className="c-button-container" id={id}>
       <button type="button" onClick={onClick} ref={buttonRef}>
         {text}
       </button>
