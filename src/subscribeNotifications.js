@@ -39,15 +39,12 @@ const timetableToNotificationProfile = (timetable = {}) => {
   return notificationProfile;
 };
 
-const askPermisson = async () => {
+const askPermission = async () => {
   const permissionResult_1 = await new Promise(function (resolve, reject) {
     const permissionResult = Notification.requestPermission(function (result) {
       resolve(result);
     });
-
-    if (permissionResult) {
-      permissionResult.then(resolve, reject);
-    }
+    if (permissionResult) permissionResult.then(resolve, reject);
   });
   if (permissionResult_1 !== "granted")
     throw new Error("We weren't granted permission.");
@@ -102,7 +99,7 @@ const sendSubscriptionToBackEnd = async (subscription, timetable) => {
 };
 
 const subscribeToNotifications = async (timetable) => {
-  const subscription = await askPermisson()
+  const subscription = await askPermission()
     .then(subscribeUserToPush)
     .catch((err) => console.error(err));
   //TODO send to backend
