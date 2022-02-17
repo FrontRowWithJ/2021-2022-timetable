@@ -72,12 +72,8 @@
   z-index: 1;
   height: 4rem;
   bottom: 0;
-  border-radius: 0 0 1rem 1rem;
+  border-radius: 0 0 1rem 1rem;  
   outline: 2px solid slateblue;
-}
-
-#button-container>div {
-  border-radius: 1rem;
 }
 
 #button-container>div:nth-of-type(1) {
@@ -88,14 +84,11 @@
   top: 40%;
 }
 
-#button-container button {
-  font-size: 1.2rem;
-  border-radius: 0 0 1rem 1rem;
-}
-
 #button-container button:before,
-#button-container>div:before {
+#button-container>div:before,
+#button-container * {
   border-radius: 0 0 1rem 1rem;
+  font-size: 1.2rem;
 }
 
 #button-container button:hover:before,

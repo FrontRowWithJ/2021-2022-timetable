@@ -22,7 +22,6 @@ main {
   background: -webkit-gradient(linear, left top, left bottom, from(#fafafa), to(#ffffff));
   background: -o-linear-gradient(#fafafa, #ffffff);
   background: linear-gradient(#fafafa, #ffffff);
-  font-family: "Roboto", sans-serif;
   background-color: #f8f9d2;
   background-image: -o-linear-gradient(135deg, #f8f9d2 0%, #e8dbfc 74%);
   background-image: linear-gradient(315deg, #f8f9d2 0%, #e8dbfc 74%);
@@ -32,4 +31,5 @@ main {
 * {
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
 }

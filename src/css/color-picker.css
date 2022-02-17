@@ -6,7 +6,6 @@
   -ms-grid-rows: 1fr;
   -ms-grid-columns: 1fr 1fr;
   grid-template: 1fr / 1fr 1fr;
-  font-family: "Roboto", sans-serif;
   touch-action: none;
 }
 

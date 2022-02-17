@@ -1,7 +1,6 @@
 .error-message {
   background-color: rgba(255, 0, 0, .1);
   color: #ff2400;
-  font-family: "Roboto", sans-serif;
   -webkit-transition: top .5s ease-in-out;
   -o-transition: top .5s ease-in-out;
   transition: top .5s ease-in-out;
