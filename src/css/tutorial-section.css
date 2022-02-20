@@ -15,13 +15,14 @@
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -webkit-box-pack: right;
-  -ms-flex-pack: right;
-  justify-content: right;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   border-bottom: 3px solid black;
   -webkit-box-align: baseline;
   -ms-flex-align: baseline;
   align-items: baseline;
+  height: 10rem;
 }
 
 .tutorial-overlay {
@@ -42,13 +43,17 @@
   -ms-flex-align: center;
   align-items: center;
   opacity: 0;
-  -webkit-transition: opacity .6s linear;
-  -o-transition: opacity .6s linear;
-  transition: opacity .6s linear;
 }
 
 .tutorial-overlay>div {
   width: 90%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .tutorial-overlay>div>div {
@@ -65,7 +70,7 @@
 }
 
 .tutorial-overlay>div>img {
-  width: 100%;
+  width: 90vmin;
   border-radius: 5px;
 }
 
@@ -75,7 +80,8 @@
 
 .tutorial-img-container>img {
   width: 100%;
-  height: 60%;
+  height: 100%;
+  object-fit: contain;
 }
 
 .tutorial-text-container {
