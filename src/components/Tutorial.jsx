@@ -17,7 +17,11 @@ import copyHTMLChrome from "../resources/copy-HTML-chrome.png";
 import rightClickInspectEdge from "../resources/right-click-inspect-edge.png";
 import copyHTMLEdge from "../resources/copy-HTML-edge.png";
 
+import rightClickInspectSafari from "../resources/right-click-inspect-safari.png";
+import copyHTMLSafari from "../resources/copy-HTML-safari.png";
+
 import { FIREFOX, CHROME, EDGE, SAFARI } from "../misc";
+
 const Tutorial = ({ clickedBrowser }) => {
   return (
     <div className="tutorial-container">
@@ -92,6 +96,7 @@ const Tutorial = ({ clickedBrowser }) => {
           case EDGE:
             return <Edge />;
           case SAFARI:
+            return <Safari />;
           default:
             return null;
         }
@@ -138,9 +143,9 @@ const Firefox = () => {
         inspect.
       </TutorialSection>
       <TutorialSection
+        step={7}
         alt="User is copying the html from the page inspector."
         src={copyHTMLFirefox}
-        step={7}
       >
         At the top of the Page Inspector, right click on the text that says:
         &nbsp;
@@ -176,9 +181,9 @@ const Chrome = () => {
         inspect.
       </TutorialSection>
       <TutorialSection
+        step={7}
         alt="User is copying the html from the page inspector."
         src={copyHTMLChrome}
-        step={7}
       >
         At the top of the Page Inspector, right click on the text that
         says:&nbsp;
@@ -214,9 +219,9 @@ const Edge = () => {
         inspect.
       </TutorialSection>
       <TutorialSection
+        step={7}
         alt="User is copying the html from the page inspector."
         src={copyHTMLEdge}
-        step={7}
       >
         At the top of the Page Inspector, right click on the text that
         says:&nbsp;
@@ -236,6 +241,41 @@ const Edge = () => {
         .
         <br />
         In the menu, hover over Copy and select Copy element.
+      </TutorialSection>
+    </>
+  );
+};
+
+const Safari = () => {
+  return (
+    <>
+      <TutorialSection
+        step={6}
+        alt="The context menu is open and the user is hovering over the inspect element button"
+        src={rightClickInspectSafari}
+      >
+        Right click on the whitespace to the right of your timetable and select
+        Inspect Element.
+      </TutorialSection>
+      <TutorialSection
+        step={7}
+        alt="User is copying the html from the page inspector"
+        src={copyHTMLSafari}
+      >
+        At the top of the pageInspector, right click on the text that says:
+        &nbsp;
+        <div className="code">
+          <span style={{ color: "#A50E8E" }}>&lt;html&nbsp;</span>
+          <span style={{ color: "#816928" }}>lang</span>
+          <span style={{ color: "#A50E8E" }}>="</span>
+          <span style={{ color: "#C01816" }}>en-gb</span>
+          <span style={{ color: "#A50E8E" }}>"&nbsp;</span>
+          <span style={{ color: "#816928" }}>class</span>
+          <span style={{ color: "#A50E8E" }}>="</span>
+          <span style={{ color: "#C01816" }}>tablesaw-enhanced</span>
+          <span style={{ color: "#A50E8E" }}>"&gt;</span>
+        </div>
+        In the menu, hover over Copy and select HTML.
       </TutorialSection>
     </>
   );

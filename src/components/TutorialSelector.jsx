@@ -17,14 +17,12 @@ const TutorialSelector = ({ clickedBrowser, setClickedBrowser }) => {
         style={browser === CHROME ? {} : gs}
         onClick={() => setClickedBrowser(CHROME)}
       />
-      {/* <SafariLogo
-          onmouseover={() => setBrowser(SAFARI)}
-          onmouseout={() => setBrowser(clickedBrowser)}
-          style={browser === SAFARI ? {} : gs}
-          onClick={() => {
-            setClickedBrowser(SAFARI);
-          }}
-        /> */}
+      <SafariLogo
+        onmouseover={() => setBrowser(SAFARI)}
+        onmouseout={() => setBrowser(clickedBrowser)}
+        style={browser === SAFARI ? {} : gs}
+        onClick={() => setClickedBrowser(SAFARI)}
+      />
       <EdgeLogo
         onmouseover={() => setBrowser(EDGE)}
         onmouseout={() => setBrowser(clickedBrowser)}
