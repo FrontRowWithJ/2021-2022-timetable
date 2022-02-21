@@ -15,25 +15,25 @@ const TutorialSelector = ({ clickedBrowser, setClickedBrowser }) => {
         onmouseover={() => setBrowser(CHROME)}
         onmouseout={() => setBrowser(clickedBrowser)}
         style={browser === CHROME ? {} : gs}
-        onClick={() => setClickedBrowser(CHROME)}
+        onClick={() => setClickedBrowser(CHROME) || setBrowser(CHROME)}
       />
       <SafariLogo
         onmouseover={() => setBrowser(SAFARI)}
         onmouseout={() => setBrowser(clickedBrowser)}
         style={browser === SAFARI ? {} : gs}
-        onClick={() => setClickedBrowser(SAFARI)}
+        onClick={() => setClickedBrowser(SAFARI) || setBrowser(SAFARI)}
       />
       <EdgeLogo
         onmouseover={() => setBrowser(EDGE)}
         onmouseout={() => setBrowser(clickedBrowser)}
         style={browser === EDGE ? {} : gs}
-        onClick={() => setClickedBrowser(EDGE)}
+        onClick={() => setClickedBrowser(EDGE) || setBrowser(EDGE)}
       />
       <FirefoxLogo
         onmouseover={() => setBrowser(FIREFOX)}
         onmouseout={() => setBrowser(clickedBrowser)}
         style={browser === FIREFOX ? {} : gs}
-        onClick={() => setClickedBrowser(FIREFOX)}
+        onClick={() => setClickedBrowser(FIREFOX) || setBrowser(FIREFOX)}
       />
     </div>
   );
