@@ -26,7 +26,7 @@ const Tutorial = ({ clickedBrowser }) => {
   return (
     <div className="tutorial-container">
       <TutorialSection
-        noImage
+        noImg
         style={{
           display: "flex",
           justifyContent: "center",
@@ -101,10 +101,10 @@ const Tutorial = ({ clickedBrowser }) => {
             return null;
         }
       })(clickedBrowser)}
-      <TutorialSection noImage step={8}>
+      <TutorialSection noImg step={8}>
         Return to this website and paste the HTML into the textbox above.
       </TutorialSection>
-      <TutorialSection noImage step={9}>
+      <TutorialSection noImg step={9}>
         <div
           style={{
             display: "flex",
@@ -146,6 +146,7 @@ const Firefox = () => {
         step={7}
         alt="User is copying the html from the page inspector."
         src={copyHTMLFirefox}
+        tallImg
       >
         At the top of the Page Inspector, right click on the text that says:
         &nbsp;
@@ -184,6 +185,7 @@ const Chrome = () => {
         step={7}
         alt="User is copying the html from the page inspector."
         src={copyHTMLChrome}
+        tallImg
       >
         At the top of the Page Inspector, right click on the text that
         says:&nbsp;
@@ -275,6 +277,8 @@ const Safari = () => {
           <span style={{ color: "#C01816" }}>tablesaw-enhanced</span>
           <span style={{ color: "#A50E8E" }}>"&gt;</span>
         </div>
+        .
+        <br />
         In the menu, hover over Copy and select HTML.
       </TutorialSection>
     </>
