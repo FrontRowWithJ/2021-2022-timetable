@@ -45,13 +45,16 @@
 }
 
 .tutorial-overlay>div {
-  width: 90%;
+  width: 90vmin;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   -webkit-box-align: center;
   -ms-flex-align: center;
   align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
   flex-direction: column;
 }
 
@@ -69,31 +72,34 @@
 }
 
 .tutorial-overlay>div>img {
-  width: 90vmin;
-  border-radius: 5px;
+  -o-object-fit: contain;
+  object-fit: contain;
+  width: 100%;
 }
 
 .tutorial-overlay>div>div {
   color: white;
+  font-size: .7rem;
 }
 
 .tutorial-img-container>img {
   width: 100%;
   height: 100%;
+  -o-object-fit: contain;
   object-fit: contain;
 }
 
 .tutorial-text-container {
   width: 100%;
   font-size: 1.2rem;
-  padding: 0 1rem;
-  margin: 1rem 0;
+  padding: 1rem;
   display: -ms-grid;
   display: grid;
   -ms-grid-columns: 2rem auto;
   grid-template-columns: 2rem auto;
   -ms-grid-rows: 1fr;
   grid-template-rows: 1fr;
+  padding-bottom: 1rem;
 }
 
 .tutorial-text-container>*:nth-child(1) {
@@ -142,4 +148,9 @@
   -webkit-box-shadow: none;
   box-shadow: none;
   background-color: lightgray;
+}
+
+.tutorial-overlay .tutorial-text-container {
+  width: 90vw;
+  text-align: center;
 }
