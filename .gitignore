@@ -27,3 +27,4 @@ slide.js
 timetable.js
 test*
 backend/*
+*.code-workspace
