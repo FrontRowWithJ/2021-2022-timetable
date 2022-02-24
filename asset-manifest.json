@@ -1,28 +1,30 @@
 {
   "files": {
-    "main.css": "/2021-2022-timetable/static/css/main.2f7ed3d3.css",
-    "main.js": "/2021-2022-timetable/static/js/main.4d2700bd.js",
+    "main.css": "/2021-2022-timetable/static/css/main.8d87cc27.css",
+    "main.js": "/2021-2022-timetable/static/js/main.76a37b6f.js",
     "static/js/787.311260c8.chunk.js": "/2021-2022-timetable/static/js/787.311260c8.chunk.js",
-    "static/media/copy-HTML-firefox.png": "/2021-2022-timetable/static/media/copy-HTML-firefox.9f5d79cf9ae3e0bf167c.png",
-    "static/media/right-click-inspect-edge.png": "/2021-2022-timetable/static/media/right-click-inspect-edge.7e64017ed515b1df610b.png",
-    "static/media/copy-HTML-chrome.png": "/2021-2022-timetable/static/media/copy-HTML-chrome.802eb77170d0776fdad9.png",
-    "static/media/mytcdie-login.png": "/2021-2022-timetable/static/media/mytcdie-login.df3bdaac068a79cc2026.png",
-    "static/media/copy-HTML-edge.png": "/2021-2022-timetable/static/media/copy-HTML-edge.45044c0157951fc63bf8.png",
-    "static/media/right-click-inspect-firefox.png": "/2021-2022-timetable/static/media/right-click-inspect-firefox.2907b763c4028e1cb97f.png",
-    "static/media/select-timetable.png": "/2021-2022-timetable/static/media/select-timetable.0b69c9364eb3541feff9.png",
-    "static/media/right-click-inspect-chrome.png": "/2021-2022-timetable/static/media/right-click-inspect-chrome.32a05d0a64650c700546.png",
-    "static/media/view-student-timetable.png": "/2021-2022-timetable/static/media/view-student-timetable.02e094ef96855c0968d4.png",
+    "static/media/copy-HTML-safari.png": "/2021-2022-timetable/static/media/copy-HTML-safari.98856b9a882701283037.png",
+    "static/media/right-click-inspect-safari.png": "/2021-2022-timetable/static/media/right-click-inspect-safari.e97bcfd835bf93ba5933.png",
+    "static/media/copy-HTML-firefox.png": "/2021-2022-timetable/static/media/copy-HTML-firefox.74fd710599a7a01c0bd8.png",
+    "static/media/copy-HTML-chrome.png": "/2021-2022-timetable/static/media/copy-HTML-chrome.019bf159dff44fd1c93c.png",
     "service-worker.js": "/2021-2022-timetable/service-worker.js",
+    "static/media/copy-HTML-edge.png": "/2021-2022-timetable/static/media/copy-HTML-edge.cbc0d6c62e7465335022.png",
+    "static/media/select-timetable.png": "/2021-2022-timetable/static/media/select-timetable.320d6380d2f1d5838226.png",
+    "static/media/right-click-inspect-edge.png": "/2021-2022-timetable/static/media/right-click-inspect-edge.f32c398f14c0e848d353.png",
+    "static/media/right-click-inspect-chrome.png": "/2021-2022-timetable/static/media/right-click-inspect-chrome.4b759d1fd82a0280c623.png",
+    "static/media/right-click-inspect-firefox.png": "/2021-2022-timetable/static/media/right-click-inspect-firefox.661373c56990ed6b7d50.png",
     "static/media/enter-dates.png": "/2021-2022-timetable/static/media/enter-dates.b90209b83b9375e5ec80.png",
+    "static/media/mytcdie-login.png": "/2021-2022-timetable/static/media/mytcdie-login.53c65bc06ad125850b33.png",
     "static/media/click-options-to-expand.png": "/2021-2022-timetable/static/media/click-options-to-expand.1b360c03a6d9dde19d89.png",
+    "static/media/view-student-timetable.png": "/2021-2022-timetable/static/media/view-student-timetable.c2ec783901aa08f5111a.png",
     "index.html": "/2021-2022-timetable/index.html",
     "static/media/index.cjs": "/2021-2022-timetable/static/media/index.06ad11ea3e32fd3e4303.cjs",
-    "main.2f7ed3d3.css.map": "/2021-2022-timetable/static/css/main.2f7ed3d3.css.map",
-    "main.4d2700bd.js.map": "/2021-2022-timetable/static/js/main.4d2700bd.js.map",
+    "main.8d87cc27.css.map": "/2021-2022-timetable/static/css/main.8d87cc27.css.map",
+    "main.76a37b6f.js.map": "/2021-2022-timetable/static/js/main.76a37b6f.js.map",
     "787.311260c8.chunk.js.map": "/2021-2022-timetable/static/js/787.311260c8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.2f7ed3d3.css",
-    "static/js/main.4d2700bd.js"
+    "static/css/main.8d87cc27.css",
+    "static/js/main.76a37b6f.js"
   ]
 }
