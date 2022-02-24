@@ -16,6 +16,7 @@ const MenuItem = ({ text, onClick, disabled, onMouseDown }) => {
       onTouchStart={evtHandler}
     >
       <CustomButton
+        id={disabled ? "disabled" : ""}
         buttonRef={buttonRef}
         type="button"
         onClick={onClick ? () => !disabled && onClick() : noop}
