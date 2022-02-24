@@ -38,7 +38,10 @@ const Landing = ({ enableTimetable, setTimetable }) => {
             const { value: text } = htmlAreaRef.current;
             try {
               const timetable = HTMLToTimetable(text);
-              const compressed = compressTimetable(timetable, "StorageBinaryString");
+              const compressed = compressTimetable(
+                timetable,
+                "StorageBinaryString"
+              );
               window.localStorage.setItem("timetable", compressed);
               setTimetable(timetable);
               enableTimetable(true);
@@ -46,8 +49,7 @@ const Landing = ({ enableTimetable, setTimetable }) => {
               if (text.length === 0) handleError("Textbox is empty.");
               else handleError("HTML is malformed.");
             }
-          }
-          }
+          }}
         />
         <Input
           placeholder="PASTE URL HERE"

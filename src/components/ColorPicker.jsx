@@ -172,7 +172,6 @@ const ColorPicker = ({ onClick }) => {
               className="bg-div"
               style={{ backgroundColor: settings[i].color }}
             ></div>
-
             <div
               className="bg-div"
               style={{ backgroundColor: settings[i].color }}
@@ -197,7 +196,6 @@ const ColorPicker = ({ onClick }) => {
           >
             <div className="picker-area-bg" draggable="false"></div>
             <div className="picker-area-bg" draggable="false"></div>
-
             <div
               className="picker-circle transition-circles"
               ref={pickerRef}

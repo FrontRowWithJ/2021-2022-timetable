@@ -1,4 +1,4 @@
-const DAY_IN_MILLISECONDS = 86_400_000;
+const DAY_IN_MS = 86_400_000;
 const getDateString = (date) => {
   const day = [
     "Sunday",
@@ -31,9 +31,7 @@ export const times = (number, iteratee) =>
 
 export const getWeekDayDates = () => {
   const currDay = new Date().getDay();
-  const offset = (1 - currDay) * DAY_IN_MILLISECONDS;
+  const offset = (1 - currDay) * DAY_IN_MS;
   const monday = Date.now() + offset;
-  return times(5, (i) => new Date(monday + DAY_IN_MILLISECONDS * i)).map(
-    getDateString
-  );
+  return times(5, (i) => new Date(monday + DAY_IN_MS * i)).map(getDateString);
 };

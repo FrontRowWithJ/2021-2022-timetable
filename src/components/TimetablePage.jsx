@@ -9,7 +9,7 @@ const TimetablePage = (props) => {
   const settings = cache ? JSON.parse(cache) : defaultSettings;
   const currDay = new Date().getDay() - 1;
   const classes = schedule.filter((cell) => cell !== undefined);
-  
+
   return (
     <div
       className="timetable-page-container"
