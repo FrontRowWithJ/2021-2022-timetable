@@ -1,4 +1,5 @@
 import { register } from "./serviceWorkerRegistration.js";
+import { getBaseURL, isModuleOnThisWeek } from "./misc.js";
 
 const urlBase64ToUint8Array = (base64String) => {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -8,6 +9,9 @@ const urlBase64ToUint8Array = (base64String) => {
   rawData.split("").forEach((c, i) => (outputArray[i] = c.charCodeAt(0)));
   return outputArray;
 };
+
+const getToday = () =>
+  [null, "mon", "tue", "wed", "thu", "fri", null][new Date().getDay()];
 
 const timetableToNotificationProfile = (timetable = {}) => {
   const days = ["mon", "tue", "wed", "thu", "fri"];
@@ -100,12 +104,66 @@ const sendSubscriptionToBackEnd = async (subscription, timetable) => {
 
 const subscribeToNotifications = async (timetable) => {
   const subscription = await askPermission()
-    .then(subscribeUserToPush)
-    .catch((err) => console.error(err));
+    .then(() => genTodaysNotifications(timetable))
+    // .then(subscribeUserToPush)
+    .catch((err) => {
+      throw err;
+    });
   //TODO send to backend
+};
+
+const getNotificationBody = ({ module, classroom }) =>
+  `You have ${module} in ${classroom[0]} in 5 minutes!`;
+
+const DAY_IN_MS = 86_400_000;
+const HOUR_IN_MS = 3_600_000;
+const MIN_IN_MS = 60_000;
+const title = "📚⏰Time for Class!⏰📚";
+const url = `${getBaseURL()}/logo192.png`;
+
+export const genTodaysNotifications = (timetable) => {
+  const today = getToday();
+  if (timetable && today) {
+    const todaysClasses = timetable[today];
+    const nowInMs = +new Date();
+    const startOfToday = nowInMs - (nowInMs % DAY_IN_MS);
+    const timesTillClassStarts = todaysClasses.map((l) => {
+      const time = parseInt(l.time.substring(0, 2));
+      return startOfToday + time * HOUR_IN_MS - nowInMs;
+    });
+    timesTillClassStarts.forEach((time, i) => {
+      if (isModuleOnThisWeek(todaysClasses[i].activePeriods) && time > 0) {
+        const timeTillNotification =
+          time - MIN_IN_MS * 5 < 0 ? time : time - MIN_IN_MS;
+        const options = {
+          body: getNotificationBody(todaysClasses[i]),
+          icon: url,
+          vibrate: [200, 100, 200],
+        };
+        setTimeout(
+          () => new Notification(title, options),
+          timeTillNotification
+        );
+        //body
+        //close
+        //data
+        //dir
+        //icon
+        //onclick
+        //onclose
+        //onerror
+        //onshow
+
+        //permission
+        //tag //? can be used to ID notifications
+        //title
+        //vibrate
+      }
+    });
+  }
 };
 
 export default subscribeToNotifications;
 
-//linear-gradient(rgb(101, 74, 134), rgb(83, 66, 146))
-// linear-gradient(left bottom, rgba(159, 88, 150, 0) 0px, rgba(159, 88, 150, 0.6) 100%)
+// How to set up notifications
+// Create a notification profile for the day.

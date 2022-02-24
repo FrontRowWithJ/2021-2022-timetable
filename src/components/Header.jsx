@@ -54,9 +54,9 @@ const Header = (props) => {
           }}
         />
         <MenuItem
-          disabled
+          disabled={!("Notification" in window)}
           text={"Enable Notifications"}
-          onClick={subscribeToNotifications}
+          onClick={() => subscribeToNotifications(props.timetableJSON)}
         />
         <MenuItem
           text={"Customize"}
