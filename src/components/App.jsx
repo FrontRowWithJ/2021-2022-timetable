@@ -7,6 +7,7 @@ import { setTimetableLocalStorage, decompressTimetable } from "../misc";
 import { DEFAULT, CUSTOMIZE } from "../misc";
 import ColorPicker from "./ColorPicker";
 import { genTodaysNotifications } from "../subscribeNotifications";
+
 const App = () => {
   const [timetable, setTimetable] = useState(null);
   const [isTimetableEnabled, enableTimetable] = useState(false);

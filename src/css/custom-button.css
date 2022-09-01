@@ -1,5 +1,11 @@
 :root {
-  --webkit-bg: -webkit-gradient(linear, left top, right top, from(slateblue), to(rebeccapurple));
+  --webkit-bg: -webkit-gradient(
+    linear,
+    left top,
+    right top,
+    from(slateblue),
+    to(rebeccapurple)
+  );
   --o-bg: -o-linear-gradient(left, slateblue, rebeccapurple);
   --bg: linear-gradient(90deg, slateblue, rebeccapurple);
   --button-border-radius: 5px;
@@ -26,7 +32,7 @@
   position: relative;
 }
 
-.button-container>div {
+.button-container > div {
   height: 100%;
   position: absolute;
   border-radius: var(--button-border-radius);
@@ -36,37 +42,37 @@
   z-index: -2;
 }
 
-.button-container>div:first-of-type {
+.button-container > div:first-of-type {
   width: 95%;
   top: 10%;
   left: 2.5%;
-  opacity: .5;
+  opacity: 0.5;
 }
 
-.button-container>div:last-of-type {
+.button-container > div:last-of-type {
   width: 85%;
   top: 20%;
   left: 7.5%;
-  opacity: .3;
+  opacity: 0.3;
 }
 
 .button-container button::before,
-.button-container>div::before {
+.button-container > div::before {
   content: "";
   position: absolute;
   left: 0;
   bottom: 0;
   width: 0%;
   height: 100%;
-  background-color: rgba(0, 0, 0, .2);
-  -webkit-transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
-  -o-transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
-  transition: width .5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  background-color: rgba(0, 0, 0, 0.2);
+  -webkit-transition: width 0.5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  -o-transition: width 0.5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
+  transition: width 0.5s cubic-bezier(0.895, 0.03, 0.685, 0.22);
   z-index: -1;
   border-radius: var(--button-border-radius);
 }
 
 .button-container button:hover::before,
-.button-container:hover>div::before {
-  width: 100%; 
+.button-container:hover > div::before {
+  width: 100%;
 }
