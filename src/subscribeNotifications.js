@@ -1,5 +1,5 @@
 import { register } from "./serviceWorkerRegistration.js";
-import { getBaseURL, isModuleOnThisWeek } from "./misc.js";
+import { getBaseURL, isModuleOnThisWeek } from "./misc/index.ts";
 
 const urlBase64ToUint8Array = (base64String) => {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
@@ -43,7 +43,7 @@ const timetableToNotificationProfile = (timetable = {}) => {
   return notificationProfile;
 };
 
-const askPermission = async () => {
+export const askPermission = async () => {
   const permissionResult_1 = await new Promise(function (resolve, reject) {
     const permissionResult = Notification.requestPermission(function (result) {
       resolve(result);
@@ -54,7 +54,7 @@ const askPermission = async () => {
     throw new Error("We weren't granted permission.");
 };
 
-const subscribeUserToPush = async () => {
+export const subscribeUserToPush = async () => {
   try {
     const registration = await register("service-worker.js");
     // const registration = await navigator.serviceWorker.register(
@@ -88,7 +88,7 @@ const genBody = (subscription, timetable) => {
   };
 };
 
-const sendSubscriptionToBackEnd = async (subscription, timetable) => {
+export const sendSubscriptionToBackEnd = async (subscription, timetable) => {
   const response = await fetch("/api/save-subscription/", {
     method: "POST",
     headers: {
@@ -103,12 +103,12 @@ const sendSubscriptionToBackEnd = async (subscription, timetable) => {
 };
 
 const subscribeToNotifications = async (timetable) => {
-  const subscription = await askPermission()
-    .then(() => genTodaysNotifications(timetable))
-    // .then(subscribeUserToPush)
-    .catch((err) => {
-      throw err;
-    });
+  // const subscription = await askPermission()
+  //   .then(() => genTodaysNotifications(timetable))
+  //   // .then(subscribeUserToPush)
+  //   .catch((err) => {
+  //     throw err;
+  //   });
   //TODO send to backend
 };
 

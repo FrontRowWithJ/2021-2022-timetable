@@ -24,7 +24,6 @@ yarn-error.log*
 slide.js
 
 *.txt
-timetable.js
 test*
 backend/*
 *.code-workspace
