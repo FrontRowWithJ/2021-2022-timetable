@@ -1,22 +1,28 @@
-import plusIcon from "./plus-icon.png";
-import login from "./mytcdie-login.png";
-import myOwnStudentTimetable from "./view-student-timetable.png";
-import selectTimetable from "./select-timetable.png";
-import optionsClickToExpand from "./options-click-to-expand.png";
-import clickOptionsToTexpand from "./click-options-to-expand.png";
-import enterDates from "./enter-dates.png";
+import plusIcon from "./images/plus-icon.png";
+import login from "./images/mytcdie-login.png";
+import myOwnStudentTimetable from "./images/view-student-timetable.png";
+import selectTimetable from "./images/select-timetable.png";
+import optionsClickToExpand from "./images/options-click-to-expand.png";
+import clickOptionsToTexpand from "./images/click-options-to-expand.png";
+import enterDates from "./images/enter-dates.png";
 
-import rightClickInspectFirefox from "./right-click-inspect-firefox.png";
-import copyHTMLFirefox from "./copy-HTML-firefox.png";
+import rightClickInspectFirefox from "./images/right-click-inspect-firefox.png";
+import copyHTMLFirefox from "./images/copy-HTML-firefox.png";
 
-import rightClickInspectChrome from "./right-click-inspect-chrome.png";
-import copyHTMLChrome from "./copy-HTML-chrome.png";
+import rightClickInspectChrome from "./images/right-click-inspect-chrome.png";
+import copyHTMLChrome from "./images/copy-HTML-chrome.png";
 
-import rightClickInspectEdge from "./right-click-inspect-edge.png";
-import copyHTMLEdge from "./copy-HTML-edge.png";
+import rightClickInspectEdge from "./images/right-click-inspect-edge.png";
+import copyHTMLEdge from "./images/copy-HTML-edge.png";
 
-import rightClickInspectSafari from "./right-click-inspect-safari.png";
-import copyHTMLSafari from "./copy-HTML-safari.png";
+import rightClickInspectSafari from "./images/right-click-inspect-safari.png";
+import copyHTMLSafari from "./images/copy-HTML-safari.png";
+
+import FirefoxLogo from "./svgs/FirefoxLogo";
+import ChromeLogo from "./svgs/ChromeLogo";
+import OperaLogo from "./svgs/OperaLogo";
+import SafariLogo from "./svgs/SafariLogo";
+import EdgeLogo from "./svgs/EdgeLogo";
 
 export {
   plusIcon,
@@ -34,4 +40,9 @@ export {
   copyHTMLEdge,
   copyHTMLFirefox,
   copyHTMLSafari,
+  FirefoxLogo,
+  ChromeLogo,
+  OperaLogo,
+  SafariLogo,
+  EdgeLogo,
 };

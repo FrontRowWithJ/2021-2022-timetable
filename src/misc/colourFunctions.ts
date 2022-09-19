@@ -38,8 +38,8 @@ export interface ColorSettings {
   hue: number;
   sat: number;
   lum: number;
+  backgroundColor: string;
   color: string;
-  txtColor: string;
 }
 
 export const defaultSettings: ColorSettings[] = [
@@ -47,28 +47,28 @@ export const defaultSettings: ColorSettings[] = [
     hue: 0.6666666666666666,
     sat: 0.5980392156862745,
     lum: 0.39999999999999997,
-    color: "#2929A3",
-    txtColor: "#FFFFFF",
+    backgroundColor: "#2929A3",
+    color: "#FFFFFF",
   },
   {
     hue: 0.11792452830188678,
     sat: 0.8412698412698412,
     lum: 0.49411764705882355,
-    color: "#E8AA14",
-    txtColor: "#000000",
+    backgroundColor: "#E8AA14",
+    color: "#000000",
   },
   {
     hue: 0.9486111111111111,
     sat: 0.96,
     lum: 0.4901960784313726,
-    color: "#F5054F",
-    txtColor: "#FFFFFF",
+    backgroundColor: "#F5054F",
+    color: "#FFFFFF",
   },
   {
     hue: 0.7552083333333334,
     sat: 0.47058823529411764,
     lum: 0.4,
-    color: "#693696",
-    txtColor: "#FFFFFF",
+    backgroundColor: "#693696",
+    color: "#FFFFFF",
   },
 ];

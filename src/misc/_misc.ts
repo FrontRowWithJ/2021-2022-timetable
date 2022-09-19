@@ -8,35 +8,25 @@ export const ACTIVITIES = [
   "Tutorial",
   "Laboratory",
   "Online Live Event",
-];
-export const setScrollBar = (elem: HTMLDivElement | null) => {
-  if (elem) {
-    const parent = elem.parentElement as HTMLDivElement;
-    parent.style.overflowY = canScroll(elem) ? "" : "hidden";
-    parent.scrollTop = 0;
-  }
-};
+] as const;
 
-export const canScroll = (elem: HTMLDivElement) => {
-  const { bottom } = elem.getBoundingClientRect();
-  return bottom > (window.innerHeight || document.documentElement.clientHeight);
-};
+export const canScroll = (elem: HTMLDivElement) =>
+  elem.getBoundingClientRect().bottom >
+  (window.innerHeight || document.documentElement.clientHeight);
 
 export const getLeft = (i: number, x: number) => (i - x) * 100 + "%";
 
-export const base64ToURLSafe = (str = "") => {
-  return str.replaceAll(
+export const base64ToURLSafe = (str: string) =>
+  str.replaceAll(
     /[+/=]/g,
     (match) => ({ "+": ".", "/": "_", "=": "-" }[match] as string)
   );
-};
 
-export const URLSafetoBase64 = (str = "") => {
-  return str.replaceAll(
+export const URLSafetoBase64 = (str: string) =>
+  str.replaceAll(
     /[._-]/g,
     (match) => ({ ".": "+", _: "/", "-": "=" }[match] as string)
   );
-};
 
 export const getBaseURL = (url = window.location) =>
   `${url.protocol}//${url.host}/${url.pathname.split("/")[1]}`;
@@ -45,14 +35,14 @@ export type Event = TouchEvent | MouseEvent;
 
 export const isTouchEvent = ({ type }: Event) => !/[Mm]ouse/i.test(type);
 
-export const getEvent = (event: TouchEvent | MouseEvent) =>
+export const getEvent = (event: Event) =>
   isTouchEvent(event)
     ? (event as TouchEvent).touches[0]
     : (event as MouseEvent);
 
 export const isPinching = ({ touches }: TouchEvent) => touches.length > 1;
 
-export const setTimetableLocalStorage = (queryString = "") => {
+export const setTimetableLocalStorage = (queryString: string) => {
   const urlParams = new URLSearchParams(queryString);
   const timetableBase64 = urlParams.get("timetable");
   if (timetableBase64) {

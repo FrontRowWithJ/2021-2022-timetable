@@ -1,0 +1,49 @@
+:root {
+  --cell-margin: 3vh;
+  --indicator-width: 15px;
+}
+
+.timetable-page-container {
+  width: 100%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  -webkit-transition: left 0.6s cubic-bezier(0.83, 0, 0.17, 1);
+  -o-transition: left 0.6s cubic-bezier(0.83, 0, 0.17, 1);
+  transition: left 0.6s cubic-bezier(0.83, 0, 0.17, 1);
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.date {
+  width: 100%;
+  height: 63px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  font-family: "Poppins", sans-serif;
+  font-size: clamp(18px, calc(18px + (22) * (100vw - 300px) / 1000), 40px);
+  color: black !important;
+}
+
+.test {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: row;
+  flex-direction: row;
+}
