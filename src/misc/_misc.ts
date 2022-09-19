@@ -1,7 +1,6 @@
 import { TouchEvent, MouseEvent } from "react";
 import { decompressTimetable, compressTimetable } from "./compressTimetable";
 
-export const [CHROME, SAFARI, EDGE, FIREFOX] = [0, 1, 2, 3] as const;
 export const [DEFAULT, CUSTOMIZE] = [0, 1] as const;
 export const ACTIVITIES = [
   "Lecture",
@@ -9,10 +8,6 @@ export const ACTIVITIES = [
   "Laboratory",
   "Online Live Event",
 ] as const;
-
-export const canScroll = (elem: HTMLDivElement) =>
-  elem.getBoundingClientRect().bottom >
-  (window.innerHeight || document.documentElement.clientHeight);
 
 export const getLeft = (i: number, x: number) => (i - x) * 100 + "%";
 

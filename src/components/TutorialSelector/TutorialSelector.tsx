@@ -1,6 +1,6 @@
 import "./tutorial-selector.css";
 import { useState } from "react";
-import { FIREFOX, CHROME, SAFARI, EDGE } from "../../misc";
+import { FIREFOX, CHROME, SAFARI, EDGE } from "./constants";
 import { TutorialSectionProps } from "./types";
 import { ChromeLogo, SafariLogo, EdgeLogo, FirefoxLogo } from "../../resources";
 

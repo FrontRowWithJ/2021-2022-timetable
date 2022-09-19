@@ -1,4 +1,4 @@
-//! VERSION 4
+//! VERSION 5
 /* eslint-disable no-restricted-globals */
 
 //? CACHE-PWA IMPORTS

@@ -1,7 +1,6 @@
 import React, { useState, useRef, useEffect, TouchEvent } from "react";
 import "./timetable.css";
 import TimetablePage from "../TimetablePage";
-
 import {
   getWeekDayDates,
   isTouchEvent,

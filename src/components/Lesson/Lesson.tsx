@@ -1,7 +1,7 @@
 import { isModuleOnThisWeek, ACTIVITIES } from "../../misc";
 import { getTimeRange, between } from "./functions";
 import { LessonProps } from "./types";
-import "./lesson.css"
+import "./lesson.css";
 
 const Lesson = ({ lesson, hour, index, currDay, settings }: LessonProps) => {
   const { backgroundColor } = settings[lesson.activity];
@@ -13,7 +13,10 @@ const Lesson = ({ lesson, hour, index, currDay, settings }: LessonProps) => {
     between(start, hour, end) &&
     isModuleOnThisWeek(activePeriods)
       ? 1
-      : .5;
+      : 0.5;
+  if (index === 0) {
+    console.log(lesson);
+  }
   const height = `${(end - start) * 8}rem`;
   const boxShadow = `0px 7px 13px -7px ${backgroundColor}`;
   return (
