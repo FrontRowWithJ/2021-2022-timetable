@@ -20,8 +20,10 @@ const isLocalhost = Boolean(
 );
 
 const register = async () => {
-  const rej = (await navigator.serviceWorker.getRegistrations())[0];
-  if (rej) return rej;
+  if ("serviceWorker" in navigator) {
+    const rej = (await navigator.serviceWorker.getRegistrations())[0];
+    if (rej) return rej;
+  }
   return new Promise((resolve, reject) => {
     if (
       /*process.env.NODE_ENV === "production" && */ "serviceWorker" in navigator
