@@ -1,4 +1,4 @@
-export const hex2rgb = (hex: string = "") =>
+export const hex2rgb = (hex: string) =>
   hex
     .substring(1)
     .match(/.{1,2}/g)
@@ -7,17 +7,15 @@ export const hex2rgb = (hex: string = "") =>
 const getLuminosity = (r: number, g: number, b: number) =>
   0.299 * r + 0.587 * g + 0.115 * b;
 
-const { max, min } = Math;
-
 export const getTextColor = (r: number, g: number, b: number) =>
   getLuminosity(r, g, b) > 0.5 ? "#000000" : "#FFFFFF";
 
 // input: h,s,l in [0,1] - output: r,g,b in [0,1]
 export const hsl2rgb = (h = 0, s = 1, l = 0.5) => {
   h = (h * 360) | 0;
-  const a = s * min(l, 1 - l);
+  const a = s * Math.min(l, 1 - l);
   const f = (n: number, k = (n + h / 30) % 12) =>
-    l - a * max(min(k - 3, 9 - k, 1), -1);
+    l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
   return (
     "#" +
     [0, 8, 4]

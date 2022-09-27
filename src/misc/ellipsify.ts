@@ -1,7 +1,7 @@
 //! ELIPSIFY A STRING
 
 const getString = (
-  string = "",
+  string: string,
   idealWidth: number,
   dummyDiv: HTMLDivElement
 ) => {
@@ -13,8 +13,6 @@ const getString = (
   }
   return dummyDiv.innerHTML;
 };
-
-// let a: keyof CSSStyleDeclaration = ""
 
 const generateDiv = (fontSize: string, div = document.createElement("div")) => {
   div.style.fontSize = fontSize;

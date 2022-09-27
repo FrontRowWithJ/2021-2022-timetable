@@ -1,7 +1,5 @@
 import { TouchEvent, MouseEvent } from "react";
-import { decompressTimetable, compressTimetable } from "./compressTimetable";
-
-export const [DEFAULT, CUSTOMIZE] = [0, 1] as const;
+import LZUTF8 from "lzutf8";
 export const ACTIVITIES = [
   "Lecture",
   "Tutorial",
@@ -42,8 +40,14 @@ export const setTimetableLocalStorage = (queryString: string) => {
   const timetableBase64 = urlParams.get("timetable");
   if (timetableBase64) {
     const base64 = URLSafetoBase64(timetableBase64);
-    const timetable = decompressTimetable(base64, "Base64");
-    const storageString = compressTimetable(timetable, "StorageBinaryString");
+    const minified = LZUTF8.decompress(base64, {
+      inputEncoding: "Base64",
+      outputEncoding: "String",
+    });
+    const storageString = LZUTF8.compress(minified, {
+      inputEncoding: "String",
+      outputEncoding: "StorageBinaryString",
+    }) as string;
     const localStorageString = window.localStorage.getItem("timetable");
     if (localStorageString !== storageString)
       window.localStorage.setItem("timetable", storageString);
