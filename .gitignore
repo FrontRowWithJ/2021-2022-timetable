@@ -27,3 +27,4 @@ slide.js
 test*
 backend/*
 *.code-workspace
+public/dev.service-worker.js
