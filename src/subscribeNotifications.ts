@@ -28,6 +28,9 @@ interface ResponseBody {
   };
 }
 
+const DB_URL = "";
+// const DB_URL = "localhost....."
+
 const subscribeUserToPush = async () => {
   if (Notification.permission !== "default") return;
   const permission = (await new Promise((resolve, reject) => {
@@ -50,8 +53,7 @@ const subscribeUserToPush = async () => {
         JSON.stringify(pushSubscription)
       ) as PushSubscription;
       const storageString = localStorage.getItem("timetable");
-      const serverURL = "";
-      // const response = await fetch(serverURL, {
+      // const response = await fetch(DB_URL, {
       //   method: "POST",
       //   headers: { "Content-Type": "application/json" },
       //   body: JSON.stringify({ storageString, subscription }),
@@ -62,9 +64,8 @@ const subscribeUserToPush = async () => {
       //   console.error(
       //     `Registration error: ${message},  ${data ? JSON.stringify(data) : ""}`
       //   );
-        // TODO tell the user that registration was unsuccesful and start
-        // TODO it again
-      }
+      //   // TODO tell the user that registration was unsuccesful and start it again
+      // }
       //TODO send endpoint, p256dh, auth and timetable to the Database.
     }
   }
