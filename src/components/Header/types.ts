@@ -1,4 +1,5 @@
 import { TimetableData } from "../../timetableData";
+import { overlayType } from "../Overlay";
 
 export interface HeaderProps {
   curr: number;
@@ -7,5 +8,5 @@ export interface HeaderProps {
   isTransitioning: boolean;
   setCurr: React.Dispatch<React.SetStateAction<number>>;
   timetableData: TimetableData;
-  setOverlay: React.Dispatch<React.SetStateAction<0 | 1>>;
+  setOverlay: React.Dispatch<React.SetStateAction<overlayType>>;
 }

@@ -1,25 +1,24 @@
 import React, { useState, useEffect, useRef } from "react";
 import "./header.css";
 import {
-  compressTimetable,
-  base64ToURLSafe,
   getBaseURL,
-  CUSTOMIZE,
   times,
+  minifyTimetable,
+  base64ToURLSafe,
 } from "../../misc";
 import Menu from "../Menu";
 import MenuItem from "../MenuItem";
-import subscribeToNotifications from "../../subscribeNotifications";
 import { HeaderProps } from "./types";
+import { overlayType } from "../Overlay";
+import subscribeUserToPush from "../../subscribeNotifications";
+import LZUTF8 from "lzutf8";
 
 const Header = (props: HeaderProps) => {
-  const {  setTransition, isTransitioning, curr, isSwiping, setCurr } =
-    props;
-
+  const { setTransition, isTransitioning, curr, isSwiping, setCurr } = props;
   const [buttonText, setText] = useState("Copy URL for Mobile");
   const [resetText, setResetText] = useState("Hold To Reset Timetable");
   const variable = useRef(false);
-  const tid = useRef(0);
+  const tid = useRef<NodeJS.Timeout>();
   const resetTimetable = () => {
     window.localStorage.clear();
     window.location.href = getBaseURL();
@@ -45,7 +44,11 @@ const Header = (props: HeaderProps) => {
         <MenuItem
           text={buttonText}
           onClick={() => {
-            const base64 = compressTimetable(props.timetableData, "Base64");
+            const minified = minifyTimetable(props.timetableData);
+            const base64 = LZUTF8.compress(minified, {
+              inputEncoding: "String",
+              outputEncoding: "Base64",
+            });
             const url = `${getBaseURL()}?timetable=${base64ToURLSafe(base64)}`;
             navigator.clipboard.writeText(url).then(() => {
               setText("Copied!");
@@ -54,13 +57,16 @@ const Header = (props: HeaderProps) => {
           }}
         />
         <MenuItem
-          disabled={!("Notification" in window)}
+          disabled={
+            (!("serviceWorker" in navigator) && !("PushManager" in window)) ||
+            Notification.permission !== "default"
+          }
           text={"Enable Notifications"}
-          onClick={() => subscribeToNotifications(props.timetableData)}
+          onClick={subscribeUserToPush}
         />
         <MenuItem
           text={"Customize"}
-          onClick={() => props.setOverlay(CUSTOMIZE)}
+          onClick={() => props.setOverlay(overlayType.CUSTOMIZE)}
         />
         <MenuItem
           text={resetText}
@@ -73,11 +79,15 @@ const Header = (props: HeaderProps) => {
                 (i + 1) * 250
               )
             );
-            tid.current = +setTimeout(() => {
+            tid.current = setTimeout(() => {
               if (variable.current) resetTimetable();
               else setResetText("Hold To Reset Timetable");
             }, 1000);
           }}
+        />
+        <MenuItem
+          text="Gen QR Code"
+          onClick={() => props.setOverlay(overlayType.QR_CODE)}
         />
       </Menu>
       {["M", "T", "W", "T", "F"].map((day, i) => {
