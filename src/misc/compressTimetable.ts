@@ -6,36 +6,24 @@ const keys: (keyof module)[] = [
   "moduleCode",
   "time",
   "activePeriods",
-  "size",
-  "group",
   "activity",
   "lecturer",
   "classroom",
-];
+]; //! The order of keys matters!
 
-// let a: keyof module = "activity";
-
-const days: Day[] = ["mon", "tue", "wed", "thu", "fri"];
+const WEEKDAYS: readonly Day[] = ["mon", "tue", "wed", "thu", "fri"] as const;
 const GROUP_DELIMITER = "{";
 const ENTRY_DELIMITER = "|";
 const DAY_DELIMITER = ";";
 const PROPERTY_DELIMITER = ",";
 
-const toNum = (s: string) => parseInt(s.substring(0, 2));
+const areStrArraysEqual = (a: string[], b: string[]) =>
+  a.length === b.length && a.every((s, i) => s === b[i]);
 
-const areStrArraysEqual = (a: string[], b: string[]) => {
-  if (a.length !== b.length) return false;
-  for (let i = 0; i < a.length; ++i) if (a[i] !== b[i]) return false;
-  return true;
-};
-
-const minifyTime = (t = "") => {
-  const times = [...t.matchAll(/[0-9]+:/g)];
-  const _t = times.map((time) => time[0].substring(0, 2)).map(toNum);
-  return (
-    (_t[0] + "").padStart(2, "0") +
-    (_t[1] - _t[0] !== 1 ? `${_t[1] - _t[0]}` : "")
-  );
+const minifyTime = (time: string) => {
+  const [start, end] = [...time.matchAll(/([0-9]+):/g)].map((t) => +t[1]);
+  const s = (start + "").padStart(2, "0");
+  return s + (end - start !== 1 ? end - start : "");
 };
 
 const minifyEntry = (entry: module) => {
@@ -70,10 +58,10 @@ const minifyDay = (day: (module | module[])[]) => {
     .join(ENTRY_DELIMITER);
 };
 
-const minifyTimetable = (timetable: TimetableData) =>
-  days.map((day) => minifyDay(timetable[day])).join(DAY_DELIMITER);
+export const minifyTimetable = (timetable: TimetableData) =>
+  WEEKDAYS.map((day) => minifyDay(timetable[day])).join(DAY_DELIMITER);
 
-const lectureToJSON = (lecture = "") => {
+const lectureToJSON = (lecture: string) => {
   const result = {} as module;
   const values = lecture.split(PROPERTY_DELIMITER);
   keys.forEach((key, i) => {
@@ -87,7 +75,7 @@ const lectureToJSON = (lecture = "") => {
         result[key] = finalTime;
         break;
       case "activePeriods":
-        result[key] = values[i].split("_").map(toNum);
+        result[key] = values[i].split("_").map(Number);
         break;
       case "activity":
         result[key] = parseInt(values[i]);
@@ -97,10 +85,9 @@ const lectureToJSON = (lecture = "") => {
         else result[key] = values[i].split("_");
         break;
       default:
-        result[key] = values[i] as never;
+        result[key] = values[i];
     }
   });
-  result["isOnline"] = result.classroom[0] === "Blackboard";
   return result;
 };
 
@@ -114,37 +101,29 @@ const unminifyDay = (day: string) => {
   return entries.map(unminifyLecture);
 };
 
-const unminifyTimetable = (minified: string) => {
+export const unminifyTimetable = (minified: string) => {
   const result = {} as TimetableData;
   const _days = minified.split(DAY_DELIMITER);
-  days.forEach((day, i) => (result[day] = unminifyDay(_days[i])));
+  WEEKDAYS.forEach((day, i) => (result[day] = unminifyDay(_days[i])));
   return result;
 };
 
+type outputEncoding = "StorageBinaryString" | "Base64";
+type inputEncoding = outputEncoding;
 export const compressTimetable = (
   timetable: TimetableData,
-  outputEncoding: string
+  outputEncoding: outputEncoding
 ) => {
-  if (outputEncoding !== "StorageBinaryString" && outputEncoding !== "Base64")
-    throw new Error(
-      "outputEncoding must be either StorageBinaryString or Base64"
-    );
   const minified = minifyTimetable(timetable);
-
-  // eslint-disable-next-line no-undef
-  return LZUTF8.compress(minified, {
-    outputEncoding: outputEncoding,
-  });
+  return LZUTF8.compress(minified, { outputEncoding }) as string;
 };
 
-export const decompressTimetable = (compressed = "", inputEncoding = "") => {
-  if (inputEncoding !== "StorageBinaryString" && inputEncoding !== "Base64")
-    throw new Error(
-      "inputEncoding must be either StorageBinaryString or Base64"
-    );
-  // eslint-disable-next-line no-undef
+export const decompressTimetable = (
+  compressed: string,
+  inputEncoding: inputEncoding
+) => {
   const minified = LZUTF8.decompress(compressed, {
-    inputEncoding: inputEncoding,
+    inputEncoding,
     outputEncoding: "String",
   });
   return unminifyTimetable(minified);

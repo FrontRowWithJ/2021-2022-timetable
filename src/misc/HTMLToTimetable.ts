@@ -57,21 +57,18 @@ export const HTMLToTimetable = (innerHTML: string) => {
       const innerHTML = td.innerHTML;
       const room_regex = /Room:/g;
 
-      const [size, group, activity, lecturer] = [
-        "Size: ",
-        "Group: ",
-        "Activity: ",
-        "Lecturer: ",
-      ].map((string) => {
-        const regex = new RegExp(string, "g");
-        const regExec = regex.exec(innerHTML);
-        if (regExec) {
-          const idx = regExec.index;
-          const tmp = innerHTML.substring(idx + string.length);
-          return tmp.substring(0, tmp.indexOf("<"));
+      const [activity, lecturer] = ["Activity: ", "Lecturer: "].map(
+        (string) => {
+          const regex = new RegExp(string, "g");
+          const regExec = regex.exec(innerHTML);
+          if (regExec) {
+            const idx = regExec.index;
+            const tmp = innerHTML.substring(idx + string.length);
+            return tmp.substring(0, tmp.indexOf("<"));
+          }
+          return "";
         }
-        return "";
-      });
+      );
       const rooms = [];
       let regexResult;
       while ((regexResult = room_regex.exec(innerHTML))) {
@@ -89,14 +86,10 @@ export const HTMLToTimetable = (innerHTML: string) => {
         moduleCode: moduleCode,
         time: time.replace(/ /g, "").replace("-", " - "),
         activePeriods: weekPeriods,
-        size: size,
-        group: group,
         activity:
           LectureType[activity.toUpperCase() as keyof typeof LectureType],
         lecturer: lecturer,
-        // isOnline: to be determined,
         classroom: rooms.length !== 0 ? rooms : ["Blackboard"],
-        isOnline: rooms.length === 0,
       };
       timetable[abbrevDay(day)].push(moduleEntry);
     });
