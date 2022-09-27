@@ -1,8 +1,9 @@
 import React, { useState } from "react";
 import Header from "../Header";
 import Timetable from "../Timetable";
-import { DEFAULT, times } from "../../misc";
+import { times } from "../../misc";
 import { TimetableWebpageProps } from "./types";
+import { overlayType } from "../Overlay";
 
 const TimetableWebpage = ({
   timetableData,
@@ -15,7 +16,7 @@ const TimetableWebpage = ({
   const [isSwiping, setSwiping] = useState(false);
   const [count, setCount] = useState(0);
   const tableRefs = times(5, React.createRef<HTMLDivElement>);
-  const filter = overlay === DEFAULT ? "" : "blur(10px)";
+  const filter = overlay === overlayType.DEFAULT ? "" : "blur(10px)";
   return (
     <main
       style={{ filter, height: "100%" }}

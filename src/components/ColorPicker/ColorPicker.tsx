@@ -16,10 +16,9 @@ import CancelButton from "../CancelButton";
 import CustomButton from "../CustomButton";
 import { TRANSITION_TIME } from "./constants";
 import { getPos, useSettings } from "./functions";
+import { ColorPickerProps } from "./types";
 
-
-
-const ColorPicker = ({ onClick }: { onClick: () => void }) => {
+const ColorPicker = ({ disableOverlay }: ColorPickerProps) => {
   const [focus, setFocus] = useState(0);
   const [pos, setPos] = useState({ left: "0", top: "0" });
   const [backgroundColor, setBGColor] = useState("#FF0000");
@@ -194,7 +193,7 @@ const ColorPicker = ({ onClick }: { onClick: () => void }) => {
         ))}
       </div>
       <div className="color-picker">
-        <CancelButton {...{ onClick }} />
+        <CancelButton onClick={disableOverlay} />
         <div>
           <div
             className="picker-area"

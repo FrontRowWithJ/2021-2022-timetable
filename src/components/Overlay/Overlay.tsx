@@ -1,8 +1,6 @@
 import "./overlay.css";
 import { OverlayProps } from "./types";
 
-
-
 const Overlay = ({ content, disableOverlay }: OverlayProps) => {
   return (
     <div
@@ -12,7 +10,7 @@ const Overlay = ({ content, disableOverlay }: OverlayProps) => {
         disableOverlay()
       }
     >
-      {content({ disableOverlay })}
+      {content(disableOverlay)}
     </div>
   );
 };

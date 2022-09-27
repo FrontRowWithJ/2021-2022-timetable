@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useRef } from "react";
 import "./menu-item.css";
 import CustomButton from "../CustomButton";
 import { noop } from "./functions";
@@ -7,22 +7,16 @@ import { MenuItemProps } from "./types";
 const MenuItem = ({ text, onClick, disabled, onMouseDown }: MenuItemProps) => {
   const evtHandler = onMouseDown ?? noop;
   const buttonRef = useRef<HTMLButtonElement>(null);
-  useEffect(() => {
-    if (disabled && buttonRef.current)
-      buttonRef.current.style.cssText = "cursor: not-allowed";
-  });
+  onClick = onClick && !disabled ? onClick : noop;
+  const id = disabled ? "disabled" : "";
   return (
     <div
       className="menu-item"
-      style={disabled ? { opacity: 0.3 } : {}}
+      style={{ opacity: disabled ? 0.3 : 1 }}
       onMouseDown={evtHandler}
       onTouchStart={evtHandler}
     >
-      <CustomButton
-        id={disabled ? "disabled" : ""}
-        {...{ buttonRef, text }}
-        onClick={onClick ? () => !disabled && onClick() : noop}
-      />
+      <CustomButton {...{ buttonRef, text, onClick, id }} />
     </div>
   );
 };

@@ -23,6 +23,10 @@ import ChromeLogo from "./svgs/ChromeLogo";
 import OperaLogo from "./svgs/OperaLogo";
 import SafariLogo from "./svgs/SafariLogo";
 import EdgeLogo from "./svgs/EdgeLogo";
+import QRCodeSVG from "./svgs/QRCodeSVG/QRCodeSVG";
+
+import makeCode from "./QRCode/QRCode";
+import { QRErrorCorrectLevel } from "./QRCode/QRUtil";
 
 export {
   plusIcon,
@@ -45,4 +49,7 @@ export {
   OperaLogo,
   SafariLogo,
   EdgeLogo,
+  makeCode,
+  QRErrorCorrectLevel,
+  QRCodeSVG,
 };

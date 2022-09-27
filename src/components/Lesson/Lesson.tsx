@@ -14,9 +14,6 @@ const Lesson = ({ lesson, hour, index, currDay, settings }: LessonProps) => {
     isModuleOnThisWeek(activePeriods)
       ? 1
       : 0.5;
-  if (index === 0) {
-    console.log(lesson);
-  }
   const height = `${(end - start) * 8}rem`;
   const boxShadow = `0px 7px 13px -7px ${backgroundColor}`;
   return (

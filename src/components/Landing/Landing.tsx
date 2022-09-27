@@ -11,9 +11,10 @@ import TutorialSelector from "../TutorialSelector";
 import Error from "../Error";
 import Input from "../Input";
 import { LandingProps } from "./types";
+import { CHROME } from "../TutorialSelector";
 
 const Landing = ({ enableTimetable, setTimetable }: LandingProps) => {
-  const [clickedBrowser, setClickedBrowser] = useState<0 | 1 | 2 | 3>(0);
+  const [clickedBrowser, setClickedBrowser] = useState<0 | 1 | 2 | 3>(CHROME);
   const [errorMessage, setErrorMessage] = useState("");
   const errorRef = useRef<HTMLDivElement>(null);
   const htmlAreaRef = useRef<HTMLInputElement>(null);
@@ -42,11 +43,11 @@ const Landing = ({ enableTimetable, setTimetable }: LandingProps) => {
               const { value: text } = htmlAreaRef.current;
               try {
                 const timetable = HTMLToTimetable(text);
-                const compressed = compressTimetable(
+                const storageString = compressTimetable(
                   timetable,
                   "StorageBinaryString"
                 );
-                window.localStorage.setItem("timetable", compressed);
+                window.localStorage.setItem("timetable", storageString);
                 setTimetable(timetable);
                 enableTimetable(true);
               } catch (error) {
@@ -65,10 +66,10 @@ const Landing = ({ enableTimetable, setTimetable }: LandingProps) => {
               const { value: url } = urlAreaRef.current;
               if (url.length === 0) return handleError("Textbox is empty.");
               const params = url.substring(url.indexOf("?"));
-              const compressedTimetable = setTimetableLocalStorage(params);
-              if (!compressedTimetable) return handleError("URL is malformed.");
+              const storageString = setTimetableLocalStorage(params);
+              if (!storageString) return handleError("URL is malformed.");
               const uncompressed = decompressTimetable(
-                compressedTimetable,
+                storageString,
                 "StorageBinaryString"
               );
               setTimetable(uncompressed);

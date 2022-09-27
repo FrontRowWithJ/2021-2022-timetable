@@ -111,9 +111,7 @@ const registerValidSW = async (swUrl, config, resolve, reject) => {
 
 const checkValidServiceWorker = async (swUrl, config, resolve, reject) => {
   // Check if the service worker can be found. If it can't reload the page.
-  fetch(swUrl, {
-    headers: { "Service-Worker": "script" },
-  })
+  fetch(swUrl, { headers: { "Service-Worker": "script" } })
     .then(async (response) => {
       // Ensure service worker exists, and that we really are getting a JS file.
       const contentType = response.headers.get("content-type");
@@ -132,9 +130,9 @@ const checkValidServiceWorker = async (swUrl, config, resolve, reject) => {
         registerValidSW(swUrl, config, resolve, reject);
       }
     })
-    .catch(() => {
-      reject("No internet connection found. App is running in offline mode.");
-    });
+    .catch(() =>
+      reject("No internet connection found. App is running in offline mode.")
+    );
 };
 
 export function unregister() {

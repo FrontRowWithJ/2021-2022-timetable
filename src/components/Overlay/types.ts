@@ -1,4 +1,13 @@
-export interface OverlayProps {
+export interface OverlayProps extends DisableOverlayProp {
+  content: (disableOverlay: () => void) => JSX.Element;
+}
+
+export enum overlayType {
+  DEFAULT = "default",
+  CUSTOMIZE = "customize",
+  QR_CODE = "qrcode",
+}
+
+export interface DisableOverlayProp {
   disableOverlay: () => void;
-  content: (d: { disableOverlay: () => void }) => JSX.Element;
 }
