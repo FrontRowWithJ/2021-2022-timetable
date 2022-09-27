@@ -2,53 +2,62 @@ import React, { useState } from "react";
 import "./app.css";
 import Landing from "../Landing";
 import TimetableWebpage from "../TimetableWebpage";
-import Overlay from "../Overlay";
-import {
-  setTimetableLocalStorage,
-  decompressTimetable,
-  DEFAULT,
-  CUSTOMIZE,
-} from "../../misc";
+import Overlay, { overlayType } from "../Overlay";
+import { setTimetableLocalStorage, decompressTimetable } from "../../misc";
 import ColorPicker from "../ColorPicker";
-import { genTodaysNotifications } from "../../subscribeNotifications";
 import { TimetableData } from "../../timetableData";
+import QRCodeOverlay from "../QRCodeOverlay";
 
 const App = () => {
   const [timetableData, setTimetable] = useState<TimetableData | null>(null);
   const [isTimetableEnabled, enableTimetable] = useState(false);
-  const compressedTimetable =
-    setTimetableLocalStorage(window.location.search) ??
+  const storageString =
+    setTimetableLocalStorage(window.location.search) ||
     window.localStorage.getItem("timetable");
-  const [overlay, setOverlay] = useState<0 | 1>(DEFAULT);
-  if (compressedTimetable !== null && timetableData === null) {
+  if (storageString !== null && timetableData === null) {
     const uncompressed = decompressTimetable(
-      compressedTimetable,
+      storageString,
       "StorageBinaryString"
     );
     if (timetableData === null) setTimetable(uncompressed);
     if (!isTimetableEnabled) enableTimetable(true);
   }
-  if (
-    "Notification" in window &&
-    Notification.permission === "granted" &&
-    timetableData
-  )
-    genTodaysNotifications(timetableData);
+
+  const [overlay, setOverlay] = useState<overlayType>(overlayType.DEFAULT);
+  const disableOverlay = () => setOverlay(overlayType.DEFAULT);
+  const isTimetable = isTimetableEnabled && timetableData !== null;
   return (
     <>
-      {isTimetableEnabled && timetableData !== null ? (
+      {isTimetable ? (
         <TimetableWebpage {...{ setOverlay, overlay, timetableData }} />
       ) : (
         <Landing {...{ enableTimetable, setTimetable }} />
       )}
-      {overlay === CUSTOMIZE && (
-        <Overlay
-          disableOverlay={() => setOverlay(DEFAULT)}
-          content={({ disableOverlay }) => (
-            <ColorPicker onClick={disableOverlay} />
-          )}
-        />
-      )}
+      {
+        {
+          customize: (
+            <Overlay
+              {...{
+                disableOverlay,
+              }}
+              content={(disableOverlay: () => void) => (
+                <ColorPicker {...{ disableOverlay }} />
+              )}
+            />
+          ),
+          qrcode: (
+            <Overlay
+              {...{
+                disableOverlay,
+              }}
+              content={(disableOverlay: () => void) => (
+                <QRCodeOverlay {...{ disableOverlay }} />
+              )}
+            />
+          ),
+          default: undefined,
+        }[overlay]
+      }
     </>
   );
 };
