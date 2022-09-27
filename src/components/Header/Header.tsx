@@ -12,16 +12,28 @@ import { HeaderProps } from "./types";
 import { overlayType } from "../Overlay";
 import subscribeUserToPush from "../../subscribeNotifications";
 import LZUTF8 from "lzutf8";
+import Error from "../Error";
 
 const Header = (props: HeaderProps) => {
   const { setTransition, isTransitioning, curr, isSwiping, setCurr } = props;
   const [buttonText, setText] = useState("Copy URL for Mobile");
   const [resetText, setResetText] = useState("Hold To Reset Timetable");
+  const [errorMessage, setErrorMessage] = useState("");
+  const errorRef = useRef<HTMLDivElement>(null);
   const variable = useRef(false);
   const tid = useRef<NodeJS.Timeout>();
   const resetTimetable = () => {
     window.localStorage.clear();
     window.location.href = getBaseURL();
+  };
+
+  const handleError = (errorMessage: string) => {
+    setErrorMessage(errorMessage);
+    const { current } = errorRef;
+    if (current) {
+      current.style.top = "0";
+      setTimeout(() => (current.style.top = ""), 2000);
+    }
   };
 
   useEffect(() => {
@@ -40,6 +52,7 @@ const Header = (props: HeaderProps) => {
 
   return (
     <div id="header">
+      <Error {...{ errorMessage, errorRef }} />
       <Menu>
         <MenuItem
           text={buttonText}
@@ -62,7 +75,10 @@ const Header = (props: HeaderProps) => {
             Notification.permission !== "default"
           }
           text={"Enable Notifications"}
-          onClick={subscribeUserToPush}
+          onClick={async () => {
+            if ((await subscribeUserToPush()) === false)
+              handleError("Registration failed, please try again.");
+          }}
         />
         <MenuItem
           text={"Customize"}
