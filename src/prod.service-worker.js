@@ -78,14 +78,11 @@ self.addEventListener("push", (event) => {
     const payload = event.data.json();
     let title = "";
     if (payload.type === "registration") title = "Registration Successful";
-    if (payload.type === "college") title = "📚⏰Time for Class!⏰📚";
+    if (payload.type === "college") title = "Time for Class!";
     const options = {
       body: payload.message,
-      icon: `${process.env.PUBLIC_URL}/android-chrome-192x192.png`,
+      icon: "android-chrome-192x192.png",
     };
-    if (title) {
-      const promiseChain = self.registration.showNotification(title, options);
-      event.waitUntil(promiseChain);
-    }
+    if (title) self.registration.showNotification(title, options);
   }
 });
