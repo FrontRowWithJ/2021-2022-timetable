@@ -1,30 +1,9 @@
 const DAY_IN_MS = 86_400_000;
-const getDateString = (date: Date) => {
-  const day = [
-    "Sunday",
-    "Monday",
-    "Tuesday",
-    "Wednesday",
-    "Thursday",
-    "Friday",
-    "Saturday",
-  ][date.getDay()];
-  const month = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ][date.getMonth()];
-  return `${day} ${date.getDate()} ${month} ${date.getFullYear()}`;
-};
+const DATE_FORMAT_OPTIONS: Intl.DateTimeFormatOptions = {
+  weekday: "long", month: "long", year: "numeric", day: "2-digit"
+}
+const getDateString = (date: Date) =>
+  date.toLocaleString("Dublin", DATE_FORMAT_OPTIONS);
 
 type Callback<T> = (value: number) => T;
 type Literal<T> = T;
