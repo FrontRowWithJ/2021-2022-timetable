@@ -1,10 +1,18 @@
 const WEEK_IN_MS = 604_800_000;
-const SEMESTER_START = 1_661_727_600_000; // August 29, 2022 00:00
-// const SEMESTER_START = 1_642_982_400_000; // January 24, 2022 00:00
-// const INITIAL_WEEKS_ELAPSED = 22;
+const AUGUST = 7;
+const LAST_DATE_IN_AUGUST = 31;
+const MONDAY = 1;
+const DAY_IN_MS = 86_400_000;
 
 const getCurrentWeek = () =>
-  (1 + (+new Date() - SEMESTER_START) / WEEK_IN_MS) | 0;
+  (1 + (+new Date() - getSemesterStartDate()) / WEEK_IN_MS) | 0;
+
+const getSemesterStartDate: (now?: Date) => number = (now = new Date()) => {
+  const semeserStart = new Date(now.getFullYear(), AUGUST, LAST_DATE_IN_AUGUST);
+  while (semeserStart.getDay() !== MONDAY) semeserStart.setTime(+semeserStart - DAY_IN_MS);
+  if (+now < +semeserStart) return getSemesterStartDate(new Date(now.getFullYear() - 1, 0, 0));
+  return +semeserStart;
+}
 
 export const isModuleOnThisWeek = (periods: number[]) => {
   const week = getCurrentWeek();
