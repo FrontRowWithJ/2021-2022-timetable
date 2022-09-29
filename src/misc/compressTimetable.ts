@@ -1,5 +1,5 @@
 import LZUTF8 from "lzutf8";
-import { Day, module, TimetableData } from "../timetableData";
+import { Day, LectureType, module, TimetableData } from "../timetableData";
 
 const keys: (keyof module)[] = [
   "module",
@@ -27,7 +27,7 @@ const minifyTime = (time: string) => {
 };
 
 const minifyEntry = (entry: module) => {
-  const result: string[] = [];
+  const result: (string | LectureType)[] = [];
   keys.forEach((key) => {
     switch (key) {
       case "time":
@@ -42,7 +42,7 @@ const minifyEntry = (entry: module) => {
         } else result.push(entry[key].join("_"));
         break;
       default:
-        result.push(entry[key] as string);
+        result.push(entry[key]);
     }
   });
   return result.join(PROPERTY_DELIMITER);
@@ -96,10 +96,8 @@ const unminifyLecture = (lecture: string) => {
   return res.length === 1 ? res[0] : res;
 };
 
-const unminifyDay = (day: string) => {
-  const entries = day.split(ENTRY_DELIMITER);
-  return entries.map(unminifyLecture);
-};
+const unminifyDay = (day: string) =>
+  day.split(ENTRY_DELIMITER).map(unminifyLecture);
 
 export const unminifyTimetable = (minified: string) => {
   const result = {} as TimetableData;

@@ -9,17 +9,11 @@ export const ACTIVITIES = [
 
 export const getLeft = (i: number, x: number) => (i - x) * 100 + "%";
 
-export const base64ToURLSafe = (str: string) =>
-  str.replaceAll(
-    /[+/=]/g,
-    (match) => ({ "+": ".", "/": "_", "=": "-" }[match] as string)
-  );
+export const base64ToURLSafe = (s: string) =>
+  s.replaceAll(/[+/=]/g, (match) => ({ "+": ".", "/": "_", "=": "-" }[match]!));
 
-export const URLSafetoBase64 = (str: string) =>
-  str.replaceAll(
-    /[._-]/g,
-    (match) => ({ ".": "+", _: "/", "-": "=" }[match] as string)
-  );
+export const URLSafetoBase64 = (s: string) =>
+  s.replaceAll(/[._-]/g, (match) => ({ ".": "+", _: "/", "-": "=" }[match]!));
 
 export const getBaseURL = (url = window.location) =>
   `${url.protocol}//${url.host}/${url.pathname.split("/")[1]}`;
