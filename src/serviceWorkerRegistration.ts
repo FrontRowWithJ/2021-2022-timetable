@@ -22,8 +22,8 @@ const register = async () => {
     // serve assets; see https://github.com/facebookincubator/create-react-app/issues/2374
     if (publicUrl.origin !== window.location.origin)
       return reject(console.error("PUBLIC_URL is on a different origin"));
-    const env = process.env.NODE_ENV === "development" ? "test" : "prod";
-    const swUrl = `${process.env.PUBLIC_URL}/${env}.service-worker.js`;
+    const env = process.env.NODE_ENV === "development" ? "test." : "";
+    const swUrl = `${process.env.PUBLIC_URL}/${env}service-worker.js`;
     window.addEventListener("load", () => resolve(registerValidSW(swUrl)));
   }) as Promise<void | ServiceWorkerRegistration>;
 };
