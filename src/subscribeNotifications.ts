@@ -1,4 +1,5 @@
 import register from "./serviceWorkerRegistration";
+
 const urlBase64ToUint8Array = (base64String: string) => {
   const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
   const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
@@ -20,7 +21,7 @@ interface ResponseBody {
   data?: { [key: string]: boolean };
 }
 
-const productionURL = "";
+const productionURL = "https://web-push-server.com/";
 const developmentURL = "http://localhost:8080/";
 const PUSH_SERVER_URL =
   process.env.NODE_ENV === "development" ? developmentURL : productionURL;
