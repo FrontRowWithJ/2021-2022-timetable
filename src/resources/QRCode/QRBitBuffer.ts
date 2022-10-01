@@ -2,10 +2,7 @@ import { genQRPolynomial, mod } from "./QRPolynomial";
 import { QRRSBlock } from "./QRRSBlock";
 import { getErrorCorrectPolynomial } from "./QRUtil";
 
-export interface QRBitBuffer {
-  buffer: number[];
-  length: number;
-}
+export type QRBitBuffer = { buffer: number[]; length: number }
 
 export const genQRBitBuffer = () => ({ buffer: [], length: 0 } as QRBitBuffer);
 
@@ -56,5 +53,6 @@ export const put = (QRBitBuffer: QRBitBuffer, num: number, length: number) => {
 export const putBit = (buffer: QRBitBuffer, bit: boolean) => {
   const bufIndex = (buffer.length / 8) | 0;
   if (buffer.buffer.length <= bufIndex) buffer.buffer.push(0);
-  if (bit) buffer.buffer[bufIndex] |= 0x80 >>> buffer.length++ % 8;
+  if (bit) buffer.buffer[bufIndex] |= 0x80 >>> buffer.length % 8;
+  buffer.length++
 };
