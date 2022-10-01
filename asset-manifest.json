@@ -1,12 +1,13 @@
 {
   "files": {
     "main.css": "/2021-2022-timetable/static/css/main.bfeaf1dd.css",
-    "main.js": "/2021-2022-timetable/static/js/main.b8e06b37.js",
+    "main.js": "/2021-2022-timetable/static/js/main.e6adf70f.js",
     "static/js/787.311260c8.chunk.js": "/2021-2022-timetable/static/js/787.311260c8.chunk.js",
     "static/media/copy-HTML-safari.png": "/2021-2022-timetable/static/media/copy-HTML-safari.98856b9a882701283037.png",
     "static/media/right-click-inspect-safari.png": "/2021-2022-timetable/static/media/right-click-inspect-safari.e97bcfd835bf93ba5933.png",
     "static/media/copy-HTML-firefox.png": "/2021-2022-timetable/static/media/copy-HTML-firefox.74fd710599a7a01c0bd8.png",
     "static/media/copy-HTML-chrome.png": "/2021-2022-timetable/static/media/copy-HTML-chrome.019bf159dff44fd1c93c.png",
+    "service-worker.js": "/2021-2022-timetable/service-worker.js",
     "static/media/copy-HTML-edge.png": "/2021-2022-timetable/static/media/copy-HTML-edge.cbc0d6c62e7465335022.png",
     "static/media/select-timetable.png": "/2021-2022-timetable/static/media/select-timetable.320d6380d2f1d5838226.png",
     "static/media/right-click-inspect-edge.png": "/2021-2022-timetable/static/media/right-click-inspect-edge.f32c398f14c0e848d353.png",
@@ -19,11 +20,11 @@
     "index.html": "/2021-2022-timetable/index.html",
     "static/media/index.cjs": "/2021-2022-timetable/static/media/index.cd351d7c31d0d3fccf96.cjs",
     "main.bfeaf1dd.css.map": "/2021-2022-timetable/static/css/main.bfeaf1dd.css.map",
-    "main.b8e06b37.js.map": "/2021-2022-timetable/static/js/main.b8e06b37.js.map",
+    "main.e6adf70f.js.map": "/2021-2022-timetable/static/js/main.e6adf70f.js.map",
     "787.311260c8.chunk.js.map": "/2021-2022-timetable/static/js/787.311260c8.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.bfeaf1dd.css",
-    "static/js/main.b8e06b37.js"
+    "static/js/main.e6adf70f.js"
   ]
 }
