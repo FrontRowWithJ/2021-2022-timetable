@@ -1,13 +1,12 @@
 {
   "files": {
-    "main.css": "/2021-2022-timetable/static/css/main.17bf0245.css",
-    "main.js": "/2021-2022-timetable/static/js/main.b83c4a3c.js",
+    "main.css": "/2021-2022-timetable/static/css/main.bfeaf1dd.css",
+    "main.js": "/2021-2022-timetable/static/js/main.9e635d98.js",
     "static/js/787.311260c8.chunk.js": "/2021-2022-timetable/static/js/787.311260c8.chunk.js",
     "static/media/copy-HTML-safari.png": "/2021-2022-timetable/static/media/copy-HTML-safari.98856b9a882701283037.png",
     "static/media/right-click-inspect-safari.png": "/2021-2022-timetable/static/media/right-click-inspect-safari.e97bcfd835bf93ba5933.png",
     "static/media/copy-HTML-firefox.png": "/2021-2022-timetable/static/media/copy-HTML-firefox.74fd710599a7a01c0bd8.png",
     "static/media/copy-HTML-chrome.png": "/2021-2022-timetable/static/media/copy-HTML-chrome.019bf159dff44fd1c93c.png",
-    "service-worker.js": "/2021-2022-timetable/service-worker.js",
     "static/media/copy-HTML-edge.png": "/2021-2022-timetable/static/media/copy-HTML-edge.cbc0d6c62e7465335022.png",
     "static/media/select-timetable.png": "/2021-2022-timetable/static/media/select-timetable.320d6380d2f1d5838226.png",
     "static/media/right-click-inspect-edge.png": "/2021-2022-timetable/static/media/right-click-inspect-edge.f32c398f14c0e848d353.png",
@@ -19,12 +18,12 @@
     "static/media/view-student-timetable.png": "/2021-2022-timetable/static/media/view-student-timetable.c2ec783901aa08f5111a.png",
     "index.html": "/2021-2022-timetable/index.html",
     "static/media/index.cjs": "/2021-2022-timetable/static/media/index.cd351d7c31d0d3fccf96.cjs",
-    "main.17bf0245.css.map": "/2021-2022-timetable/static/css/main.17bf0245.css.map",
-    "main.b83c4a3c.js.map": "/2021-2022-timetable/static/js/main.b83c4a3c.js.map",
+    "main.bfeaf1dd.css.map": "/2021-2022-timetable/static/css/main.bfeaf1dd.css.map",
+    "main.9e635d98.js.map": "/2021-2022-timetable/static/js/main.9e635d98.js.map",
     "787.311260c8.chunk.js.map": "/2021-2022-timetable/static/js/787.311260c8.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.17bf0245.css",
-    "static/js/main.b83c4a3c.js"
+    "static/css/main.bfeaf1dd.css",
+    "static/js/main.9e635d98.js"
   ]
 }
