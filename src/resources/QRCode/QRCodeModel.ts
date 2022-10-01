@@ -164,11 +164,7 @@ const setupTypeNumber = (
   }
 };
 
-const setupTypeInfo = (
-  { errorCorrectLevel, moduleCount, modules }: QRCodeModel,
-  test: boolean,
-  maskPattern: number
-) => {
+const setupTypeInfo = ({ errorCorrectLevel, moduleCount, modules }: QRCodeModel, test: boolean, maskPattern: number) => {
   let data = (errorCorrectLevel << 3) | maskPattern;
   let bits = getBCHTypeInfo(data);
   for (let i = 0; i < 15; i++) {
@@ -186,11 +182,7 @@ const setupTypeInfo = (
   modules[moduleCount - 8][8] = !test;
 };
 
-const mapData = (
-  QRCodeModel: QRCodeModel,
-  data: number[],
-  maskPattern: number
-) => {
+const mapData = (QRCodeModel: QRCodeModel, data: number[], maskPattern: number) => {
   let inc = -1;
   let row = QRCodeModel.moduleCount - 1;
   let bitIndex = 7;
@@ -223,12 +215,7 @@ const mapData = (
   }
 };
 
-const createData = (
-  QRCodeModel: QRCodeModel,
-  typeNumber: number,
-  errorCorrectLevel: number,
-  dataList: QR8bitByte[]
-) => {
+const createData = (QRCodeModel: QRCodeModel, typeNumber: number, errorCorrectLevel: number, dataList: QR8bitByte[]) => {
   let rsBlocks = getRSBlocks(typeNumber, errorCorrectLevel);
   let buffer = genQRBitBuffer();
   for (let i = 0; i < dataList.length; i++) {
