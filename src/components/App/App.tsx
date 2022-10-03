@@ -11,17 +11,6 @@ import QRCodeOverlay from "../QRCodeOverlay";
 const App = () => {
   const [timetableData, setTimetable] = useState<TimetableData>();
   const [isTimetableEnabled, enableTimetable] = useState(false);
-  // const storageString =
-  //   setTimetableLocalStorage(window.location.search) ||
-  //   window.localStorage.getItem("timetable");
-  // if (storageString !== null && timetableData === undefined) {
-  //   const uncompressed = decompressTimetable(
-  //     storageString,
-  //     "StorageBinaryString"
-  //   );
-  //   if (timetableData === undefined) setTimetable(uncompressed);
-  //   if (!isTimetableEnabled) enableTimetable(true);
-  // }
   const [overlay, setOverlay] = useState<overlayType>(overlayType.DEFAULT);
   const disableOverlay = () => setOverlay(overlayType.DEFAULT);
   useEffect(() => {
