@@ -29,23 +29,40 @@ export const getEvent = (event: Event) =>
 
 export const isPinching = ({ touches }: TouchEvent) => touches.length > 1;
 
-export const setTimetableLocalStorage = (queryString: string) => {
+const unminifyURL = async (urlParams: URLSearchParams) => {
+  const hash = urlParams.get("short_url");
+  if (hash) {
+    const res = await fetch(
+      `https://timetable-url-shortener.netlify.app/.netlify/functions/get_url_shortener?hash=${hash}`,
+      { method: "GET" }
+    );
+    const text = await res.text();
+    if (res.status !== 200) {
+      console.error(text);
+      return null;
+    } else return text;
+  } else return null
+};
+
+export const setTimetableLocalStorage = async (queryString: string) => {
   const urlParams = new URLSearchParams(queryString);
-  const timetableBase64 = urlParams.get("timetable");
+  const timetableBase64 = urlParams.get("timetable") ?? await unminifyURL(urlParams);
   if (timetableBase64) {
     const base64 = URLSafetoBase64(timetableBase64);
     const minified = LZUTF8.decompress(base64, {
       inputEncoding: "Base64",
       outputEncoding: "String",
-    });
-    const storageString = LZUTF8.compress(minified, {
+    }) as string;
+    const newStorageString = LZUTF8.compress(minified, {
       inputEncoding: "String",
       outputEncoding: "StorageBinaryString",
     }) as string;
-    const localStorageString = window.localStorage.getItem("timetable");
-    if (localStorageString !== storageString)
-      window.localStorage.setItem("timetable", storageString);
-    return storageString;
+    const oldStorageString = window.localStorage.getItem("timetable");
+    if (oldStorageString !== newStorageString) {
+      localStorage.setItem("timetable", newStorageString);
+      localStorage.removeItem("short-url");
+    }
+    return newStorageString;
   }
   return null;
 };

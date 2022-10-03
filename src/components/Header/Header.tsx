@@ -5,6 +5,7 @@ import {
   times,
   minifyTimetable,
   base64ToURLSafe,
+  minifyURL,
 } from "../../misc";
 import Menu from "../Menu";
 import MenuItem from "../MenuItem";
@@ -17,6 +18,7 @@ import Error from "../Error";
 const Header = (props: HeaderProps) => {
   const { setTransition, isTransitioning, curr, isSwiping, setCurr } = props;
   const [buttonText, setText] = useState("Copy URL for Mobile");
+  const [shortURLText, setShortURLText] = useState("Copy Short URL");
   const [resetText, setResetText] = useState("Hold To Reset Timetable");
   const [errorMessage, setErrorMessage] = useState("");
   const errorRef = useRef<HTMLDivElement>(null);
@@ -66,6 +68,20 @@ const Header = (props: HeaderProps) => {
             navigator.clipboard.writeText(url).then(() => {
               setText("Copied!");
               setTimeout(() => setText("Copy URL for Mobile"), 600);
+            });
+          }}
+        />
+        <MenuItem
+          text={shortURLText}
+          onClick={() => {
+            minifyURL(props.timetableData, (shortURL, err) => {
+              if (err) {
+              } //TODO Do something about it
+              if (shortURL)
+                navigator.clipboard.writeText(shortURL).then(() => {
+                  setShortURLText("Copied!");
+                  setTimeout(() => setShortURLText("Copy Short URL"), 600);
+                });
             });
           }}
         />

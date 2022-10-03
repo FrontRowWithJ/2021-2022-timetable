@@ -47,7 +47,8 @@ const Landing = ({ enableTimetable, setTimetable }: LandingProps) => {
                   timetable,
                   "StorageBinaryString"
                 );
-                window.localStorage.setItem("timetable", storageString);
+                localStorage.setItem("timetable", storageString);
+                localStorage.removeItem("short-url");
                 setTimetable(timetable);
                 enableTimetable(true);
               } catch (error) {
@@ -66,14 +67,16 @@ const Landing = ({ enableTimetable, setTimetable }: LandingProps) => {
               const { value: url } = urlAreaRef.current;
               if (url.length === 0) return handleError("Textbox is empty.");
               const params = url.substring(url.indexOf("?"));
-              const storageString = setTimetableLocalStorage(params);
-              if (!storageString) return handleError("URL is malformed.");
-              const uncompressed = decompressTimetable(
-                storageString,
-                "StorageBinaryString"
-              );
-              setTimetable(uncompressed);
-              enableTimetable(true);
+              setTimetableLocalStorage(params).then((storageString) => {
+                if (storageString === null)
+                  return handleError("URL is malformed.");
+                const timetable = decompressTimetable(
+                  storageString,
+                  "StorageBinaryString"
+                );
+                setTimetable(timetable);
+                enableTimetable(true);
+              });
             }
           }}
         />

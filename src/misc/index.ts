@@ -5,3 +5,4 @@ export * from "./ellipsify";
 export * from "./isModuleThisWeek";
 export * from "./getWeekdayDates";
 export * from "./_misc";
+export * from "./minifyURL";
