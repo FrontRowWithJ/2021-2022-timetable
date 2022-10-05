@@ -1,4 +1,4 @@
-import { TouchEvent, MouseEvent } from "react";
+import React from "react";
 import LZUTF8 from "lzutf8";
 export const ACTIVITIES = [
   "Lecture",
@@ -17,7 +17,8 @@ export const URLSafetoBase64 = (s: string) =>
 
 export const getBaseURL = (url = window.location) =>
   `${url.protocol}//${url.host}/${url.pathname.split("/")[1]}`;
-
+type TouchEvent = globalThis.TouchEvent | React.TouchEvent;
+type MouseEvent = globalThis.MouseEvent | React.MouseEvent;
 export type Event = TouchEvent | MouseEvent;
 
 export const isTouchEvent = ({ type }: Event) => !/[Mm]ouse/i.test(type);
@@ -41,12 +42,13 @@ const unminifyURL = async (urlParams: URLSearchParams) => {
       console.error(text);
       return null;
     } else return text;
-  } else return null
+  } else return null;
 };
 
 export const setTimetableLocalStorage = async (queryString: string) => {
   const urlParams = new URLSearchParams(queryString);
-  const timetableBase64 = urlParams.get("timetable") ?? await unminifyURL(urlParams);
+  const timetableBase64 =
+    urlParams.get("timetable") ?? (await unminifyURL(urlParams));
   if (timetableBase64) {
     const base64 = URLSafetoBase64(timetableBase64);
     const minified = LZUTF8.decompress(base64, {

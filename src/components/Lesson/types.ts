@@ -6,5 +6,5 @@ export interface LessonProps {
   currDay: number;
   hour: number;
   lesson: module;
-  settings: ColorSettings[];
+  settings: ColorSettings;
 }

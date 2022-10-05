@@ -1,23 +1,31 @@
 import { useState } from "react";
-import { defaultSettings, ColorSettings } from "../../misc";
+import { defaultSettings, ColorSetting, ColorSettings } from "../../misc";
 
-export const useSettings = () => {
+type UseSettings = () => [
+  ColorSettings,
+  (newSetting: ColorSetting, focus: number) => void,
+  () => void
+];
+
+export const useSettings: UseSettings = () => {
   const savedSettings = window.localStorage.getItem("color-settings");
   const [settings, set] = useState(
-    savedSettings === null ? defaultSettings : JSON.parse(savedSettings)
+    savedSettings === null
+      ? defaultSettings
+      : (JSON.parse(savedSettings) as ColorSettings)
   );
-  const setSettings = (obj: ColorSettings, focus: number) => {
-    const newSettings = [...settings];
-    newSettings[focus] = obj;
-    set(newSettings);
-  };
+  const setSettings = (newSetting: ColorSetting, focus: number) =>
+    set(
+      (setting) =>
+        setting.map((st, i) => (i === focus ? newSetting : st)) as ColorSettings
+    );
   return [settings, setSettings, () => set(defaultSettings)];
 };
 
 export const getPos = (
   { clientX, clientY }: { clientX: number; clientY: number },
   x: number,
-  y = 0,
+  y: number,
   w: number,
   h: number
 ) => {

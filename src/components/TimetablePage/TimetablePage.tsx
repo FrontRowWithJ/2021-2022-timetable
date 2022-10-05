@@ -12,7 +12,7 @@ const TimetablePage = (props: TimetablePageProps) => {
   const cache = localStorage.getItem("color-settings");
   const settings = (
     cache ? JSON.parse(cache) : defaultSettings
-  ) as ColorSettings[];
+  ) as ColorSettings;
   const currDay = new Date().getDay() - 1;
   const classes = schedule.filter((cell) => cell !== undefined);
   const modules = classes.flat();

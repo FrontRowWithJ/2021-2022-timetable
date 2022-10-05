@@ -32,7 +32,7 @@ export const colorLuminance = (hex: string, lum = 0) => {
   return "#" + res.join("");
 };
 
-export interface ColorSettings {
+export interface ColorSetting {
   hue: number;
   sat: number;
   lum: number;
@@ -40,11 +40,18 @@ export interface ColorSettings {
   color: string;
 }
 
-export const defaultSettings: ColorSettings[] = [
+export type ColorSettings = [
+  ColorSetting,
+  ColorSetting,
+  ColorSetting,
+  ColorSetting
+];
+
+export const defaultSettings: ColorSettings = [
   {
-    hue: 0.6666666666666666,
+    hue: 2 / 3,
     sat: 0.5980392156862745,
-    lum: 0.39999999999999997,
+    lum: 0.4,
     backgroundColor: "#2929A3",
     color: "#FFFFFF",
   },
