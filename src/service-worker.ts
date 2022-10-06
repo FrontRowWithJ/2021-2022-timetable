@@ -1,4 +1,4 @@
-//! VERSION 5
+//! VERSION 6
 /// <reference lib="webworker" />
 /* eslint-disable no-restricted-globals */
 
