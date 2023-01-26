@@ -63,11 +63,12 @@ export const minifyTimetable = (timetable: TimetableData) =>
 
 const lectureToJSON = (lecture: string) => {
   const result = {} as module;
-  const values = lecture.split(PROPERTY_DELIMITER);
+  const unParsedModuleValues = lecture.split(PROPERTY_DELIMITER);
+
   keys.forEach((key, i) => {
     switch (key) {
       case "time":
-        const time = values[i];
+        const time = unParsedModuleValues[i];
         const startStr = time.substring(0, 2);
         const start = parseInt(startStr);
         const end = start + (time.length === 2 ? 1 : parseInt(time.charAt(2)));
@@ -75,17 +76,17 @@ const lectureToJSON = (lecture: string) => {
         result[key] = finalTime;
         break;
       case "activePeriods":
-        result[key] = values[i].split("_").map(Number);
+        result[key] = unParsedModuleValues[i].split("_").map(Number);
         break;
       case "activity":
-        result[key] = parseInt(values[i]);
+        result[key] = parseInt(unParsedModuleValues[i]);
         break;
       case "classroom":
-        if (values[i] === "b") result[key] = ["Blackboard"];
-        else result[key] = values[i].split("_");
+        if (unParsedModuleValues[i] === "b") result[key] = ["Blackboard"];
+        else result[key] = unParsedModuleValues[i].split("_");
         break;
       default:
-        result[key] = values[i];
+        result[key] = unParsedModuleValues[i];
     }
   });
   return result;
@@ -102,7 +103,9 @@ const unminifyDay = (day: string) =>
 export const unminifyTimetable = (minified: string) => {
   const result = {} as TimetableData;
   const _days = minified.split(DAY_DELIMITER);
-  WEEKDAYS.forEach((day, i) => (result[day] = unminifyDay(_days[i])));
+  WEEKDAYS.forEach(
+    (day, i) => (result[day] = _days[i] !== "" ? unminifyDay(_days[i]) : [])
+  );
   return result;
 };
 

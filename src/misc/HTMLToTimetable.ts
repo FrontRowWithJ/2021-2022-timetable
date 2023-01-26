@@ -97,18 +97,20 @@ export const HTMLToTimetable = (innerHTML: string) => {
   Object.keys(timetable).forEach((day) => {
     const modules = timetable[day as Day];
     const newList = [];
-    let t = (modules[0] as module).time;
-    let tmpArray: module[] = [];
-    for (const entry of modules) {
-      if ((entry as module).time === t) tmpArray.push(entry as module);
-      else {
-        newList.push(tmpArray.length === 1 ? tmpArray[0] : tmpArray);
-        tmpArray = [];
-        tmpArray.push(entry as module);
-        t = (entry as module).time;
+    if (modules.length !== 0) {
+      let t = (modules[0] as module).time;
+      let tmpArray: module[] = [];
+      for (const entry of modules) {
+        if ((entry as module).time === t) tmpArray.push(entry as module);
+        else {
+          newList.push(tmpArray.length === 1 ? tmpArray[0] : tmpArray);
+          tmpArray = [];
+          tmpArray.push(entry as module);
+          t = (entry as module).time;
+        }
       }
+      newList.push(tmpArray.length === 1 ? tmpArray[0] : tmpArray);
     }
-    newList.push(tmpArray.length === 1 ? tmpArray[0] : tmpArray);
     timetable[day as Day] = newList;
   });
   return timetable;
